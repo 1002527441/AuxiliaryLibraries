@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AuxiliaryLibraries.Enums;
+using AuxiliaryLibraries.Extentions;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -6,7 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace AuxiliaryLibraries.StringExtentions
+namespace AuxiliaryLibraries
 {
     public static class StringExtensions
     {

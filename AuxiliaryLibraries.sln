@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuxiliaryLibraries.Encripti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuxiliaryLibraries.FileHelpers", "AuxiliaryLibraries.FileHelpers\AuxiliaryLibraries.FileHelpers.csproj", "{4B6D450D-3CC0-4B13-8BB9-F27059F46ECA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuxiliaryLibraries", "AuxiliaryLibraries\AuxiliaryLibraries.csproj", "{22439E66-66DD-476C-9C1D-9AA520EC0231}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{4B6D450D-3CC0-4B13-8BB9-F27059F46ECA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B6D450D-3CC0-4B13-8BB9-F27059F46ECA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B6D450D-3CC0-4B13-8BB9-F27059F46ECA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22439E66-66DD-476C-9C1D-9AA520EC0231}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22439E66-66DD-476C-9C1D-9AA520EC0231}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22439E66-66DD-476C-9C1D-9AA520EC0231}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22439E66-66DD-476C-9C1D-9AA520EC0231}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
