@@ -6,10 +6,22 @@ using System.Threading.Tasks;
 
 namespace AuxiliaryLibraries
 {
+    /// <summary>
+    /// Persian calendar for convertin datetime
+    /// </summary>
     public static class AuxiliaryCalendar
     {
+        /// <summary>
+        /// Date pattern
+        /// </summary>
         public static string datePattern = "yyyy/MM/dd";
+        /// <summary>
+        /// Datetime pattern
+        /// </summary>
         public static string datetimePattern = "yyyy-MM-dd HH:mm:ss";
+        /// <summary>
+        /// Utc datetime pattern
+        /// </summary>
         public static string utcDatetimePattern = "yyyy-MM-dd'T'hh:mm:ss.SSS";
 
         /// <summary>

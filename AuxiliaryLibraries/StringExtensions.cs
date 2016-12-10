@@ -10,14 +10,28 @@ using System.Text.RegularExpressions;
 
 namespace AuxiliaryLibraries
 {
+    /// <summary>
+    /// Persian and arabic characters, numbers, currency.
+    /// Email, cellnumber and nationalId validation
+    /// Verify or generate words as password(MD5)
+    /// </summary>
     public static class StringExtensions
     {
+        /// <summary>
+        /// Persian alphabet
+        /// </summary>
         public static string FA_CHARS = "ابپتثجچحخدذرزژسصضطظعغکگلمنوهیء";
-        public static bool IsEnglish(this string str)
+
+        /// <summary>
+        /// If the term be English, it will return True
+        /// </summary>
+        /// <param name="term">Considered word</param>
+        /// <returns>bool</returns>
+        public static bool IsEnglish(this string term)
         {
-            if (string.IsNullOrEmpty(str))
+            if (string.IsNullOrEmpty(term))
                 return false;
-            foreach (var ch in str)
+            foreach (var ch in term)
             {
                 if (FA_CHARS.Contains(ch))
                     return false;
@@ -25,6 +39,13 @@ namespace AuxiliaryLibraries
             return true;
 
         }
+
+        /// <summary>
+        /// Take chunk of text about 'length' characters
+        /// </summary>
+        /// <param name="text">Considered word</param>
+        /// <param name="length">Considered length</param>
+        /// <returns>string</returns>
         public static string TakeChunk(this string text, int length)
         {
             if (text == null || text.Length <= length)
@@ -32,6 +53,13 @@ namespace AuxiliaryLibraries
             var index = text.Substring(0, length).LastIndexOfAny(new[] { '\n', ' ' });
             return string.Format("{0}...", text.Substring(0, index + 1));
         }
+
+        /// <summary>
+        /// Fill replacementDic inside template, this function is used especially for creating email template 
+        /// </summary>
+        /// <param name="template">Email template, etc</param>
+        /// <param name="replacementDic">Informations</param>
+        /// <returns>string</returns>
         public static string FillTemplate(this string template, Dictionary<string, string> replacementDic)
         {
             foreach (var item in replacementDic)
@@ -40,6 +68,12 @@ namespace AuxiliaryLibraries
             }
             return template;
         }
+
+        /// <summary>
+        /// Convert English numbers To Persian numbers
+        /// </summary>
+        /// <param name="number">Numbers as string</param>
+        /// <returns>string</returns>
         public static string ToPersianNumber(this string number)
         {
             if (System.Threading.Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "en".ToLower())
@@ -62,29 +96,14 @@ namespace AuxiliaryLibraries
             }
             return _sb.ToString();
         }
-        public static string ToEnglishNumbers(this string number)
-        {
-            if (System.Threading.Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "en".ToLower())
-                return Convert.ToString(number);
-            string s = number.ToString();
-            StringBuilder _sb = new StringBuilder();
-            char[] _numbers = s.ToCharArray();
-            foreach (var item in _numbers)
-            {
-                int _number = (int)item;
-                if ((int)_number >= 1776 && (int)_number <= 1785)
-                {
-                    _number -= 1728;
-                    _sb.Append((char)_number);
-                }
-                else
-                {
-                    _sb.Append(item);
-                }
-            }
-            return _sb.ToString();
-        }
-        public static string ConvertToPersian(int number, bool isMoney)
+
+        /// <summary>
+        /// Convert English numbers To Persian numbers
+        /// </summary>
+        /// <param name="number">Numbers as string</param>
+        /// <param name="isMoney">Is numbers money</param>
+        /// <returns>string</returns>
+        public static string ToPersianNumber(int number, bool isMoney)
         {
             if (System.Threading.Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "en".ToLower())
                 return Convert.ToString(number);
@@ -110,78 +129,72 @@ namespace AuxiliaryLibraries
             }
             return _sb.ToString();
         }
-        public static string NormalizeMobileNumber(this string number)
+
+        /// <summary>
+        /// Convert Persian number to English numbers
+        /// </summary>
+        /// <param name="number">Numbers as string</param>
+        /// <returns>string</returns>
+        public static string ToEnglishNumbers(this string number)
         {
+            if (System.Threading.Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "en".ToLower())
+                return Convert.ToString(number);
+            string s = number.ToString();
+            StringBuilder _sb = new StringBuilder();
+            char[] _numbers = s.ToCharArray();
+            foreach (var item in _numbers)
+            {
+                int _number = (int)item;
+                if ((int)_number >= 1776 && (int)_number <= 1785)
+                {
+                    _number -= 1728;
+                    _sb.Append((char)_number);
+                }
+                else
+                {
+                    _sb.Append(item);
+                }
+            }
+            return _sb.ToString();
+        }
+
+        /// <summary>
+        /// Normalize mobile number as Iranian mobile number (989*********).
+        /// You can pass '+98', '98' or '0' on 'startWith'. Def
+        /// If phone number is not valid, it will return string.Empty.
+        /// </summary>
+        /// <param name="number">Phone number</param>
+        /// <param name="startWith">Phone number will be start with 'startWith' parameter</param>
+        /// <returns>string</returns>
+        public static string NormalizeMobileNumber(this string number, string startWith = "98")
+        {
+            var numberLength = 10;
             if (string.IsNullOrEmpty(number))
             {
                 return string.Empty;
             }
-            number = ReplacePersianNumbers(number);
+            number = ReplacePersianNumbers(number).Trim();
             string Number = string.Empty;
 
             if (!number.IsCellNumberValid())
             {
-                return null;
+                return Number;
             }
 
-            if (number.Length == 10)
+            if (number.Length >= numberLength)
             {
-                //9126765172
-                Number = "98" + number;
-            }
-            else if (number.Length == 11)
-            {
-                //09126765172
-                Number = "98" + number.Remove(0, 1);
-            }
-            else if (number.Length == 12)
-            {
-                //989126765172
-                Number = number;
-            }
-            else if (number.Length == 13)
-            {
-                //+989126765172
-                Number = number.Remove(0, 1);
+                var dif = number.Length - numberLength;
+                Number = $"{startWith}{number.Remove(0, dif)}";
             }
 
             return !string.IsNullOrEmpty(Number) ? Number.Trim() : Number;
         }
-        public static string NormalizeMobileNumberForSms(this string number)
-        {
-            if (string.IsNullOrEmpty(number))
-                return string.Empty;
 
-            number = ReplacePersianNumbers(number);
-            string Number = string.Empty;
-            if (!number.IsCellNumberValid())
-            {
-                return null;
-            }
-
-            if (number.Length == 10)
-            {
-                //9126765172
-                Number = "0" + number;
-            }
-            else if (number.Length == 11)
-            {
-                //09126765172
-                Number = number;
-            }
-            else if (number.Length == 12)
-            {
-                //989126765172
-                Number = "0" + number.Remove(0, 2);
-            }
-            else if (number.Length == 13)
-            {
-                //+989126765172
-                Number = "0" + number.Remove(0, 3);
-            }
-
-            return Number;
-        }
+        /// <summary>
+        /// Check validity of Iranian national identity 
+        /// </summary>
+        /// <param name="nationalId">national Identity</param>
+        /// <returns>bool</returns>
         public static bool IsNationalIdValid(this string nationalId)
         {
             if (string.IsNullOrEmpty(nationalId))
@@ -189,6 +202,12 @@ namespace AuxiliaryLibraries
             Regex rgx = new Regex(RegexPatterns.NationalID);
             return rgx.IsMatch(nationalId);
         }
+
+        /// <summary>
+        /// Check validity of email format
+        /// </summary>
+        /// <param name="email">Email</param>
+        /// <returns>bool</returns>
         public static bool IsEmailValid(this string email)
         {
             if (string.IsNullOrEmpty(email))
@@ -196,13 +215,25 @@ namespace AuxiliaryLibraries
             Regex rgx = new Regex(RegexPatterns.Email);
             return rgx.IsMatch(email);
         }
+
+        /// <summary>
+        /// Check validity of iranian mobile number format
+        /// </summary>
+        /// <param name="number">Mobile number</param>
+        /// <returns>bool</returns>
         public static bool IsCellNumberValid(this string number)
         {
             if (string.IsNullOrEmpty(number))
                 return false;
             return new Regex(RegexPatterns.MobileNumber).IsMatch(number);
         }
-        public static string ToMd5(string input)
+
+        /// <summary>
+        /// Convert 'input' to MD5
+        /// </summary>
+        /// <param name="input">Everything</param>
+        /// <returns>string</returns>
+        public static string GetMd5(string input)
         {
             using (var md5Hash = MD5.Create())
             {
@@ -211,6 +242,12 @@ namespace AuxiliaryLibraries
                 return hash.ToUpper();
             }
         }
+
+        /// <summary>
+        /// Calculate MD5 hash from input
+        /// </summary>
+        /// <param name="input">input</param>
+        /// <returns>string</returns>
         public static string CalculateMD5Hash(this string input)
         {
             // step 1, calculate MD5 hash from input
@@ -226,6 +263,7 @@ namespace AuxiliaryLibraries
             }
             return sb.ToString();
         }
+
         private static string GetMd5Hash(MD5 md5Hash, string input)
         {
 
@@ -246,23 +284,23 @@ namespace AuxiliaryLibraries
             // Return the hexadecimal string. 
             return sBuilder.ToString();
         }
-        static bool VerifyMd5Hash(MD5 md5Hash, string input, string hash)
+
+        /// <summary>
+        /// Verify Md5 Hash
+        /// </summary>
+        /// <param name="md5Hash">Md5 Hash</param>
+        /// <param name="input">input</param>
+        /// <param name="hash">hash</param>
+        /// <returns></returns>
+        public static bool VerifyMd5Hash(MD5 md5Hash, string input, string hash)
         {
             // Hash the input. 
             string hashOfInput = GetMd5Hash(md5Hash, input);
 
             // Create a StringComparer an compare the hashes.
-            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
-
-            if (0 == comparer.Compare(hashOfInput, hash))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return 0 == StringComparer.OrdinalIgnoreCase.Compare(hashOfInput, hash);
         }
+
         public static bool VerifyPassword(this string password, string hash, EncryptType type = EncryptType.SHA1)
         {
             switch (type)
@@ -293,7 +331,7 @@ namespace AuxiliaryLibraries
             }
             return string.Empty;
         }
-        public static string Money(this int price, string separator = ".")
+        public static string ToMoney(this int price, string separator = ".")
         {
             return price.ToString("N0", new NumberFormatInfo()
             {
@@ -301,7 +339,7 @@ namespace AuxiliaryLibraries
                 NumberGroupSeparator = separator
             });
         }
-        public static string Money(this long price, string separator = ".")
+        public static string ToMoney(this long price, string separator = ".")
         {
             return price.ToString("N0", new NumberFormatInfo()
             {
@@ -309,37 +347,31 @@ namespace AuxiliaryLibraries
                 NumberGroupSeparator = separator
             });
         }
-        public static string CurrencyFormat(this int price)
+        public static string ToToman(this int price)
         {
             if (price <= 0)
                 return string.Format("{0} تومان", price);
             price /= 10;
-            return string.Format("{0} تومان", price.Money());
+            return string.Format("{0} تومان", price.ToMoney());
         }
-        public static string CurrencyFormat(this long price)
+        public static string ToToman(this long price)
         {
             if (price <= 0)
                 return string.Format("{0} تومان", price);
             price /= 10;
-            return string.Format("{0} تومان", price.Money());
+            return string.Format("{0} تومان", (object)price.ToMoney());
         }
-        public static string CurrencyFormat(this int price, string currency)
+        public static string ToRial(this int price)
         {
-            if (string.IsNullOrEmpty(currency))
-                return price.CurrencyFormat();
             if (price <= 0)
-                return string.Format("{0} {1}", price, currency);
-            price /= 10;
-            return string.Format("{0} {1}", price.Money(), currency);
+                return string.Format("{0} تومان", price);
+            return string.Format("{0} تومان", price.ToMoney());
         }
-        public static string CurrencyFormat(this long price, string currency)
+        public static string ToRial(this long price)
         {
-            if (string.IsNullOrEmpty(currency))
-                return price.CurrencyFormat();
             if (price <= 0)
-                return string.Format("{0} {1}", price, currency);
-            price /= 10;
-            return string.Format("{0} {1}", price.Money(), currency);
+                return string.Format("{0} ريال", price);
+            return string.Format("{0} ريال", price.ToMoney());
         }
         public static string ReplacePersianNumbers(this string text)
         {

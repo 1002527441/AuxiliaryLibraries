@@ -1,24 +1,37 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Package</id>
-    <version>1.0.0</version>
-    <authors>a.zamani</authors>
-    <owners>a.zamani</owners>
-    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
+    <id>AuxiliaryLibraries</id>
+    <version>1.0.4</version>
+	<title>Auxiliary libraries</title>
+    <authors>AmiN Zamani, Hoodadtech co</authors>
+    <owners>AmiN Zamani</owners>
+    <licenseUrl>https://github.com/amin8zamany/AuxiliaryLibraries/blob/master/LICENSE.txt.txt</licenseUrl>
     <projectUrl>https://github.com/amin8zamany/AuxiliaryLibraries</projectUrl>
-    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <iconUrl>http://hoodadtech.com/images/AuxiliaryLibraries.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Package description</description>
-    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <description>Accessory to persian calendar, string extensions, encription, ip, log and rest api for .Net. You can easily use it.</description>
+    <releaseNotes>Accessory to persian calendar, string extensions, encription, ip, log and rest api for .Net. You can easily use it.</releaseNotes>
+	<summary>Accessory to persian calendar, string extensions, encription, ip, log and rest api for .Net. You can easily use it.</summary>
+	<language>en-US</language>
     <copyright>Copyright 2016</copyright>
-    <tags>Tag1 Tag2</tags>
+    <tags>REST, API, JSON, String, File helper, Calendar, Persian, Ip, Encription, Log</tags>
     <dependencies>
-      <dependency id="SampleDependency" version="1.0" />
+      <dependency id="RestSharp" version="105.2.3.0" />
     </dependencies>
-	<files>
-		<file src="D:\Projects\AuxiliaryLibraries\AuxiliaryLibraries\bin\Release\AuxiliaryLibraries.dll" target="lib\AuxiliaryLibraries.dll" />
-		<file src="D:\Projects\AuxiliaryLibraries\AuxiliaryLibraries\bin\Release\AuxiliaryLibraries.dll" target="lib\AuxiliaryLibraries.dll" />
-	</files>
+	
+	<frameworkAssemblies>
+		<frameworkAssembly assemblyName="System.Data" />
+        <frameworkAssembly assemblyName="System.Core" />
+		<frameworkAssembly assemblyName="System.Data.DataSetExtensions" />
+		<frameworkAssembly assemblyName="System.Net.Http" />
+    </frameworkAssemblies>
+	<contentFiles>
+		<files include="*" />
+	</contentFiles>
   </metadata>
+  <files>
+		<file src="AuxiliaryLibraries\bin\Release\AuxiliaryLibraries.dll" target="lib\AuxiliaryLibraries.dll" />
+		<file src="AuxiliaryLibraries\bin\Release\AuxiliaryLibraries.xml" target="lib\AuxiliaryLibraries.xml" />
+  </files>
 </package>

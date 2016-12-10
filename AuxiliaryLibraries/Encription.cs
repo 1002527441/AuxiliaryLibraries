@@ -2,18 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AuxiliaryLibraries
 {
+    /// <summary>
+    /// RC4 Encription
+    /// </summary>
     public static class Encription
     {
+        /// <summary>
+        /// Encrypt you key
+        /// </summary>
+        /// <param name="key">key</param>
+        /// <param name="data">data</param>
+        /// <returns>string</returns>
         public static string Encrypt(string key, string data)
         {
             Encoding unicode = Encoding.Unicode;
             return Convert.ToBase64String(Encrypt(unicode.GetBytes(key), unicode.GetBytes(data)));
         }
 
+        /// <summary>
+        /// Decrypt you key
+        /// </summary>
+        /// <param name="key">key</param>
+        /// <param name="data">data</param>
+        /// <returns>string</returns>
         public static string Decrypt(string key, string data)
         {
             Encoding unicode = Encoding.Unicode;
@@ -21,11 +35,23 @@ namespace AuxiliaryLibraries
             return unicode.GetString(Encrypt(unicode.GetBytes(key), Convert.FromBase64String(data)));
         }
 
+        /// <summary>
+        /// Encrypt you key
+        /// </summary>
+        /// <param name="key">key</param>
+        /// <param name="data">data</param>
+        /// <returns>string</returns>
         public static byte[] Encrypt(byte[] key, byte[] data)
         {
             return EncryptOutput(key, data).ToArray();
         }
 
+        /// <summary>
+        /// Encrypt you key
+        /// </summary>
+        /// <param name="key">key</param>
+        /// <param name="data">data</param>
+        /// <returns>string</returns>
         public static byte[] Encrypt(string key, byte[] data)
         {
             byte[] ciphertext = new byte[data.Length];
@@ -46,11 +72,23 @@ namespace AuxiliaryLibraries
             return ciphertext;
         }
 
+        /// <summary>
+        /// Decrypt you key
+        /// </summary>
+        /// <param name="key">key</param>
+        /// <param name="data">data</param>
+        /// <returns>string</returns>
         public static byte[] Decrypt(byte[] key, byte[] data)
         {
             return EncryptOutput(key, data).ToArray();
         }
 
+        /// <summary>
+        /// Decrypt you key
+        /// </summary>
+        /// <param name="key">key</param>
+        /// <param name="data">data</param>
+        /// <returns>string</returns>
         public static byte[] Decrypt(string key, byte[] data)
         {
             return Encrypt(key, data);

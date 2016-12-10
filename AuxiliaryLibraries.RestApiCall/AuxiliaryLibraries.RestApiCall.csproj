@@ -47,8 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RestApiCall.cs" />
     <Compile Include="RestApiCallModels.cs" />
+    <Compile Include="RestApiModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
