@@ -12,12 +12,15 @@ namespace AuxiliaryLibraries
     /// </summary>
     public static class AuxiliaryCalendar
     {
-        public static long secondTicks = 10000000;
-        public static long minuteTicks = 600000000;
-        public static long hourTicks = 36000000000;
-        public static long dayTicks = 864000000000;
-        public static long weekTicks = 6048000000000;
-        public static long monthTicks = 25920000000000;
+        static long secondTicks = 10000000;
+        static long minuteTicks = 600000000;
+        static long hourTicks = 36000000000;
+        static long dayTicks = 864000000000;
+        static long weekTicks = 6048000000000;
+        static long monthTicks = 25920000000000;
+        /// <summary>
+        /// 
+        /// </summary>
         public static string yearPattern = "yyyy";
         public static string monthPattern = "MM";
         public static string dayPattern = "dd";
@@ -44,7 +47,7 @@ namespace AuxiliaryLibraries
         public static string ToPersianDateTime(this DateTime dateTime, bool isUtc = false, string delimiter = "/")
         {
             System.Globalization.PersianCalendar shamsi = new System.Globalization.PersianCalendar();
-            DateTime date = isUtc ? ConvertUTCtoDateTime(dateTime, TimeZoneInfo.FindSystemTimeZoneById(IranianTimeZone)) : dateTime;
+            DateTime date = isUtc ? ConvertUTC(dateTime, TimeZoneInfo.FindSystemTimeZoneById(IranianTimeZone)) : dateTime;
             string strdate = null;
 
             strdate = date.ToString(datePattern);
@@ -74,7 +77,7 @@ namespace AuxiliaryLibraries
         public static string ToPersianDate(this DateTime dateTime, bool isUtc = false, string delimiter = "/")
         {
             System.Globalization.PersianCalendar shamsi = new System.Globalization.PersianCalendar();
-            DateTime date = isUtc ? ConvertUTCtoDateTime(dateTime, TimeZoneInfo.FindSystemTimeZoneById(IranianTimeZone)) : dateTime;
+            DateTime date = isUtc ? ConvertUTC(dateTime, TimeZoneInfo.FindSystemTimeZoneById(IranianTimeZone)) : dateTime;
             string strdate = null;
 
             strdate = date.ToString(datePattern);
@@ -104,7 +107,7 @@ namespace AuxiliaryLibraries
             try
             {
                 System.Globalization.PersianCalendar shamsi = new System.Globalization.PersianCalendar();
-                DateTime date = isUtc ? ConvertUTCtoDateTime(dateTime, TimeZoneInfo.FindSystemTimeZoneById(IranianTimeZone)) : dateTime;
+                DateTime date = isUtc ? ConvertUTC(dateTime, TimeZoneInfo.FindSystemTimeZoneById(IranianTimeZone)) : dateTime;
 
                 string strdate = null;
 
@@ -135,23 +138,31 @@ namespace AuxiliaryLibraries
         }
 
         /// <summary>
-        /// Convert Utc date time to Milidai date time
+        /// Convert Utc date time to Milidai date time and vise versa.
         /// </summary>
         /// <param name="dateTime">Utc date time</param>
         /// <param name="destinationTimeZone">Time zone</param>
-        /// <returns>Miladi date time</returns>
-        public static DateTime ConvertUTCtoDateTime(DateTime dateTime, TimeZoneInfo destinationTimeZone)
+        /// <returns>Miladi date time or UTC date time</returns>
+        public static DateTime ConvertUTC(DateTime dateTime, TimeZoneInfo destinationTimeZone)
         {
+            DateTime cstTime = DateTime.Now;
             try
             {
-                //TimeZoneInfo destinationTimeZone = TimeZoneInfo.FindSystemTimeZoneById(IranianTimeZone);
-                //DateTime cstTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, TimeZoneInfo.Local);
-                //Console.WriteLine("The date and time are {0} {1}.",
-                //                  cstTime,
-                //                  destinationTimeZone.IsDaylightSavingTime(cstTime) ?
-                //                          destinationTimeZone.DaylightName : destinationTimeZone.StandardName);
-                DateTime date = DateTime.SpecifyKind(dateTime, DateTimeKind.Unspecified);
-                return TimeZoneInfo.ConvertTimeToUtc(dateTime, destinationTimeZone);
+                if (dateTime.Kind == DateTimeKind.Utc)
+                {
+                    cstTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, destinationTimeZone);
+                }
+                else if (dateTime.Kind == DateTimeKind.Unspecified)
+                {
+                    DateTime utc = DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
+                    cstTime = TimeZoneInfo.ConvertTimeFromUtc(utc, destinationTimeZone);
+                }
+                else
+                {
+                    DateTime date = DateTime.SpecifyKind(dateTime, DateTimeKind.Unspecified);
+                    cstTime = TimeZoneInfo.ConvertTimeToUtc(dateTime, destinationTimeZone);
+                }
+                //Console.WriteLine("The date and time are {0} {1}.", cstTime, destinationTimeZone.IsDaylightSavingTime(cstTime) ? destinationTimeZone.DaylightName : destinationTimeZone.StandardName);
             }
             catch (TimeZoneNotFoundException)
             {
@@ -161,16 +172,8 @@ namespace AuxiliaryLibraries
             {
                 Console.WriteLine("Registry data on the Central Standard Time zone has been corrupted.");
             }
-            catch (Exception e)
-            {
-                try
-                {
-                    DateTime date = DateTime.SpecifyKind(dateTime, DateTimeKind.Unspecified);
-                    return TimeZoneInfo.ConvertTimeToUtc(date, TimeZoneInfo.Local);
-                }
-                catch { }
-            }
-            return DateTime.Now;
+            catch { }
+            return cstTime;
         }
 
         /// <summary>
@@ -214,7 +217,7 @@ namespace AuxiliaryLibraries
         public static string ToPrettyDate(this DateTime dateTime, bool isUtc = false, bool toPersian = true)
         {
             System.Globalization.PersianCalendar shamsi = new System.Globalization.PersianCalendar();
-            DateTime date = isUtc ? ConvertUTCtoDateTime(dateTime, TimeZoneInfo.FindSystemTimeZoneById(IranianTimeZone)) : dateTime;
+            DateTime date = isUtc ? ConvertUTC(dateTime, TimeZoneInfo.FindSystemTimeZoneById(IranianTimeZone)) : dateTime;
 
             var result = string.Empty;
             var time = date.Ticks;
@@ -237,7 +240,8 @@ namespace AuxiliaryLibraries
             //{
             //    result = GetDayOfWeek(GetDayOfWeek(date.DayOfWeek.ToString()), isPersian);
             //}
-            else {
+            else
+            {
                 int year = date.Year, month = date.Month, day = date.Day, hour = date.Hour, minute = date.Minute, second = date.Second, millisecond = date.Millisecond;
                 if (toPersian)
                 {
@@ -282,7 +286,7 @@ namespace AuxiliaryLibraries
         public static string ToPrettyTime(this DateTime dateTime, bool isUtc = false, bool toPersian = true)
         {
             System.Globalization.PersianCalendar shamsi = new System.Globalization.PersianCalendar();
-            DateTime date = isUtc ? ConvertUTCtoDateTime(dateTime, TimeZoneInfo.FindSystemTimeZoneById(IranianTimeZone)) : dateTime;
+            DateTime date = isUtc ? ConvertUTC(dateTime, TimeZoneInfo.FindSystemTimeZoneById(IranianTimeZone)) : dateTime;
 
             var result = string.Empty;
             var diff = DateTime.Now.Ticks - date.Ticks;
@@ -322,7 +326,8 @@ namespace AuxiliaryLibraries
                 week = week <= 0 ? 1 : week;
                 result = toPersian ? string.Format(DisplayNames.WeekAgoPersian, week) : string.Format(DisplayNames.WeekAgo, week);
             }
-            else {
+            else
+            {
                 int month = Convert.ToInt32(diffDate.TotalDays / 30);
                 month = month <= 0 ? 1 : month;
                 result = toPersian ? string.Format(DisplayNames.MonthAgoPersian, month) : string.Format(DisplayNames.MonthAgo, month);
@@ -331,37 +336,43 @@ namespace AuxiliaryLibraries
             return result;
         }
 
-        public static string GetDayOfWeek(int day, bool toPersian)
+        /// <summary>
+        /// Get name of days in week by their number
+        /// </summary>
+        /// <param name="day"></param>
+        /// <param name="isPersian"></param>
+        /// <returns></returns>
+        public static string GetDayOfWeek(int day, bool isPersian)
         {
             switch (day)
             {
                 case 1:
                     {
-                        return toPersian ? DisplayNames.SaturdayPersian : DisplayNames.Saturday;
+                        return isPersian ? DisplayNames.SaturdayPersian : DisplayNames.Saturday;
                     }
                 case 2:
                     {
-                        return toPersian ? DisplayNames.SundayPersian : DisplayNames.Sunday;
+                        return isPersian ? DisplayNames.SundayPersian : DisplayNames.Sunday;
                     }
                 case 3:
                     {
-                        return toPersian ? DisplayNames.MondayPersian : DisplayNames.Monday;
+                        return isPersian ? DisplayNames.MondayPersian : DisplayNames.Monday;
                     }
                 case 4:
                     {
-                        return toPersian ? DisplayNames.TuesdayPersian : DisplayNames.Tuesday;
+                        return isPersian ? DisplayNames.TuesdayPersian : DisplayNames.Tuesday;
                     }
                 case 5:
                     {
-                        return toPersian ? DisplayNames.WednesdayPersian : DisplayNames.Wednesday;
+                        return isPersian ? DisplayNames.WednesdayPersian : DisplayNames.Wednesday;
                     }
                 case 6:
                     {
-                        return toPersian ? DisplayNames.ThursdayPersian : DisplayNames.Thursday;
+                        return isPersian ? DisplayNames.ThursdayPersian : DisplayNames.Thursday;
                     }
                 case 7:
                     {
-                        return toPersian ? DisplayNames.FridayPersian : DisplayNames.Friday;
+                        return isPersian ? DisplayNames.FridayPersian : DisplayNames.Friday;
                     }
                 default:
                     {
@@ -370,133 +381,139 @@ namespace AuxiliaryLibraries
             }
         }
 
-        public static string GetDayOfMonth(int day, bool toPersian)
+        /// <summary>
+        /// Get name of days in month by their number
+        /// </summary>
+        /// <param name="day"></param>
+        /// <param name="isPersian"></param>
+        /// <returns></returns>
+        public static string GetDayOfMonth(int day, bool isPersian)
         {
             switch (day)
             {
                 case 1:
                     {
-                        return toPersian ? DisplayNames.day1Persian : DisplayNames.day1;
+                        return isPersian ? DisplayNames.day1Persian : DisplayNames.day1;
                     }
                 case 2:
                     {
-                        return toPersian ? DisplayNames.day2Persian : DisplayNames.day2;
+                        return isPersian ? DisplayNames.day2Persian : DisplayNames.day2;
                     }
                 case 3:
                     {
-                        return toPersian ? DisplayNames.day3Persian : DisplayNames.day3;
+                        return isPersian ? DisplayNames.day3Persian : DisplayNames.day3;
                     }
                 case 4:
                     {
-                        return toPersian ? DisplayNames.day4Persian : DisplayNames.day4;
+                        return isPersian ? DisplayNames.day4Persian : DisplayNames.day4;
                     }
                 case 5:
                     {
-                        return toPersian ? DisplayNames.day5Persian : DisplayNames.day5;
+                        return isPersian ? DisplayNames.day5Persian : DisplayNames.day5;
                     }
                 case 6:
                     {
-                        return toPersian ? DisplayNames.day6Persian : DisplayNames.day6;
+                        return isPersian ? DisplayNames.day6Persian : DisplayNames.day6;
                     }
                 case 7:
                     {
-                        return toPersian ? DisplayNames.day7Persian : DisplayNames.day7;
+                        return isPersian ? DisplayNames.day7Persian : DisplayNames.day7;
                     }
                 case 8:
                     {
-                        return toPersian ? DisplayNames.day8Persian : DisplayNames.day8;
+                        return isPersian ? DisplayNames.day8Persian : DisplayNames.day8;
                     }
                 case 9:
                     {
-                        return toPersian ? DisplayNames.day9Persian : DisplayNames.day9;
+                        return isPersian ? DisplayNames.day9Persian : DisplayNames.day9;
                     }
                 case 10:
                     {
-                        return toPersian ? DisplayNames.day10Persian : DisplayNames.day10;
+                        return isPersian ? DisplayNames.day10Persian : DisplayNames.day10;
                     }
                 case 11:
                     {
-                        return toPersian ? DisplayNames.day11Persian : DisplayNames.day11;
+                        return isPersian ? DisplayNames.day11Persian : DisplayNames.day11;
                     }
                 case 12:
                     {
-                        return toPersian ? DisplayNames.day12Persian : DisplayNames.day12;
+                        return isPersian ? DisplayNames.day12Persian : DisplayNames.day12;
                     }
                 case 13:
                     {
-                        return toPersian ? DisplayNames.day13Persian : DisplayNames.day13;
+                        return isPersian ? DisplayNames.day13Persian : DisplayNames.day13;
                     }
                 case 14:
                     {
-                        return toPersian ? DisplayNames.day14Persian : DisplayNames.day14;
+                        return isPersian ? DisplayNames.day14Persian : DisplayNames.day14;
                     }
                 case 15:
                     {
-                        return toPersian ? DisplayNames.day15Persian : DisplayNames.day15;
+                        return isPersian ? DisplayNames.day15Persian : DisplayNames.day15;
                     }
                 case 16:
                     {
-                        return toPersian ? DisplayNames.day16Persian : DisplayNames.day16;
+                        return isPersian ? DisplayNames.day16Persian : DisplayNames.day16;
                     }
                 case 17:
                     {
-                        return toPersian ? DisplayNames.day17Persian : DisplayNames.day17;
+                        return isPersian ? DisplayNames.day17Persian : DisplayNames.day17;
                     }
                 case 18:
                     {
-                        return toPersian ? DisplayNames.day18Persian : DisplayNames.day18;
+                        return isPersian ? DisplayNames.day18Persian : DisplayNames.day18;
                     }
                 case 19:
                     {
-                        return toPersian ? DisplayNames.day19Persian : DisplayNames.day19;
+                        return isPersian ? DisplayNames.day19Persian : DisplayNames.day19;
                     }
                 case 20:
                     {
-                        return toPersian ? DisplayNames.day20Persian : DisplayNames.day20;
+                        return isPersian ? DisplayNames.day20Persian : DisplayNames.day20;
                     }
                 case 21:
                     {
-                        return toPersian ? DisplayNames.day21Persian : DisplayNames.day21;
+                        return isPersian ? DisplayNames.day21Persian : DisplayNames.day21;
                     }
                 case 22:
                     {
-                        return toPersian ? DisplayNames.day22Persian : DisplayNames.day22;
+                        return isPersian ? DisplayNames.day22Persian : DisplayNames.day22;
                     }
                 case 23:
                     {
-                        return toPersian ? DisplayNames.day23Persian : DisplayNames.day23;
+                        return isPersian ? DisplayNames.day23Persian : DisplayNames.day23;
                     }
                 case 24:
                     {
-                        return toPersian ? DisplayNames.day24Persian : DisplayNames.day24;
+                        return isPersian ? DisplayNames.day24Persian : DisplayNames.day24;
                     }
                 case 25:
                     {
-                        return toPersian ? DisplayNames.day25Persian : DisplayNames.day25;
+                        return isPersian ? DisplayNames.day25Persian : DisplayNames.day25;
                     }
                 case 26:
                     {
-                        return toPersian ? DisplayNames.day26Persian : DisplayNames.day26;
+                        return isPersian ? DisplayNames.day26Persian : DisplayNames.day26;
                     }
                 case 27:
                     {
-                        return toPersian ? DisplayNames.day27Persian : DisplayNames.day27;
+                        return isPersian ? DisplayNames.day27Persian : DisplayNames.day27;
                     }
                 case 28:
                     {
-                        return toPersian ? DisplayNames.day28Persian : DisplayNames.day28;
+                        return isPersian ? DisplayNames.day28Persian : DisplayNames.day28;
                     }
                 case 29:
                     {
-                        return toPersian ? DisplayNames.day29Persian : DisplayNames.day29;
+                        return isPersian ? DisplayNames.day29Persian : DisplayNames.day29;
                     }
                 case 30:
                     {
-                        return toPersian ? DisplayNames.day30Persian : DisplayNames.day30;
+                        return isPersian ? DisplayNames.day30Persian : DisplayNames.day30;
                     }
                 case 31:
                     {
-                        return toPersian ? DisplayNames.day31Persian : DisplayNames.day31;
+                        return isPersian ? DisplayNames.day31Persian : DisplayNames.day31;
                     }
                 default:
                     {
@@ -505,6 +522,11 @@ namespace AuxiliaryLibraries
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="day"></param>
+        /// <returns></returns>
         public static int GetDayOfWeek(string day = null)
         {
             day = string.IsNullOrEmpty(day) ? DateTime.Now.DayOfWeek.ToString() : day;
@@ -545,34 +567,40 @@ namespace AuxiliaryLibraries
             }
         }
 
-        public static string GetMonth(int month, bool toPersian)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="month"></param>
+        /// <param name="isPersian"></param>
+        /// <returns></returns>
+        public static string GetMonth(int month, bool isPersian)
         {
             switch (month)
             {
                 case 1:
-                    return toPersian ? DisplayNames.Month1Persian : DisplayNames.Month1;
+                    return isPersian ? DisplayNames.Month1Persian : DisplayNames.Month1;
                 case 2:
-                    return toPersian ? DisplayNames.Month2Persian : DisplayNames.Month2;
+                    return isPersian ? DisplayNames.Month2Persian : DisplayNames.Month2;
                 case 3:
-                    return toPersian ? DisplayNames.Month3Persian : DisplayNames.Month3;
+                    return isPersian ? DisplayNames.Month3Persian : DisplayNames.Month3;
                 case 4:
-                    return toPersian ? DisplayNames.Month4Persian : DisplayNames.Month4;
+                    return isPersian ? DisplayNames.Month4Persian : DisplayNames.Month4;
                 case 5:
-                    return toPersian ? DisplayNames.Month5Persian : DisplayNames.Month5;
+                    return isPersian ? DisplayNames.Month5Persian : DisplayNames.Month5;
                 case 6:
-                    return toPersian ? DisplayNames.Month6Persian : DisplayNames.Month6;
+                    return isPersian ? DisplayNames.Month6Persian : DisplayNames.Month6;
                 case 7:
-                    return toPersian ? DisplayNames.Month7Persian : DisplayNames.Month7;
+                    return isPersian ? DisplayNames.Month7Persian : DisplayNames.Month7;
                 case 8:
-                    return toPersian ? DisplayNames.Month8Persian : DisplayNames.Month8;
+                    return isPersian ? DisplayNames.Month8Persian : DisplayNames.Month8;
                 case 9:
-                    return toPersian ? DisplayNames.Month9Persian : DisplayNames.Month9;
+                    return isPersian ? DisplayNames.Month9Persian : DisplayNames.Month9;
                 case 10:
-                    return toPersian ? DisplayNames.Month10Persian : DisplayNames.Month10;
+                    return isPersian ? DisplayNames.Month10Persian : DisplayNames.Month10;
                 case 11:
-                    return toPersian ? DisplayNames.Month11Persian : DisplayNames.Month11;
+                    return isPersian ? DisplayNames.Month11Persian : DisplayNames.Month11;
                 case 12:
-                    return toPersian ? DisplayNames.Month12Persian : DisplayNames.Month12;
+                    return isPersian ? DisplayNames.Month12Persian : DisplayNames.Month12;
                 default:
                     return string.Empty;
             }
