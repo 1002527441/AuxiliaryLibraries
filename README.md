@@ -1,6 +1,6 @@
 # AuxiliaryLibraries
 This library helps you to solve your problems about datetimes, ip, rest, json and string extensions.
-## Persian Calendar
+## AuxiliaryCalendar
 * ToPrettyDate()
 ```
 var persianDate = DateTime.Now.ToPrettyDate();
@@ -91,3 +91,14 @@ var midnight = DateTime.Now.BeginDate();
 var tommorowMidnight = DateTime.Now.EndDate();
 //12/20/2016 23:59:59
 ```
+
+
+## RestApi
+
+## StringExtensions
+
+## IpAddress
+
+## FileHelpers
+
+## Encription
