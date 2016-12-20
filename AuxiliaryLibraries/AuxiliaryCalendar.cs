@@ -572,7 +572,7 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="month"></param>
         /// <param name="isPersian"></param>
-        /// <returns></returns>
+        /// <returns></returns> 
         public static string GetMonth(int month, bool isPersian)
         {
             switch (month)
