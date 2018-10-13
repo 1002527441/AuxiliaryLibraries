@@ -7,6 +7,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace AuxiliaryLibraries
 {
@@ -15,7 +16,7 @@ namespace AuxiliaryLibraries
     /// Email, cellnumber and nationalId validation
     /// Verify or generate words as password(MD5)
     /// </summary>
-    public static class StringExtensions
+    public static class AuxiliaryStringExtensions
     {
         /// <summary>
         /// Persian alphabet
@@ -134,8 +135,8 @@ namespace AuxiliaryLibraries
         /// Convert Persian number to English numbers
         /// </summary>
         /// <param name="number">Numbers as string</param>
-        /// <returns>string</returns>
-        public static string ToEnglishNumbers(this string number)
+        /// <returns>string</returmns>
+        public static string ToEnglishNumber(this string number)
         {
             if (System.Threading.Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "en".ToLower())
                 return Convert.ToString(number);
@@ -159,9 +160,56 @@ namespace AuxiliaryLibraries
         }
 
         /// <summary>
+        /// Replace all Arabic and English numbers to Persian numbers
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static string ToPersianNumbers(this string number)
+        {
+            //persinNum = [۰, ۱, ۲, ۳, ۴, ۵, ۶, ۷, ۸, ۹]
+            if (string.IsNullOrEmpty(number))
+                return string.Empty;
+            return number.Replace("٠", "۰").Replace("١", "۱").Replace("٢", "۲").Replace("٣", "۳").Replace("٤", "۴")
+                .Replace("٥", "۵").Replace("٦", "۶").Replace("٧", "۷").Replace("٨", "۸").Replace("٩", "۹")
+                .Replace("0", "۰").Replace("1", "۱").Replace("2", "۲").Replace("3", "۳").Replace("4", "۴")
+                .Replace("5", "۵").Replace("6", "۶").Replace("7", "۷").Replace("8", "۸").Replace("9", "۹").Trim();
+        }
+
+        /// <summary>
+        /// Replace all Persian and English numbers to Arabic numbers
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static string ToArabicNumbers(this string number)
+        {
+            //١٢٣٤٥٦٧٨٩٠
+            if (string.IsNullOrEmpty(number))
+                return string.Empty;
+            return number.Replace("0", "٠").Replace("1", "١").Replace("2", "٢").Replace("3", "٣").Replace("4", "٤")
+                .Replace("5", "٥").Replace("6", "٦").Replace("7", "٧").Replace("8", "٨").Replace("9", "٩")
+                .Replace("۰", "٠").Replace("۱", "١").Replace("۲", "٢").Replace("۳", "٣").Replace("۴", "٤")
+                .Replace("۵", "٥").Replace("۶", "٦").Replace("۷", "٧").Replace("۸", "٨").Replace("۹", "٩").Trim();
+        }
+
+        /// <summary>
+        /// Replace all Persian and Arabic numbers to English numbers
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static string ToEnglishNumbers(this string number)
+        {
+            if (string.IsNullOrEmpty(number))
+                return string.Empty;
+            return number.Replace("٠", "0").Replace("١", "1").Replace("٢", "2").Replace("٣", "3").Replace("٤", "4")
+                .Replace("٥", "5").Replace("٦", "6").Replace("٧", "7").Replace("٨", "8").Replace("٩", "9")
+                .Replace("۰", "0").Replace("۱", "1").Replace("۲", "2").Replace("۳", "3").Replace("۴", "4")
+                .Replace("۵", "5").Replace("۶", "6").Replace("۷", "7").Replace("۸", "8").Replace("۹", "9").Trim();
+        }
+
+        /// <summary>
         /// Normalize mobile number as Iranian mobile number (989*********).
         /// You can pass '+98', '98' or '0' on 'startWith'. Def
-        /// If phone number is not valid, it will return string.Empty.
+        /// If phone number is not valid, it will return number itself.
         /// </summary>
         /// <param name="number">Phone number</param>
         /// <param name="startWith">Phone number will be start with 'startWith' parameter</param>
@@ -170,16 +218,13 @@ namespace AuxiliaryLibraries
         {
             var numberLength = 10;
             if (string.IsNullOrEmpty(number))
-            {
-                return string.Empty;
-            }
-            number = ReplacePersianNumbers(number).Trim();
+                return number;
+
+            number = ToEnglishNumbers(number).Trim();
             string Number = string.Empty;
 
             if (!number.IsCellNumberValid())
-            {
                 return Number;
-            }
 
             if (number.Length >= numberLength)
             {
@@ -301,6 +346,26 @@ namespace AuxiliaryLibraries
             return 0 == StringComparer.OrdinalIgnoreCase.Compare(hashOfInput, hash);
         }
 
+        /// <summary>
+        /// If yor number is less than 10, it will put a zero before it.
+        /// For example if the number is 1, it will return "01", ...
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static string ToTowDigits(this int number)
+        {
+            return number < 10 ? $"0{number}" : number.ToString();
+        }
+
+        /// <summary>
+        /// Verift the password with hash
+        /// Be careful to pass password as first parameter and hash as the second.
+        /// type contains the encryption type, and the default value is SHA1
+        /// </summary>
+        /// <param name="password"></param>
+        /// <param name="hash"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static bool VerifyPassword(this string password, string hash, EncryptType type = EncryptType.SHA1)
         {
             switch (type)
@@ -316,7 +381,15 @@ namespace AuxiliaryLibraries
             }
             return false;
         }
-        public static string Hash(this string password, EncryptType type = EncryptType.SHA1)
+
+        /// <summary>
+        /// Convert text to hash
+        /// type contains the encryption type, and the default value is SHA1
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static string Hash(this string text, EncryptType type = EncryptType.SHA1)
         {
             switch (type)
             {
@@ -326,19 +399,29 @@ namespace AuxiliaryLibraries
                 //    }
                 case EncryptType.SHA1:
                     {
-                        return password.EncriptSHA1();
+                        return text.EncriptSHA1();
                     }
             }
             return string.Empty;
         }
+
+        /// <summary>
+        /// Convert price to string and Seperate it by separator
+        /// </summary>
+        /// <param name="price"></param>
+        /// <param name="separator"></param>
+        /// <returns></returns>
         public static string ToMoney(this int price, string separator = ".")
         {
-            return price.ToString("N0", new NumberFormatInfo()
-            {
-                NumberGroupSizes = new[] { 3 },
-                NumberGroupSeparator = separator
-            });
+            return ((long)price).ToMoney(separator);
         }
+
+        /// <summary>
+        /// Convert price to string and Seperate it by separator
+        /// </summary>
+        /// <param name="price"></param>
+        /// <param name="separator"></param>
+        /// <returns></returns>
         public static string ToMoney(this long price, string separator = ".")
         {
             return price.ToString("N0", new NumberFormatInfo()
@@ -347,61 +430,73 @@ namespace AuxiliaryLibraries
                 NumberGroupSeparator = separator
             });
         }
-        public static string ToToman(this int price)
+
+        /// <summary>
+        ///  Convert price to string and Seperate it by separator and put 'تومان' after it
+        ///  If pass isRial as true, divide price to 10 first.
+        /// </summary>
+        /// <param name="price"></param>
+        /// <param name="isRial"></param>
+        /// <returns></returns>
+        public static string ToToman(this int price, bool isRial = true)
         {
-            if (price <= 0)
-                return string.Format("{0} تومان", price);
-            price /= 10;
-            return string.Format("{0} تومان", price.ToMoney());
+            return ((long)price).ToMoney();
         }
-        public static string ToToman(this long price)
+
+        /// <summary>
+        /// Convert price to string and Seperate it by separator and put 'تومان' after it
+        /// If pass isRial as true, divide price to 10 first. And the default value is true
+        /// </summary>
+        /// <param name="price"></param>
+        /// <param name="isRial"></param>
+        /// <returns></returns>
+        public static string ToToman(this long price, bool isRial = true)
         {
             if (price <= 0)
                 return string.Format("{0} تومان", price);
-            price /= 10;
+
+            if (isRial)
+                price /= 10;
+
             return string.Format("{0} تومان", (object)price.ToMoney());
         }
-        public static string ToRial(this int price)
+
+        /// <summary>
+        /// Convert price to string and Seperate it by separator and put 'ريال' after it
+        /// If pass isToman as true, multiplication price by 10 first. And the default value is true
+        /// </summary>
+        /// <param name="price"></param>
+        /// <param name="isToman"></param>
+        /// <returns></returns>
+        public static string ToRial(this int price, bool isToman = true)
         {
-            if (price <= 0)
-                return string.Format("{0} تومان", price);
-            return string.Format("{0} تومان", price.ToMoney());
+            return ((long)price).ToRial();
         }
-        public static string ToRial(this long price)
+
+        /// <summary>
+        /// Convert price to string and Seperate it by separator and put 'ريال' after it
+        /// If pass isToman as true, multiplication price by 10 first. And the default value is true
+        /// </summary>
+        /// <param name="price"></param>
+        /// <param name="isToman"></param>
+        /// <returns></returns>
+        public static string ToRial(this long price, bool isToman = true)
         {
             if (price <= 0)
                 return string.Format("{0} ريال", price);
+
+            if (isToman)
+                price *= 10;
+
             return string.Format("{0} ريال", price.ToMoney());
         }
-        public static string ReplacePersianNumbers(this string text)
-        {
-            //persinNum = [۰, ۱, ۲, ۳, ۴, ۵, ۶, ۷, ۸, ۹]
-            if (string.IsNullOrEmpty(text))
-                return string.Empty;
-            return text.Replace("۰", "0").Replace("۱", "1").Replace("۲", "2").Replace("۳", "3").Replace("۴", "4").Replace("۵", "5").Replace("۶", "6").Replace("۷", "7").Replace("۸", "8").Replace("۹", "9").Trim();
-        }
-        public static string ReplaceArabicNumbersToPersian(this string text)
-        {
-            //١٢٣٤٥٦٧٨٩٠
-            if (string.IsNullOrEmpty(text))
-                return string.Empty;
-            return text.Replace("٠", "۰").Replace("١", "۱").Replace("٢", "۲").Replace("٣", "۳").Replace("٤", "۴")
-                .Replace("٥", "۵").Replace("٦", "۶").Replace("٧", "۷").Replace("٨", "۸").Replace("٩", "۹").Trim();
-        }
-        public static string ReplaceArabicNumbers(this string text)
-        {
-            //١٢٣٤٥٦٧٨٩٠
-            if (string.IsNullOrEmpty(text))
-                return string.Empty;
-            return text.Replace("٠", "0").Replace("١", "1").Replace("٢", "2").Replace("٣", "3").Replace("٤", "4")
-                .Replace("٥", "5").Replace("٦", "6").Replace("٧", "7").Replace("٨", "8").Replace("٩", "9").Trim();
-        }
-        public static string ReplaceToEnglishNumbers(this string text)
-        {
-            if (string.IsNullOrEmpty(text))
-                return string.Empty;
-            return text.ReplacePersianNumbers().ReplaceArabicNumbers().Trim();
-        }
+
+        /// <summary>
+        /// This function extracts from the text just digits.
+        /// If you pass text something like that = "salam 123 o4k5", it will return just 12345 as int
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static int ToInt32(this string text)
         {
             var digitContent = string.Join("", text.ToCharArray().Where(Char.IsDigit));
@@ -410,6 +505,7 @@ namespace AuxiliaryLibraries
                 return result;
             return -1;
         }
+
         public static string NormalizePersianDate(this string text)
         {
             if (string.IsNullOrEmpty(text))
@@ -436,17 +532,32 @@ namespace AuxiliaryLibraries
             }
             return result;
         }
+
+        /// <summary>
+        /// Reverse the term
+        /// </summary>
+        /// <param name="term"></param>
+        /// <returns></returns>
         public static string Reverse(this string term)
         {
             char[] arr = term.ToCharArray();
             Array.Reverse(arr);
             return new string(arr);
         }
-        public static string AnalyseFileName(this string FileName, out string format, out string basePath, out string fileName)
+
+        /// <summary>
+        /// Return mimeType, format, basePath and name of the file
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="format"></param>
+        /// <param name="basePath"></param>
+        /// <param name="nameOfFile"></param>
+        /// <returns></returns>
+        public static string AnalyseFileName(this string fileName, out string format, out string basePath, out string nameOfFile)
         {
-            format = FileName.Substring(FileName.LastIndexOf('.') + 1);
-            basePath = FileName.Substring(0, FileName.LastIndexOf('\\'));
-            fileName = FileName.Substring(FileName.LastIndexOf('\\') + 1);
+            format = fileName.Substring(fileName.LastIndexOf('.') + 1);
+            basePath = fileName.Substring(0, fileName.LastIndexOf('\\'));
+            nameOfFile = fileName.Substring(fileName.LastIndexOf('\\') + 1);
             string mimeType = "";
             switch (format)
             {
@@ -493,12 +604,18 @@ namespace AuxiliaryLibraries
             }
             return mimeType;
         }
+
+        /// <summary>
+        /// Replace Arabic characters to Persian
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public static string ReplaceArabicChar(this string name)
         {
             if (string.IsNullOrEmpty(name)) return string.Empty;
 
             string strName = name.Replace("ي", "ی").Replace("ك", "ک").Replace("ة", "ه").Replace("ئ", "ئ").Replace("ه", "ه");
-            strName = ReplaceArabicNumbersToPersian(strName);
+            strName = ToPersianNumbers(strName);
 
             strName = strName.Trim();
 
@@ -507,6 +624,12 @@ namespace AuxiliaryLibraries
 
             return strName;
         }
+
+        /// <summary>
+        /// Encript term as SHA1
+        /// </summary>
+        /// <param name="term"></param>
+        /// <returns></returns>
         public static string EncriptSHA1(this string term)
         {
             StringBuilder Encript = new StringBuilder();
@@ -515,6 +638,13 @@ namespace AuxiliaryLibraries
             foreach (byte n in hash) Encript.Append(Convert.ToInt32(n + 256).ToString("x2"));
             return Encript.ToString();
         }
+
+        /// <summary>
+        /// Encript term as SHA1
+        /// </summary>
+        /// <param name="term"></param>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
         public static string EncriptSHA1(this string term, Encoding encoding)
         {
             StringBuilder Encript = new StringBuilder();
@@ -523,13 +653,152 @@ namespace AuxiliaryLibraries
             foreach (byte n in hash) Encript.Append(Convert.ToInt32(n + 256).ToString("x2"));
             return Encript.ToString();
         }
+
+        /// <summary>
+        /// Convert date to solr date format
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public static string SolrDate(this DateTime date)
         {
             return string.Format("{0}-{1}-{2}T{3}:{4}:{5}.{6}Z", date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second, date.Millisecond);
         }
-        internal static double Percent(this long current, long maximum)
+
+        /// <summary>
+        /// Retuen current what percent maximum as double
+        /// </summary>
+        /// <param name="current"></param>
+        /// <param name="maximum"></param>
+        /// <returns></returns>
+        public static double Percent(this long current, long maximum)
         {
             return Math.Round(((double)current / (double)maximum) * 100, 2);
+        }
+
+        /// <summary>
+        /// Decode term as html encoder
+        /// </summary>
+        /// <param name="term"></param>
+        /// <returns></returns>
+        public static string HtmlDecoder(this string term)
+        {
+            return HttpUtility.UrlDecode(HttpUtility.HtmlDecode(term));
+        }
+
+        /// <summary>
+        /// If you pass "2,3,5,6,8,2,6,1" return a list of long which is contains { 2,3,5,6,8,2,6,1 }
+        /// delimiter can be any character
+        /// </summary>
+        /// <param name="term"></param>
+        /// <param name="delimiter"></param>
+        /// <returns></returns>
+        public static List<long> ToListLong(this string term, char delimiter = ',')
+        {
+            var result = new List<long>();
+            var strList = term.Split(delimiter).ToList();
+            foreach (var item in strList)
+            {
+                long element = 0;
+                long.TryParse(item, out element);
+                if (element > 0)
+                    result.Add(element);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// If you pass "2,3,5,6,8,2,6,1" return a list of int which is contains { 2,3,5,6,8,2,6,1 }
+        /// delimiter can be any character
+        /// </summary>
+        /// <param name="term"></param>
+        /// <param name="delimiter"></param>
+        /// <returns></returns>
+        public static List<int> ToListInt(this string term, char delimiter = ',')
+        {
+            var result = new List<int>();
+            var strList = term.Split(delimiter).ToList();
+            foreach (var item in strList)
+            {
+                int element = 0;
+                int.TryParse(item, out element);
+                if (element > 0)
+                    result.Add(element);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Encode plainText to Base64String
+        /// </summary>
+        /// <param name="plainText"></param>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
+        public static string Base64Encode(this string plainText, Encoding encoding)
+        {
+            try
+            {
+                var plainTextBytes = encoding.GetBytes(plainText);
+                return System.Convert.ToBase64String(plainTextBytes);
+            }
+            catch (Exception e)
+            {
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Decode base64EncodedData from Base64String
+        /// </summary>
+        /// <param name="base64EncodedData"></param>
+        /// <returns></returns>
+        public static string Base64Decode(this string base64EncodedData)
+        {
+            try
+            {
+                var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+                return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+            }
+            catch (Exception e)
+            {
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Encode plainText to ASCII
+        /// </summary>
+        /// <param name="plainText"></param>
+        /// <returns></returns>
+        public static string AsciiEncode(this string plainText)
+        {
+            try
+            {
+                var plainTextBytes = Encoding.ASCII.GetBytes(plainText);
+                return string.Join(";", plainTextBytes);
+            }
+            catch (Exception e)
+            {
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Decode asciiEncodedData from ASCII
+        /// </summary>
+        /// <param name="asciiEncodedData"></param>
+        /// <returns></returns>
+        public static string AsciiDecode(this string asciiEncodedData)
+        {
+            try
+            {
+                var list = asciiEncodedData.Split(';').ToList();
+                var array = list.Select(x => Convert.ToByte(x)).ToArray();
+                return Encoding.ASCII.GetString(array);
+            }
+            catch (Exception e)
+            {
+                return string.Empty;
+            }
         }
     }
 }

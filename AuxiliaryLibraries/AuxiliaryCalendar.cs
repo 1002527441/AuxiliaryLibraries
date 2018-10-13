@@ -1,9 +1,7 @@
 ﻿using AuxiliaryLibraries.Resources;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace AuxiliaryLibraries
 {
@@ -12,30 +10,60 @@ namespace AuxiliaryLibraries
     /// </summary>
     public static class AuxiliaryCalendar
     {
-        static long secondTicks = 10000000;
-        static long minuteTicks = 600000000;
-        static long hourTicks = 36000000000;
-        static long dayTicks = 864000000000;
-        static long weekTicks = 6048000000000;
-        static long monthTicks = 25920000000000;
+        const long secondTicks = 10000000;
+        const long minuteTicks = 600000000;
+        const long hourTicks = 36000000000;
+        const long dayTicks = 864000000000;
+        const long weekTicks = 6048000000000;
+        const long monthTicks = 25920000000000;
         /// <summary>
-        /// 
+        /// Year Pattern
         /// </summary>
-        public static string yearPattern = "yyyy";
-        public static string monthPattern = "MM";
-        public static string dayPattern = "dd";
-        public static string hourPattern = "HH:mm";
-        public static string dayOfTheWeekPattern = "EEEE";
-        public static string datePattern = "yyyy/MM/dd";
+        public const string yearPattern = "yyyy";
+        /// <summary>
+        /// Month Pattern
+        /// </summary>
+        public const string monthPattern = "MM";
+        /// <summary>
+        /// Day Pattern
+        /// </summary>
+        public const string dayPattern = "dd";
+        /// <summary>
+        /// Hour:Minute
+        /// </summary>
+        public const string hourPattern = "HH:mm";
+        /// <summary>
+        /// Day Of The Week Pattern
+        /// </summary>
+        public const string dayOfTheWeekPattern = "EEEE";
+        /// <summary>
+        /// Year-Month-Day Pattern
+        /// </summary>
+        public const string datePattern = "yyyy/MM/dd";
         /// <summary>
         /// Datetime pattern
         /// </summary>
-        public static string datetimePattern = "yyyy-MM-dd HH:mm:ss";
+        public const string datetimePattern = "yyyy-MM-dd HH:mm:ss";
         /// <summary>
         /// Utc datetime pattern
         /// </summary>
-        public static string utcDatetimePattern = "yyyy-MM-dd'T'hh:mm:ss.SSS";
-        public static string IranianTimeZone = "Iran Standard Time";
+        public const string utcDatetimePattern = "yyyy-MM-dd'T'hh:mm:ss.SSS";
+        /// <summary>
+        /// Valid Mobile Datetime Pattern
+        /// </summary>
+        public const string mobileDatetimePattern = "yyyy-MM-dd'T'HH:mm:sszzz";
+        /// <summary>
+        /// Iranian Time Zone
+        /// </summary>
+        public const string IranianTimeZone = "Iran Standard Time";
+        /// <summary>
+        /// Persian Date Pattern
+        /// </summary>
+        public const string PersianDatePattern = @"[1-9][0-9]{3}[-/, ][0-9]{2}[-/, ][0-9]{2}";
+        /// <summary>
+        /// Different Valid Separators
+        /// </summary>
+        public static char[] Seperators = new char[] { '-', '/', ' ', ',' };
 
         /// <summary>
         /// Convert date time to persian (shamsi) date time
@@ -64,7 +92,7 @@ namespace AuxiliaryLibraries
 
             int minute = date.Minute;
 
-            return $"{year}{delimiter}{month}{delimiter}{day} ساعت {hour}:{minute}";
+            return $"{year}{delimiter}{month.ToTowDigits()}{delimiter}{day.ToTowDigits()} ساعت {hour.ToTowDigits()}:{minute.ToTowDigits()}";
         }
 
         /// <summary>
@@ -87,12 +115,10 @@ namespace AuxiliaryLibraries
             int year = shamsi.GetYear(Date);
 
             int month = shamsi.GetMonth(Date);
-            string M = month < 10 ? "0" + month : month.ToString();
 
             int day = shamsi.GetDayOfMonth(Date);
-            string D = day < 10 ? "0" + day : day.ToString();
 
-            return $"{year}{delimiter}{M}{delimiter}{D}";
+            return $"{year}{delimiter}{month.ToTowDigits()}{delimiter}{day.ToTowDigits()}";
         }
 
         /// <summary>
@@ -129,7 +155,7 @@ namespace AuxiliaryLibraries
 
                 int millisecond = date.Millisecond;
 
-                return $"{year}{delimiter}{month}{delimiter}{day} {hour}:{minute}:{second}:{millisecond}";
+                return $"{year}{delimiter}{month.ToTowDigits()}{delimiter}{day.ToTowDigits()} {hour.ToTowDigits()}:{minute.ToTowDigits()}:{second.ToTowDigits()}:{millisecond}";
             }
             catch
             {
@@ -314,6 +340,10 @@ namespace AuxiliaryLibraries
                 hour = hour <= 0 ? 1 : hour;
                 result = toPersian ? string.Format(DisplayNames.HourAgoPersian, hour) : string.Format(DisplayNames.HourAgo, hour);
             }
+            else if (diff < dayTicks * 2)
+            {
+                result = toPersian ? DisplayNames.YesterdayPersian : DisplayNames.Yesterday;
+            }
             else if (diff < weekTicks)
             {
                 int day = Convert.ToInt32(diffDate.TotalDays);
@@ -337,11 +367,167 @@ namespace AuxiliaryLibraries
         }
 
         /// <summary>
+        /// Convert datetime to time as pretty format.
+        /// Samples:
+        /// Persian format = امروز ، دیروز، فردا، 2 روز پیش، 5 هفته بعد
+        /// Miladi format = Today , Yesterday, Tomorrow, 2 days ago, 5 weeks later
+        /// </summary>
+        /// <param name="dateTime">Miladi date time or Utc date time</param>
+        /// <param name="isUtc">If Date is utc send it True, the default valur is False</param>
+        /// <param name="toPersian">If you want to convert to persian date send it true, and for miladi date send false. Default value is true</param>
+        /// <returns>string</returns>
+        public static string ToPrettyDay(this DateTime dateTime, bool isUtc = false, bool toPersian = true)
+        {
+            System.Globalization.PersianCalendar shamsi = new System.Globalization.PersianCalendar();
+            DateTime date = isUtc ? ConvertUTC(dateTime, TimeZoneInfo.FindSystemTimeZoneById(IranianTimeZone)) : dateTime;
+
+            var result = string.Empty;
+            var diff = ((DateTime.Today.Ticks - date.BeginDate().Ticks) / dayTicks) * -1;
+            var mDiff = diff < 0 ? diff * -1 : diff;
+
+            if (diff == 0)
+            {
+                return toPersian ? DisplayNames.TodayPersian : DisplayNames.Today;
+            }
+            #region Ago
+            else if (diff < 0)
+            {
+                if (diff == -1)
+                {
+                    result = toPersian ? DisplayNames.YesterdayPersian : DisplayNames.Yesterday;
+                }
+                else if (diff % 7 == 0)
+                {
+                    int week = Convert.ToInt32(mDiff / 7);
+                    week = week <= 0 ? 1 : week;
+                    result = toPersian ? string.Format(DisplayNames.WeekAgoPersian, week) : string.Format(DisplayNames.WeekAgo, week);
+                }
+                else if (diff % 30 == 0)
+                {
+                    int month = Convert.ToInt32(mDiff / 30);
+                    month = month <= 0 ? 1 : month;
+                    result = toPersian ? string.Format(DisplayNames.MonthAgoPersian, month) : string.Format(DisplayNames.MonthAgo, month);
+                }
+                else
+                {
+                    result = toPersian ? string.Format(DisplayNames.DayAgoPersian, mDiff) : string.Format(DisplayNames.DayAgo, mDiff);
+                }
+            }
+            #endregion
+            #region Later
+            else if (diff > 0)
+            {
+                if (diff == 1)
+                {
+                    result = toPersian ? DisplayNames.TomorrowPersian : DisplayNames.Tomorrow;
+                }
+                else if (diff % 7 == 0)
+                {
+                    int week = Convert.ToInt32(mDiff / 7);
+                    week = week <= 0 ? 1 : week;
+                    result = toPersian ? string.Format(DisplayNames.WeekLaterPersian, week) : string.Format(DisplayNames.WeekLater, week);
+                }
+                else if (diff % 30 == 0)
+                {
+                    int month = Convert.ToInt32(mDiff / 30);
+                    month = month <= 0 ? 1 : month;
+                    result = toPersian ? string.Format(DisplayNames.MonthLaterPersian, month) : string.Format(DisplayNames.MonthLater, month);
+                }
+                else
+                {
+                    result = toPersian ? string.Format(DisplayNames.DayLaterPersian, mDiff) : string.Format(DisplayNames.DayLater, mDiff);
+                }
+            }
+            #endregion
+            return result;
+        }
+
+        /// <summary>
+        /// Convert datetime to day of the week as pretty format.
+        /// Samples:
+        /// Persian format = امروز ، دیروز ، فردا ، شنبه ، جمعه
+        /// Miladi format = Today , Yesterday , Tomorrow , Saturday , Friday
+        /// </summary>
+        /// <param name="dateTime">Miladi date time or Utc date time</param>
+        /// <param name="isUtc">If Date is utc send it True, the default valur is False</param>
+        /// <param name="toPersian">If you want to convert to persian date send it true, and for miladi date send false. Default value is true</param>
+        /// <param name="justWeekDay">If you want to convert just week days set it as true. Default value is false. return value will not be Today, Yesterday and Tomorrow. Just Sunday, Monday, Tuesday, Wednesday, Thursday, Friday and Saturday</param>
+        /// <param name="dayNumber">If you chose persian date, it may need to return 1 شنبه, instead of یکشنبه. So set it true</param>
+        /// <returns>string</returns>
+        public static string ToPrettyWeekDay(this DateTime dateTime, bool isUtc = false, bool toPersian = true, bool justWeekDays = false, bool dayNumber = false)
+        {
+            System.Globalization.PersianCalendar shamsi = new System.Globalization.PersianCalendar();
+            DateTime date = isUtc ? ConvertUTC(dateTime, TimeZoneInfo.FindSystemTimeZoneById(IranianTimeZone)) : dateTime;
+
+            var result = string.Empty;
+            var diff = ((DateTime.Today.Ticks - date.BeginDate().Ticks) / dayTicks) * -1;
+            var mDiff = diff < 0 ? diff * -1 : diff;
+
+            if (!justWeekDays)
+            {
+                if (diff == 0)
+                {
+                    return toPersian ? DisplayNames.TodayPersian : DisplayNames.Today;
+                }
+                else if (diff == -1)
+                {
+                    result = toPersian ? DisplayNames.YesterdayPersian : DisplayNames.Yesterday;
+                }
+                else if (diff == 1)
+                {
+                    result = toPersian ? DisplayNames.TomorrowPersian : DisplayNames.Tomorrow;
+                }
+            }
+            else
+            {
+                switch (dateTime.DayOfWeek)
+                {
+                    case DayOfWeek.Sunday:
+                        {
+                            result = toPersian ? dayNumber ? $"1 {DisplayNames.SaturdayPersian}" : DisplayNames.SundayPersian : DisplayNames.Sunday;
+                        }
+                        break;
+                    case DayOfWeek.Monday:
+                        {
+                            result = toPersian ? dayNumber ? $"2 {DisplayNames.SaturdayPersian}" : DisplayNames.MondayPersian : DisplayNames.Monday;
+                        }
+                        break;
+                    case DayOfWeek.Tuesday:
+                        {
+                            result = toPersian ? dayNumber ? $"3 {DisplayNames.SaturdayPersian}" : DisplayNames.TuesdayPersian : DisplayNames.Tuesday;
+                        }
+                        break;
+                    case DayOfWeek.Wednesday:
+                        {
+                            result = toPersian ? dayNumber ? $"4 {DisplayNames.SaturdayPersian}" : DisplayNames.WednesdayPersian : DisplayNames.Wednesday;
+                        }
+                        break;
+                    case DayOfWeek.Thursday:
+                        {
+                            result = toPersian ? dayNumber ? $"5 {DisplayNames.SaturdayPersian}" : DisplayNames.ThursdayPersian : DisplayNames.Thursday;
+                        }
+                        break;
+                    case DayOfWeek.Friday:
+                        {
+                            result = toPersian ? DisplayNames.FridayPersian : DisplayNames.Friday;
+                        }
+                        break;
+                    case DayOfWeek.Saturday:
+                        {
+                            result = toPersian ? DisplayNames.SaturdayPersian : DisplayNames.Saturday;
+                        }
+                        break;
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
         /// Get name of days in week by their number
         /// </summary>
         /// <param name="day"></param>
         /// <param name="isPersian"></param>
-        /// <returns></returns>
+        /// <returns>string</returns>
         public static string GetDayOfWeek(int day, bool isPersian)
         {
             switch (day)
@@ -386,7 +572,7 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="day"></param>
         /// <param name="isPersian"></param>
-        /// <returns></returns>
+        /// <returns>string</returns>
         public static string GetDayOfMonth(int day, bool isPersian)
         {
             switch (day)
@@ -523,10 +709,10 @@ namespace AuxiliaryLibraries
         }
 
         /// <summary>
-        /// 
+        /// Return the index of day of week, you should pass one of saturday, sunday, monday, tuesday, wednesday, thursday, friday
         /// </summary>
         /// <param name="day"></param>
-        /// <returns></returns>
+        /// <returns>int</returns>
         public static int GetDayOfWeek(string day = null)
         {
             day = string.IsNullOrEmpty(day) ? DateTime.Now.DayOfWeek.ToString() : day;
@@ -568,11 +754,11 @@ namespace AuxiliaryLibraries
         }
 
         /// <summary>
-        /// 
+        /// Return name of month by its index, if set the isPersian to true it'll return persian names and if the isPersian set to false it'll miladi names
         /// </summary>
         /// <param name="month"></param>
         /// <param name="isPersian"></param>
-        /// <returns></returns> 
+        /// <returns>string</returns> 
         public static string GetMonth(int month, bool isPersian)
         {
             switch (month)
@@ -604,6 +790,51 @@ namespace AuxiliaryLibraries
                 default:
                     return string.Empty;
             }
+        }
+
+        /// <summary>
+        /// Convert persian date to miladi
+        /// If the passed value is not valid, it will return Datetime.Now
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <param name="day"></param>
+        /// <returns>DateTime</returns>
+        public static DateTime ToDateTime(int year, int month, int day)
+        {
+            try
+            {
+                PersianCalendar pc = new PersianCalendar();
+                DateTime dt = new DateTime(year, month, day, new PersianCalendar());
+                //dt.ToString(CultureInfo.InvariantCulture)
+                return dt;
+            }
+            catch (Exception e)
+            {
+                return DateTime.Now;
+            }
+        }
+
+        /// <summary>
+        /// Convert persian date to miladi, you should pass a string by this format 1357-12-22.
+        /// Seperators sould be on if ('),(/),( ),(,)
+        /// First part should be 4 digits, second and third must be 2 digits
+        /// Smaples : 1300-01-01 , 1300/10/01 , 1300 08 23
+        /// If the passed value is not valid, it will return Datetime.Now
+        /// </summary>
+        /// <param name="persianDate"></param>
+        /// <returns>DateTime</returns>
+        public static DateTime ToDateTime(string persianDate)
+        {
+            Regex regex = new Regex(PersianDatePattern);
+            if (regex.IsMatch(persianDate))
+            {
+                int year = 0, month = 0, day = 0;
+                var numbers = persianDate.Split(Seperators);
+                if (Int32.TryParse(numbers[0], out year) && Int32.TryParse(numbers[1], out month) && Int32.TryParse(numbers[2], out day))
+                    return ToDateTime(year, month, day);
+            }
+            return DateTime.Now;
         }
     }
 

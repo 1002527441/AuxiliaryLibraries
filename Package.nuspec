@@ -2,25 +2,37 @@
 <package >
   <metadata>
     <id>AuxiliaryLibraries</id>
-    <version>1.0.4</version>
+    <version>1.0.14</version>
 	<title>Auxiliary libraries</title>
-    <authors>AmiN Zamani, Hoodadtech co</authors>
+    <authors>AmiN Zamani</authors>
     <owners>AmiN Zamani</owners>
     <licenseUrl>https://github.com/amin8zamany/AuxiliaryLibraries/blob/master/LICENSE.txt.txt</licenseUrl>
     <projectUrl>https://github.com/amin8zamany/AuxiliaryLibraries</projectUrl>
-    <iconUrl>http://hoodadtech.com/images/AuxiliaryLibraries.ico</iconUrl>
+    <iconUrl>http://hoodadtech.com/images/AuxiliaryLibraries_Logo.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Accessory to persian calendar, string extensions, encription, ip, log and rest api for .Net. You can easily use it.</description>
-    <releaseNotes>Accessory to persian calendar, string extensions, encription, ip, log and rest api for .Net. You can easily use it.</releaseNotes>
-	<summary>Accessory to persian calendar, string extensions, encription, ip, log and rest api for .Net. You can easily use it.</summary>
+    <description>Accessory to Persian calendar, string extensions, encryption, ip, log and rest api for .Net. You can easily use it.</description>
+    <releaseNotes>Add summery to each function. Encryption bugs fixed and set encoding on it.</releaseNotes>
+	<summary>Accessory to Persian calendar, string extensions, encryption, ip, log and rest api for .Net. You can easily use it. Queue structure, Directory and File helper, Auxiliary Log, Convert Persian date to Georgian</summary>
 	<language>en-US</language>
-    <copyright>Copyright 2016</copyright>
-    <tags>REST, API, JSON, String, File helper, Calendar, Persian, Ip, Encription, Log</tags>
+    <copyright>Copyright 2017</copyright>
+    <tags>REST, API, JSON, String, File helper, Calendar, Persian, Ip, Encryption, Log, Queue</tags>
     <dependencies>
       <dependency id="RestSharp" version="105.2.3.0" />
     </dependencies>
 	
 	<frameworkAssemblies>
+		<!--<frameworkAssembly assemblyName="System.Data" />
+		<frameworkAssembly assemblyName="System.Data.DataSetExtensions" />
+		<frameworkAssembly assemblyName="System.Globalization" />
+		<frameworkAssembly assemblyName="System.Web" />
+		<frameworkAssembly assemblyName="System.Web.Script.Serialization" />
+		<frameworkAssembly assemblyName="System.IO" />
+        <frameworkAssembly assemblyName="System.Core" />
+		<frameworkAssembly assemblyName="System.Text" />
+		<frameworkAssembly assemblyName="System.Text.RegularExpressions" />
+		<frameworkAssembly assemblyName="System.Net" />
+		<frameworkAssembly assemblyName="System.Net.Http" />-->
+		
 		<frameworkAssembly assemblyName="System.Data" />
         <frameworkAssembly assemblyName="System.Core" />
 		<frameworkAssembly assemblyName="System.Data.DataSetExtensions" />

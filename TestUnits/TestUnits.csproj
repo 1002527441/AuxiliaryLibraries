@@ -54,34 +54,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AuxiliaryLibraries.Calendar\AuxiliaryLibraries.Calendar.csproj">
-      <Project>{af6d0ee6-8abf-45fd-91a5-ec3e2c67c514}</Project>
-      <Name>AuxiliaryLibraries.Calendar</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AuxiliaryLibraries.Encription\AuxiliaryLibraries.Encription.csproj">
-      <Project>{15d70220-7c55-43d0-beec-7a68105bbc70}</Project>
-      <Name>AuxiliaryLibraries.Encription</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AuxiliaryLibraries.FileHelpers\AuxiliaryLibraries.FileHelpers.csproj">
-      <Project>{4b6d450d-3cc0-4b13-8bb9-f27059f46eca}</Project>
-      <Name>AuxiliaryLibraries.FileHelpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AuxiliaryLibraries.IpAddress\AuxiliaryLibraries.IpAddress.csproj">
-      <Project>{05b5388e-870e-406b-b9c8-6d81961b2c25}</Project>
-      <Name>AuxiliaryLibraries.IpAddress</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AuxiliaryLibraries.LogService\AuxiliaryLibraries.LogService.csproj">
-      <Project>{bb33b43d-9d14-41be-a95c-dc4468248a2f}</Project>
-      <Name>AuxiliaryLibraries.LogService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AuxiliaryLibraries.RestApiCall\AuxiliaryLibraries.RestApiCall.csproj">
-      <Project>{0f1f95b1-9027-40cc-889c-79ee2ebea2d6}</Project>
-      <Name>AuxiliaryLibraries.RestApiCall</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AuxiliaryLibraries.StringExtentions\AuxiliaryLibraries.StringExtentions.csproj">
-      <Project>{6d4b60b6-fb31-4997-b248-cc44a1c6abae}</Project>
-      <Name>AuxiliaryLibraries.StringExtentions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AuxiliaryLibraries\AuxiliaryLibraries.csproj">
       <Project>{22439e66-66dd-476c-9c1d-9aa520ec0231}</Project>
       <Name>AuxiliaryLibraries</Name>

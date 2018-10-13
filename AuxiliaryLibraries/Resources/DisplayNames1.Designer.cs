@@ -19,7 +19,7 @@ namespace AuxiliaryLibraries.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class DisplayNames {
@@ -637,6 +637,24 @@ namespace AuxiliaryLibraries.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Days Later.
+        /// </summary>
+        internal static string DayLater {
+            get {
+                return ResourceManager.GetString("DayLater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} روز بعد.
+        /// </summary>
+        internal static string DayLaterPersian {
+            get {
+                return ResourceManager.GetString("DayLaterPersian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Friday.
         /// </summary>
         internal static string Friday {
@@ -961,6 +979,24 @@ namespace AuxiliaryLibraries.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Months Later.
+        /// </summary>
+        internal static string MonthLater {
+            get {
+                return ResourceManager.GetString("MonthLater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} ماه بعد.
+        /// </summary>
+        internal static string MonthLaterPersian {
+            get {
+                return ResourceManager.GetString("MonthLaterPersian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saturday.
         /// </summary>
         internal static string Saturday {
@@ -1051,6 +1087,24 @@ namespace AuxiliaryLibraries.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tomorrow.
+        /// </summary>
+        internal static string Tomorrow {
+            get {
+                return ResourceManager.GetString("Tomorrow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to فردا.
+        /// </summary>
+        internal static string TomorrowPersian {
+            get {
+                return ResourceManager.GetString("TomorrowPersian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tuesday.
         /// </summary>
         internal static string Tuesday {
@@ -1101,6 +1155,24 @@ namespace AuxiliaryLibraries.Resources {
         internal static string WeekAgoPersian {
             get {
                 return ResourceManager.GetString("WeekAgoPersian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Weeks Later.
+        /// </summary>
+        internal static string WeekLater {
+            get {
+                return ResourceManager.GetString("WeekLater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} هفته بعد.
+        /// </summary>
+        internal static string WeekLaterPersian {
+            get {
+                return ResourceManager.GetString("WeekLaterPersian", resourceCulture);
             }
         }
         

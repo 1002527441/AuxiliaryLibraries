@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.ServiceModel.Channels;
 
@@ -13,7 +8,7 @@ namespace AuxiliaryLibraries
     /// <summary>
     /// IP
     /// </summary>
-    public static class IpAddress
+    public static class AuxiliaryIpAddress
     {
         /// <summary>
         /// Get real client IP from request

@@ -93,5 +93,56 @@ namespace TestUnits
             Assert.AreEqual(Years, utc_Years);
         }
 
+        [TestMethod]
+        public void ToPrettyDay()
+        {
+            var _M8_day = DateTime.Now.AddDays(-8).ToPrettyDay();
+            var _M7_day = DateTime.Now.AddDays(-7).ToPrettyDay();
+            var _M6_day = DateTime.Now.AddDays(-6).ToPrettyDay();
+            var _M5_day = DateTime.Now.AddDays(-5).ToPrettyDay();
+            var _M4_day = DateTime.Now.AddDays(-4).ToPrettyDay();
+            var _M3_day = DateTime.Now.AddDays(-3).ToPrettyDay();
+            var _M2_day = DateTime.Now.AddDays(-2).ToPrettyDay();
+            var _M1_day = DateTime.Now.AddDays(-1).ToPrettyDay();
+            var persian_today = DateTime.Now.ToPrettyDay();
+            var _1_day = DateTime.Now.AddDays(1).ToPrettyDay();
+            var _2_day = DateTime.Now.AddDays(2).ToPrettyDay();
+            var _3_day = DateTime.Now.AddDays(3).ToPrettyDay();
+            var _4_day = DateTime.Now.AddDays(4).ToPrettyDay();
+            var _5_day = DateTime.Now.AddDays(5).ToPrettyDay();
+            var _6_day = DateTime.Now.AddDays(6).ToPrettyDay();
+            var _7_day = DateTime.Now.AddDays(7).ToPrettyDay();
+            var _8_day = DateTime.Now.AddDays(8).ToPrettyDay();
+        }
+
+        [TestMethod]
+        public void ToDateTime()
+        {
+            var enDate = new DateTime(2017, 11, 22);
+            var first = AuxiliaryCalendar.ToDateTime(1396, 9, 1) == enDate;
+            string date = "1396-09-01";
+            var second = AuxiliaryCalendar.ToDateTime(date) == enDate;
+
+            Assert.IsTrue(first && second);
+        }
+
+        [TestMethod]
+        public void Encrypt()
+        {
+            var str1 = AuxiliaryEncryption.Encrypt("Amin", "Keeping in mind that every every character of that string is 1 byte, or 8 bits, in size (assuming ASCII/UTF8 encoding), we are encoding 6 bytes, or 48 bits, of data. According to the equation, we expect the output length to be (6 bytes / 3 bytes) * 4 characters = 8 characters .Nov 14, 2012");
+            var str2 = AuxiliaryEncryption.Encrypt("Mostafa", "Keeping in mind that every every character of that string is 1 byte, or 8 bits, in size (assuming ASCII/UTF8 encoding), we are encoding 6 bytes, or 48 bits, of data. According to the equation, we expect the output length to be (6 bytes / 3 bytes) * 4 characters = 8 characters .Nov 14, 2012");
+            var str3 = AuxiliaryEncryption.Encrypt("amin", "Keeping in mind that every every character of that string is 1 byte, or 8 bits, in size (assuming ASCII/UTF8 encoding), we are encoding 6 bytes, or 48 bits, of data. According to the equation, we expect the output length to be (6 bytes / 3 bytes) * 4 characters = 8 characters .Nov 14, 2012");
+            var str4 = AuxiliaryEncryption.Encrypt("mostafa", "Keeping in mind that every every character of that string is 1 byte, or 8 bits, in size (assuming ASCII/UTF8 encoding), we are encoding 6 bytes, or 48 bits, of data. According to the equation, we expect the output length to be (6 bytes / 3 bytes) * 4 characters = 8 characters .Nov 14, 2012");
+            var str5 = AuxiliaryEncryption.Encrypt("fahime", "Keeping in mind that every every character of that string is 1 byte, or 8 bits, in size (assuming ASCII/UTF8 encoding), we are encoding 6 bytes, or 48 bits, of data. According to the equation, we expect the output length to be (6 bytes / 3 bytes) * 4 characters = 8 characters .Nov 14, 2012");
+            var str6 = AuxiliaryEncryption.Encrypt("Fahime", "Keeping in mind that every every character of that string is 1 byte, or 8 bits, in size (assuming ASCII/UTF8 encoding), we are encoding 6 bytes, or 48 bits, of data. According to the equation, we expect the output length to be (6 bytes / 3 bytes) * 4 characters = 8 characters .Nov 14, 2012");
+            var str7 = AuxiliaryEncryption.Encrypt("AmiN", "Keeping in mind that every every character of that string is 1 byte, or 8 bits, in size (assuming ASCII/UTF8 encoding), we are encoding 6 bytes, or 48 bits, of data. According to the equation, we expect the output length to be (6 bytes / 3 bytes) * 4 characters = 8 characters .Nov 14, 2012");
+            var b1 = str1.Length;
+            var b2 = str2.Length;
+            var b3 = str3.Length;
+            var b4 = str4.Length;
+            var b5 = str5.Length;
+            var b6 = str6.Length;
+            var b7 = str7.Length;
+        }
     }
 }

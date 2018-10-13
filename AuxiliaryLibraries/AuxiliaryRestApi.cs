@@ -6,15 +6,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 
 namespace AuxiliaryLibraries
 {
     /// <summary>
     /// Calling api with RestSharp and WebClient easily
     /// </summary>
-    public static class RestApi
+    public static class AuxiliaryRestApi
     {
         /// <summary>
         /// Send your request with RestSharp
@@ -76,14 +75,50 @@ namespace AuxiliaryLibraries
         }
 
         /// <summary>
+        /// Send your request with RestSharp
+        /// </summary>
+        /// <param name="baseUrl">Base address of api url</param>
+        /// <param name="functionName">Funcation name of api url</param>
+        /// <param name="method">Method (POST, GET, PUT, PATCH, DELETE, COPY, HEAD, OPTIONS, LINK, UNLINK, PURGE, LOCK, UNLOCK, PROPFIND, VIEW)</param>
+        /// <param name="headers">Headers (This is optional)</param>
+        /// <param name="body">Body as an object (This is optional)</param>
+        /// <param name="userName">Username (This is optional)</param>
+        /// <param name="password">Password (This is optional)</param>
+        /// <returns>IRestResponse</returns>
+        public static IRestResponse Send(string baseUrl, string functionName, Method method, IDictionary<string, string> headers, object body, string userName, string password)
+        {
+            var client = new RestClient(baseUrl);
+            var request = new RestRequest(method);
+
+            request.RequestFormat = DataFormat.Json;
+            foreach (var header in headers)
+            {
+                request.AddHeader(header.Key, header.Value);
+            }
+            if (body != null)
+            {
+                
+                var json = new JavaScriptSerializer().Serialize(body); //JsonConvert.SerializeObject(body);
+                request.AddHeader("Content-Length", json.Length.ToString());
+                request.AddBody(body);
+            }
+            // execute the request
+            var response = client.Execute(request);
+            // var content = response.Content; // raw content as string
+
+            return response;
+        }
+
+        /// <summary>
         /// Send your request with WebClient
         /// </summary>
         /// <param name="url">Address of api url</param>
         /// <param name="headers">Headers (This is optional)</param>
         /// <param name="parametersBody">Body parameters (This is optional)</param>
         /// <param name="method">Method ("POST", "GET", "PUT", "PATCH", "DELETE", "COPY", "HEAD", "OPTIONS", "LINK", "UNLINK", "PURGE", "LOCK", "UNLOCK", "PROPFIND", "VIEW") default value is "GET"</param>
+        /// <param name="contentLength">If you don't want to fill Content-Length leave containContentLength as fasle.</param>
         /// <returns>string</returns>
-        public static string Send(string url, IDictionary<string, string> headers, IDictionary<string, object> parametersBody, string method = "GET")
+        public static string Send(string url, IDictionary<string, string> headers, IDictionary<string, object> parametersBody, string method = "GET", bool contentLength = true)
         {
             try
             {
@@ -97,9 +132,10 @@ namespace AuxiliaryLibraries
                 }
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 httpWebRequest.ContentType = "application/json";
+                httpWebRequest.Accept = "application/json";
                 httpWebRequest.Method = method;
 
-                if (headers != null)
+                if (headers != null && parametersBody.Any())
                 {
                     foreach (var header in headers)
                     {
@@ -107,16 +143,21 @@ namespace AuxiliaryLibraries
                     }
                 }
 
-                if (parametersBody != null && parametersBody.Any())
+                string json = GenerateBody(parametersBody);
+                if (!string.IsNullOrEmpty(json))
                 {
+                    //var byteArray = Encoding.UTF8.GetBytes(apiModel.Body);
+                    //httpWebRequest.GetRequestStream().Write(byteArray, 0, byteArray.Length);
                     using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                     {
-                        string json = GenerateBody(parametersBody);
                         streamWriter.Write(json);
                         streamWriter.Flush();
                         streamWriter.Close();
                     }
                 }
+
+                if (contentLength)
+                    httpWebRequest.ContentLength = string.IsNullOrEmpty(json) ? 0 : json.Length;
 
                 var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
                 using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
@@ -130,21 +171,25 @@ namespace AuxiliaryLibraries
             }
         }
 
-        private static string GenerateBody(IDictionary<string, object> parameterBody)
+        private static string GenerateBody(IDictionary<string, object> parametersBody)
         {
-            //var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer(); javaScriptSerializer.Serialize(employee);
-            var json = "{";
-            int index = 1;
-            foreach (var parameter in parameterBody)
+            if (parametersBody != null && parametersBody.Any())
             {
-                json += $"\"{parameter.Key}\": \"{parameter.Value}\"";
-                if (index < parameterBody.Count)
+                //var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer(); javaScriptSerializer.Serialize(employee);
+                var json = "{";
+                int index = 1;
+                foreach (var parameter in parametersBody)
                 {
-                    json += ",";
+                    json += $"\"{parameter.Key}\": \"{parameter.Value}\"";
+                    if (index < parametersBody.Count)
+                    {
+                        json += ",";
+                    }
+                    index++;
                 }
-                index++;
+                return json += "}";
             }
-            return json += "}";
+            return string.Empty;
         }
     }
 }

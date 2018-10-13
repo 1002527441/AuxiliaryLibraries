@@ -528,4 +528,28 @@
   <data name="WeekAgoPersian" xml:space="preserve">
     <value>{0} هفته پیش</value>
   </data>
+  <data name="DayLater" xml:space="preserve">
+    <value>{0} Days Later</value>
+  </data>
+  <data name="DayLaterPersian" xml:space="preserve">
+    <value>{0} روز بعد</value>
+  </data>
+  <data name="MonthLater" xml:space="preserve">
+    <value>{0} Months Later</value>
+  </data>
+  <data name="MonthLaterPersian" xml:space="preserve">
+    <value>{0} ماه بعد</value>
+  </data>
+  <data name="Tomorrow" xml:space="preserve">
+    <value>Tomorrow</value>
+  </data>
+  <data name="TomorrowPersian" xml:space="preserve">
+    <value>فردا</value>
+  </data>
+  <data name="WeekLater" xml:space="preserve">
+    <value>{0} Weeks Later</value>
+  </data>
+  <data name="WeekLaterPersian" xml:space="preserve">
+    <value>{0} هفته بعد</value>
+  </data>
 </root>
