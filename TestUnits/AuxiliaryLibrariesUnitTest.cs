@@ -10,9 +10,14 @@ namespace TestUnits
         [TestMethod]
         public void ToPrettyDate()
         {
+            var persian_date1 = new DateTime(2019,01,07).ToPrettyDate();
             var persian_today = DateTime.Now.ToPrettyDate();
             var persian_yesterday = DateTime.Now.AddDays(-1).ToPrettyDate();
             var persian_date = DateTime.Now.AddDays(-10).ToPrettyDate();
+
+            var persian_todayTime = DateTime.Now.ToPrettyDateTime();
+            var persian_yesterdayTime = DateTime.Now.AddDays(-1).ToPrettyDateTime();
+            var persian_dateTime = DateTime.Now.AddDays(-10).ToPrettyDateTime();
 
             var todat = DateTime.Now.ToPrettyDate(toPersian: false);
             var yesterday = DateTime.Now.AddDays(-1).ToPrettyDate(toPersian: false);
@@ -20,6 +25,7 @@ namespace TestUnits
 
             var utc_persian_today = DateTime.UtcNow.ToPrettyDate(true);
             var utc_persian_yesterday = DateTime.UtcNow.AddDays(-1).ToPrettyDate(true);
+            var utc_persian_Tommorow = DateTime.UtcNow.AddDays(1).ToPrettyDate(true, false);
             var utc_persian_date = DateTime.UtcNow.AddDays(-10).ToPrettyDate(true);
 
             var utc_today = DateTime.UtcNow.ToPrettyDate(true, false);
@@ -113,6 +119,28 @@ namespace TestUnits
             var _6_day = DateTime.Now.AddDays(6).ToPrettyDay();
             var _7_day = DateTime.Now.AddDays(7).ToPrettyDay();
             var _8_day = DateTime.Now.AddDays(8).ToPrettyDay();
+        }
+
+        [TestMethod]
+        public void ToPrettyWeekDay()
+        {
+            var _M8_day = DateTime.Now.AddDays(-8).ToPrettyDayOfWeek();
+            var _M7_day = DateTime.Now.AddDays(-7).ToPrettyDayOfWeek();
+            var _M6_day = DateTime.Now.AddDays(-6).ToPrettyDayOfWeek();
+            var _M5_day = DateTime.Now.AddDays(-5).ToPrettyDayOfWeek();
+            var _M4_day = DateTime.Now.AddDays(-4).ToPrettyDayOfWeek();
+            var _M3_day = DateTime.Now.AddDays(-3).ToPrettyDayOfWeek();
+            var _M2_day = DateTime.Now.AddDays(-2).ToPrettyDayOfWeek();
+            var _M1_day = DateTime.Now.AddDays(-1).ToPrettyDayOfWeek();
+            var persian_today = DateTime.Now.ToPrettyDayOfWeek();
+            var _1_day = DateTime.Now.AddDays(1).ToPrettyDayOfWeek();
+            var _2_day = DateTime.Now.AddDays(2).ToPrettyDayOfWeek();
+            var _3_day = DateTime.Now.AddDays(3).ToPrettyDayOfWeek();
+            var _4_day = DateTime.Now.AddDays(4).ToPrettyDayOfWeek();
+            var _5_day = DateTime.Now.AddDays(5).ToPrettyDayOfWeek();
+            var _6_day = DateTime.Now.AddDays(6).ToPrettyDayOfWeek();
+            var _7_day = DateTime.Now.AddDays(7).ToPrettyDayOfWeek();
+            var _8_day = DateTime.Now.AddDays(8).ToPrettyDayOfWeek();
         }
 
         [TestMethod]
