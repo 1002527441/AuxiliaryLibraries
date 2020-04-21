@@ -7,6 +7,7 @@ namespace TestUnits
     [TestClass]
     public class AuxiliaryLibrariesUnitTest
     {
+        //nuget pack Package.nuspec
         [TestMethod]
         public void ToPrettyDate()
         {
@@ -171,6 +172,26 @@ namespace TestUnits
             var b5 = str5.Length;
             var b6 = str6.Length;
             var b7 = str7.Length;
+        }
+
+        [TestMethod]
+        public void RSAEncrypttion()
+        {
+            var rsa = new AuxiliaryEncryption.RSA(2048);
+            rsa.SavePrivateKey(@"X:\Fahime\Archive\Sadad\PrivateKey.xml");
+            rsa.SavePublicKey(@"X:\Fahime\Archive\Sadad\PublicKey.xml");
+        }
+
+        [TestMethod]
+        public void PriceModel()
+        {
+            var price = new AuxiliaryPriceModel();
+            price.Price = 1000000;
+            price.SetPersianCurrency(AuxiliaryPriceModel.PersianCurrency.Rial, AuxiliaryPriceModel.PersianCurrency.Rial);
+            price.SetPersianCurrency(AuxiliaryPriceModel.PersianCurrency.Rial, AuxiliaryPriceModel.PersianCurrency.Toman);
+            price.SetPersianCurrency(AuxiliaryPriceModel.PersianCurrency.Toman, AuxiliaryPriceModel.PersianCurrency.Toman);
+            price.SetPersianCurrency(AuxiliaryPriceModel.PersianCurrency.Toman, AuxiliaryPriceModel.PersianCurrency.Rial);
+            Assert.IsTrue(true);
         }
     }
 }

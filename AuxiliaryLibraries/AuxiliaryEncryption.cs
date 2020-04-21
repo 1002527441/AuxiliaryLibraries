@@ -8,14 +8,22 @@ using System.Xml.Serialization;
 namespace AuxiliaryLibraries
 {
     /// <summary>
-    /// RC4 Encryption
+    /// Auxiliary Encryption
     /// </summary>
     public class AuxiliaryEncryption
     {
         /// <summary>
-        /// Encruption By RC4
+        /// Auxiliary Encryption
         /// </summary>
-       public class RC4
+        public AuxiliaryEncryption()
+        {
+
+        }
+
+        /// <summary>
+        /// RC4 Encryption
+        /// </summary>
+        public static class RC4
         {
             //#region Encrypt
             ///// <summary>
@@ -270,41 +278,204 @@ namespace AuxiliaryLibraries
         }
 
         /// <summary>
-        /// Encryption By AES
+        /// Encryption Mode
+        /// On File enctyption, specificlly on AES, you should choose the mode
+        /// </summary>
+        public enum EncryptionMode
+        {
+            /// <summary>
+            /// Read all files using File.ReadAllBytes
+            /// </summary>
+            Bytes = 1,
+            /// <summary>
+            /// Read all files using File.ReadAllText and Encoding
+            /// </summary>
+            Encoding = 2,
+            /// <summary>
+            /// Read all files using FileStream
+            /// </summary>
+            FileStream = 3
+        }
+
+        /// <summary>
+        /// AES Encryption
         /// </summary>
         public class AES
         {
+            private ICryptoTransform decryptor;
+            private ICryptoTransform encryptor;
+            private Encoding encoding;
+            private PaddingMode paddingMode;
+            private CipherMode cipherMode;
+            private int keySize = 256;
+            private int blockSize = 128;
+            private EncryptionMode encryptionMode = EncryptionMode.FileStream;
+            // Replace me with a 16-byte key, share between Java and C#
+            private static byte[] rawSecretKey = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                              0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
             /// <summary>
-            /// Encrypt File
+            /// AES Constructor
+            /// </summary>
+            /// <param name="passphrase"></param>
+            public AES(string passphrase)
+            {
+                encoding = Encoding.UTF8;
+                paddingMode = PaddingMode.PKCS7;
+                cipherMode = CipherMode.CBC;
+                keySize = 256;
+                blockSize = 128;
+                encryptionMode = EncryptionMode.FileStream;
+            }
+
+            /// <summary>
+            /// AES Constructor
+            /// </summary>
+            /// <param name="passphrase"></param>
+            /// <param name="_encoding"></param>
+            /// <param name="_paddingMode"></param>
+            /// <param name="_cipherMode"></param>
+            /// <param name="_keySize"></param>
+            /// <param name="_blockSize"></param>
+            /// <param name="_encryptionMode"></param>
+            public AES(string passphrase, Encoding _encoding, PaddingMode _paddingMode = PaddingMode.PKCS7, CipherMode _cipherMode = CipherMode.CBC, int _keySize = 256, int _blockSize = 128, EncryptionMode _encryptionMode = EncryptionMode.FileStream)
+            {
+                encoding = _encoding;
+                paddingMode = _paddingMode;
+                cipherMode = _cipherMode;
+                keySize = _keySize;
+                blockSize = _blockSize;
+                encryptionMode = _encryptionMode;
+
+                //byte[] passwordKey = encodeDigest(passphrase);
+                var salt = passphrase.Substring(0, 16);
+                var iv = passphrase.Length >= 32 ? passphrase.Substring(16, 16) : salt;
+                byte[] key = encoding.GetBytes(salt); //encodeDigest(salt);
+                //File.WriteAllLines(@"X:\Amin\EncryptDecrypt\Ali Test\New Way\key Byte Array.txt", key.Select(x => x.ToString()).ToArray());
+                byte[] IV = encoding.GetBytes(iv);  //encodeDigest(iv);
+                //File.WriteAllLines(@"X:\Amin\EncryptDecrypt\Ali Test\New Way\IV Byte Array.txt", IV.Select(x => x.ToString()).ToArray());
+
+                //var key = new Rfc2898DeriveBytes(passwordBytes, saltBytes, 1000);
+                //AES.Key = key.GetBytes(AES.KeySize / 8);
+                //AES.IV = key.GetBytes(AES.BlockSize / 8);
+
+                RijndaelManaged rijndael = new RijndaelManaged();//AesManaged//RijndaelManaged
+                rijndael.Padding = paddingMode;
+                rijndael.Mode = cipherMode;
+                if (keySize > 0)
+                    rijndael.KeySize = keySize;
+                if (blockSize > 0)
+                    rijndael.BlockSize = blockSize;
+                encryptor = rijndael.CreateEncryptor(key, IV);
+                decryptor = rijndael.CreateDecryptor(key, IV);
+            }
+
+            #region Encrypt
+            /// <summary>
+            /// EncryptFile
             /// </summary>
             /// <param name="inputFile"></param>
             /// <param name="outputFile"></param>
-            /// <param name="skey"></param>
-            public static void EncryptFile(string inputFile, string outputFile, string skey)
+            public void EncryptFile(string inputFile, string outputFile)
+            {
+                switch (encryptionMode)
+                {
+                    case EncryptionMode.Bytes:
+                        {
+                            EncryptFileUsingBytes(inputFile, outputFile);
+                        }
+                        break;
+                    case EncryptionMode.Encoding:
+                        {
+                            EncryptFileUsingEncoding(inputFile, outputFile);
+                        }
+                        break;
+                    case EncryptionMode.FileStream:
+                        {
+                            EncryptFileUsingFileStream(inputFile, outputFile);
+                        }
+                        break;
+                }
+            }
+
+            private void EncryptFileUsingBytes(string inputFile, string outputFile)
             {
                 try
                 {
-                    var salt = skey.Substring(0, 16);
-                    using (System.Security.Cryptography.RijndaelManaged aes = new System.Security.Cryptography.RijndaelManaged())
+                    byte[] bytesToBeEncrypted = File.ReadAllBytes(inputFile);
+                    using (MemoryStream ms = new MemoryStream())
                     {
-                        byte[] key = ASCIIEncoding.UTF8.GetBytes(salt);
-
-                        byte[] IV = ASCIIEncoding.UTF8.GetBytes(salt);
-
-                        using (System.IO.FileStream fsCrypt = new System.IO.FileStream(outputFile, System.IO.FileMode.Create))
+                        using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
                         {
-                            using (System.Security.Cryptography.ICryptoTransform encryptor = aes.CreateEncryptor(key, IV))
+                            cs.Write(bytesToBeEncrypted, 0, bytesToBeEncrypted.Length);
+                            cs.Close();
+                        }
+                        byte[] decryptedBytes = ms.ToArray();
+                        //File.WriteAllLines(outputFile.Replace(".jpg", " - EncryptFile Byte Array.txt"), bytesToBeEncrypted.Select(x => x.ToString()).ToArray());
+                        File.WriteAllBytes(outputFile, decryptedBytes);
+                    }
+
+                    //using (FileStream fsCrypt = new FileStream(outputFile, FileMode.Create))
+                    //{
+                    //    using (CryptoStream cs = new CryptoStream(fsCrypt, encryptor, CryptoStreamMode.Write))
+                    //    {
+                    //        using (FileStream fsIn = new FileStream(inputFile, FileMode.Open))
+                    //        {
+                    //            int data;
+                    //            while ((data = fsIn.ReadByte()) != -1)
+                    //            {
+                    //                cs.WriteByte((byte)data);
+                    //            }
+                    //        }
+                    //    }
+                    //}
+                }
+                catch (Exception ex)
+                {
+                    // failed to encrypt file
+                    ex.ToString();
+                }
+            }
+
+            private void EncryptFileUsingEncoding(string inputFile, string outputFile)
+            {
+                try
+                {
+                    var text = File.ReadAllText(inputFile, encoding);
+                    byte[] bytesToBeEncrypted = encoding.GetBytes(text);
+                    File.WriteAllLines(outputFile.Replace(".jpg", " - EncryptFile Byte Array.txt"), bytesToBeEncrypted.Select(x => x.ToString()).ToArray());
+
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
+                        {
+                            cs.Write(bytesToBeEncrypted, 0, bytesToBeEncrypted.Length);
+                            cs.Close();
+                        }
+                        byte[] decryptedBytes = ms.ToArray();
+                        File.WriteAllBytes(outputFile, decryptedBytes);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // failed to encrypt file
+                    ex.ToString();
+                }
+            }
+
+            private void EncryptFileUsingFileStream(string inputFile, string outputFile)
+            {
+                try
+                {
+                    using (FileStream fsCrypt = new FileStream(outputFile, FileMode.Create))
+                    {
+                        using (CryptoStream cs = new CryptoStream(fsCrypt, encryptor, CryptoStreamMode.Write))
+                        {
+                            using (FileStream fsIn = new FileStream(inputFile, FileMode.Open))
                             {
-                                using (System.Security.Cryptography.CryptoStream cs = new System.Security.Cryptography.CryptoStream(fsCrypt, encryptor, System.Security.Cryptography.CryptoStreamMode.Write))
+                                int data;
+                                while ((data = fsIn.ReadByte()) != -1)
                                 {
-                                    using (System.IO.FileStream fsIn = new System.IO.FileStream(inputFile, System.IO.FileMode.Open))
-                                    {
-                                        int data;
-                                        while ((data = fsIn.ReadByte()) != -1)
-                                        {
-                                            cs.WriteByte((byte)data);
-                                        }
-                                    }
+                                    cs.WriteByte((byte)data);
                                 }
                             }
                         }
@@ -317,36 +488,135 @@ namespace AuxiliaryLibraries
             }
 
             /// <summary>
-            /// Decrypt File
+            /// Encrypt
+            /// </summary>
+            /// <param name="strtoencrypt"></param>
+            /// <returns></returns>
+            public byte[] Encrypt(string strtoencrypt)
+            {
+                var bytesToEncrypt = encoding.GetBytes(strtoencrypt);
+                return Encrypt(bytesToEncrypt);
+            }
+
+            /// <summary>
+            /// EncryptAsBase64
+            /// </summary>
+            /// <param name="clearData"></param>
+            /// <returns></returns>
+            public string EncryptAsBase64(byte[] clearData)
+            {
+                byte[] encryptedData = Encrypt(clearData);
+                return Convert.ToBase64String(encryptedData);
+            }
+
+            /// <summary>
+            /// Encrypt
+            /// </summary>
+            /// <param name="bytesToEncrypt"></param>
+            /// <returns></returns>
+            public byte[] Encrypt(byte[] bytesToEncrypt)
+            {
+                var mstream = new MemoryStream();
+                using (var cstream = new CryptoStream(mstream, decryptor, CryptoStreamMode.Write))
+                {
+                    cstream.Write(bytesToEncrypt, 0, bytesToEncrypt.Length);
+                    cstream.FlushFinalBlock();
+                }
+                return mstream.ToArray();
+            }
+            #endregion
+
+            #region Decrypt
+            /// <summary>
+            /// DecryptFile
             /// </summary>
             /// <param name="inputFile"></param>
             /// <param name="outputFile"></param>
-            /// <param name="skey"></param>
-            public static void DecryptFile(string inputFile, string outputFile, string skey)
+            public void DecryptFile(string inputFile, string outputFile)
+            {
+                switch (encryptionMode)
+                {
+                    case EncryptionMode.Bytes:
+                        {
+                            DecryptFileUsingBytes(inputFile, outputFile);
+                        }
+                        break;
+                    case EncryptionMode.Encoding:
+                        {
+                            EncryptFileUsingEncoding(inputFile, outputFile);
+                        }
+                        break;
+                    case EncryptionMode.FileStream:
+                        {
+                            DecryptFileUsingFileStream(inputFile, outputFile);
+                        }
+                        break;
+                }
+            }
+
+            private void DecryptFileUsingBytes(string inputFile, string outputFile)
             {
                 try
                 {
-                    var salt = skey.Substring(0, 16);
-                    using (System.Security.Cryptography.RijndaelManaged aes = new System.Security.Cryptography.RijndaelManaged())
+                    byte[] bytesToBeDecrypted = File.ReadAllBytes(inputFile);
+                    //File.WriteAllLines(outputFile.Replace(".jpg", " - DecryptFile Byte Array.txt"), bytesToBeDecrypted.Select(x => x.ToString()).ToArray());
+                    using (MemoryStream ms = new MemoryStream())
                     {
-                        byte[] key = ASCIIEncoding.UTF8.GetBytes(salt);
-
-                        byte[] IV = ASCIIEncoding.UTF8.GetBytes(salt);
-
-                        using (System.IO.FileStream fsCrypt = new System.IO.FileStream(inputFile, System.IO.FileMode.Open))
+                        using (var cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Write))
                         {
-                            using (System.IO.FileStream fsOut = new System.IO.FileStream(outputFile, System.IO.FileMode.Create))
+                            cs.Write(bytesToBeDecrypted, 0, bytesToBeDecrypted.Length);
+                            cs.Close();
+                        }
+                        byte[] decryptedBytes = ms.ToArray();
+                        File.WriteAllBytes(outputFile, decryptedBytes);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // failed to decrypt file
+                    ex.ToString();
+                }
+            }
+
+            private void DecryptFileUsingEncoding(string inputFile, string outputFile)
+            {
+                try
+                {
+                    var text = File.ReadAllText(inputFile, encoding);
+                    byte[] bytesToBeDecrypted = encoding.GetBytes(text);
+
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        using (var cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Write))
+                        {
+                            cs.Write(bytesToBeDecrypted, 0, bytesToBeDecrypted.Length);
+                            cs.Close();
+                        }
+                        byte[] decryptedBytes = ms.ToArray();
+                        File.WriteAllBytes(outputFile, decryptedBytes);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // failed to decrypt file
+                    ex.ToString();
+                }
+            }
+
+            private void DecryptFileUsingFileStream(string inputFile, string outputFile)
+            {
+                try
+                {
+                    using (FileStream fsCrypt = new FileStream(inputFile, FileMode.Open))
+                    {
+                        using (FileStream fsOut = new FileStream(outputFile, FileMode.Create))
+                        {
+                            using (CryptoStream cs = new CryptoStream(fsCrypt, decryptor, CryptoStreamMode.Read))
                             {
-                                using (System.Security.Cryptography.ICryptoTransform decryptor = aes.CreateDecryptor(key, IV))
+                                int data;
+                                while ((data = cs.ReadByte()) != -1)
                                 {
-                                    using (System.Security.Cryptography.CryptoStream cs = new System.Security.Cryptography.CryptoStream(fsCrypt, decryptor, System.Security.Cryptography.CryptoStreamMode.Read))
-                                    {
-                                        int data;
-                                        while ((data = cs.ReadByte()) != -1)
-                                        {
-                                            fsOut.WriteByte((byte)data);
-                                        }
-                                    }
+                                    fsOut.WriteByte((byte)data);
                                 }
                             }
                         }
@@ -355,40 +625,237 @@ namespace AuxiliaryLibraries
                 catch (Exception ex)
                 {
                     // failed to decrypt file
+                    ex.ToString();
                 }
+            }
+
+            /// <summary>
+            /// DecryptFromBase64
+            /// </summary>
+            /// <param name="encryptedBase64"></param>
+            /// <returns></returns>
+            public string DecryptFromBase64(string encryptedBase64)
+            {
+                return Decrypt(Convert.FromBase64String(encryptedBase64));
+            }
+
+            /// <summary>
+            /// Decrypt
+            /// </summary>
+            /// <param name="strtoencrypt"></param>
+            /// <returns></returns>
+            public string Decrypt(string strtoencrypt)
+            {
+                var bytesToEncrypt = encoding.GetBytes(strtoencrypt);
+                return Decrypt(bytesToEncrypt);
+            }
+
+            /// <summary>
+            /// Decrypt
+            /// </summary>
+            /// <param name="encryptedData"></param>
+            /// <returns></returns>
+            public string Decrypt(byte[] encryptedData)
+            {
+                byte[] newClearData = decryptor.TransformFinalBlock(encryptedData, 0, encryptedData.Length);
+                return encoding.GetString(newClearData);
+            }
+
+            #endregion
+
+            /// <summary>
+            /// EncodeDigest
+            /// </summary>
+            /// <param name="text"></param>
+            /// <returns></returns>
+            public byte[] EncodeDigest(string text)
+            {
+                MD5CryptoServiceProvider x = new System.Security.Cryptography.MD5CryptoServiceProvider();
+                byte[] data = encoding.GetBytes(text);
+                return x.ComputeHash(data);
             }
         }
 
         /// <summary>
-        /// Encryption By RSA
+        /// RSA Encryption
         /// </summary>
         public class RSA
         {
             #region RSA
-            private UnicodeEncoding ByteConverter = new UnicodeEncoding();
-            private RSACryptoServiceProvider CSP = new RSACryptoServiceProvider();
+            private static UnicodeEncoding ByteConverter = new UnicodeEncoding();
+            private static RSACryptoServiceProvider CSP;
             private RSAParameters _privateKey;
             private RSAParameters _publicKey;
+            private Encoding _encoding = Encoding.Unicode;
 
             /// <summary>
-            /// Constructor
+            /// 
             /// </summary>
             public RSA()
             {
+                CSP = new RSACryptoServiceProvider();
                 _privateKey = CSP.ExportParameters(true);
                 _publicKey = CSP.ExportParameters(false);
             }
 
             /// <summary>
-            /// Public key generator
+            /// Summary:
+            ///     Initializes a new instance of the System.Security.Cryptography.RSACryptoServiceProvider
+            ///     class with the specified key size.
+            /// 
+            /// Parameters:
+            ///   dwKeySize:
+            ///     The size of the key to use in bits.
+            /// 
+            /// Exceptions:
+            ///   T:System.Security.Cryptography.CryptographicException:
+            ///     The cryptographic service provider (CSP) cannot be acquired.
             /// </summary>
-            /// <returns></returns>
-            public string PublicKeyString()
+            /// <param name="dwKeySize"></param>
+            public RSA(int dwKeySize)
+            {
+                //lets take a new CSP with a new dwKeySize bit rsa key pair
+                CSP = new RSACryptoServiceProvider(dwKeySize);
+                _privateKey = CSP.ExportParameters(true);
+                _publicKey = CSP.ExportParameters(false);
+            }
+
+            /// <summary>
+            /// Summary:
+            ///     Initializes a new instance of the System.Security.Cryptography.RSACryptoServiceProvider
+            ///     class with the specified parameters.
+            /// 
+            /// Parameters:
+            ///   parameters:
+            ///     The parameters to be passed to the cryptographic service provider (CSP).
+            /// 
+            /// Exceptions:
+            ///   T:System.Security.Cryptography.CryptographicException:
+            ///     The CSP cannot be acquired.
+            /// </summary>
+            /// <param name="parameters"></param>
+            public RSA(CspParameters parameters)
+            {
+                //lets take a new CSP with parameters
+                CSP = new RSACryptoServiceProvider(parameters);
+                _privateKey = CSP.ExportParameters(true);
+                _publicKey = CSP.ExportParameters(false);
+            }
+
+            /// <summary>
+            /// Summary:
+            ///     Initializes a new instance of the System.Security.Cryptography.RSACryptoServiceProvider
+            ///     class with the specified key size and parameters.
+            /// 
+            /// Parameters:
+            ///   dwKeySize:
+            ///     The size of the key to use in bits.
+            /// 
+            ///   parameters:
+            ///     The parameters to be passed to the cryptographic service provider (CSP).
+            /// 
+            /// Exceptions:
+            ///   T:System.Security.Cryptography.CryptographicException:
+            ///     The CSP cannot be acquired.-or- The key cannot be created.
+            /// </summary>
+            /// <param name="dwKeySize"></param>
+            /// <param name="parameters"></param>
+            public RSA(int dwKeySize, CspParameters parameters)
+            {
+                //lets take a new CSP with a new dwKeySize bit rsa key pair and parameters
+                CSP = new RSACryptoServiceProvider(dwKeySize, parameters);
+                _privateKey = CSP.ExportParameters(true);
+                _publicKey = CSP.ExportParameters(false);
+            }
+
+            /// <summary>
+            /// converting the public key into a string representation
+            /// </summary>
+            /// <returns>string</returns>
+            public string PublicKey()
             {
                 var sw = new StringWriter();
                 var xs = new XmlSerializer(typeof(RSAParameters));
                 xs.Serialize(sw, _publicKey);
                 return sw.ToString();
+            }
+
+            /// <summary>
+            /// coverting a string representation into the public key (converting it back)
+            /// </summary>
+            /// <returns>void</returns>
+            public void PublicKey(string publicKeyString)
+            {
+                //get a stream from the string
+                var sr = new StringReader(publicKeyString);
+                //we need a deserializer
+                var xs = new XmlSerializer(typeof(RSAParameters));
+                //get the object back from the stream
+                _publicKey = (RSAParameters)xs.Deserialize(sr);
+            }
+
+            /// <summary>
+            /// Save the public key to a file.
+            /// It is better to pass the path as a XML file.
+            /// </summary>
+            /// <param name="path"></param>
+            /// <returns></returns>
+            public bool SavePublicKey(string path)
+            {
+                try
+                {
+                    File.WriteAllText(path, PublicKey());
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+            }
+
+            /// <summary>
+            /// converting the private key into a string representation
+            /// </summary>
+            /// <returns>string</returns>
+            public string PrivateKey()
+            {
+                var sw = new StringWriter();
+                var xs = new XmlSerializer(typeof(RSAParameters));
+                xs.Serialize(sw, _privateKey);
+                return sw.ToString();
+            }
+
+            /// <summary>
+            /// coverting a string representation into the private key (converting it back)
+            /// </summary>
+            /// <returns>void</returns>
+            public void PrivateKey(string privateKeyString)
+            {
+                //get a stream from the string
+                var sr = new StringReader(privateKeyString);
+                //we need a deserializer
+                var xs = new XmlSerializer(typeof(RSAParameters));
+                //get the object back from the stream
+                _privateKey = (RSAParameters)xs.Deserialize(sr);
+            }
+
+            /// <summary>
+            /// Save the private key to a file.
+            /// It is better to pass the path as a XML file.
+            /// </summary>
+            /// <param name="path"></param>
+            /// <returns></returns>
+            public bool SavePrivateKey(string path)
+            {
+                try
+                {
+                    File.WriteAllText(path, PrivateKey());
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
             }
 
             /// <summary>
@@ -398,10 +865,9 @@ namespace AuxiliaryLibraries
             /// <returns></returns>
             public string Encrypt(string plainText)
             {
-                CSP = new RSACryptoServiceProvider();
                 CSP.ImportParameters(_publicKey);
 
-                var data = Encoding.Unicode.GetBytes(plainText);
+                var data = _encoding.GetBytes(plainText);
                 var cypher = CSP.Encrypt(data, false);
                 return Convert.ToBase64String(cypher);
             }
@@ -416,7 +882,21 @@ namespace AuxiliaryLibraries
                 var dataBytes = Convert.FromBase64String(cypherText);
                 CSP.ImportParameters(_privateKey);
                 var plainText = CSP.Decrypt(dataBytes, false);
-                return Encoding.Unicode.GetString(plainText);
+                return _encoding.GetString(plainText);
+            }
+
+            /// <summary>
+            /// Sign
+            /// </summary>
+            /// <param name="content"></param>
+            /// <param name="privateKey"></param>
+            /// <returns></returns>
+            public string Sign(string content, string privateKey)
+            {
+                var byteContent = Encoding.UTF8.GetBytes(content);
+                CSP.FromXmlString(privateKey);
+                var sign = CSP.SignData(byteContent, new SHA256CryptoServiceProvider());
+                return Convert.ToBase64String(sign);
             }
 
             //public static string RsaCrypto(string plainTextData)

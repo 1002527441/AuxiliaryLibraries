@@ -552,4 +552,147 @@
   <data name="WeekLaterPersian" xml:space="preserve">
     <value>{0} هفته بعد</value>
   </data>
+  <data name="Free" xml:space="preserve">
+    <value>رایگان</value>
+  </data>
+  <data name="Number_Billiard" xml:space="preserve">
+    <value>بیلیارد</value>
+    <comment>پتا</comment>
+  </data>
+  <data name="Number_Billion" xml:space="preserve">
+    <value>بیلیون</value>
+    <comment>ترا</comment>
+  </data>
+  <data name="Number_Eight" xml:space="preserve">
+    <value>هشت</value>
+  </data>
+  <data name="Number_Eighteen" xml:space="preserve">
+    <value>هجده</value>
+  </data>
+  <data name="Number_EightHundred" xml:space="preserve">
+    <value>هشتصد</value>
+  </data>
+  <data name="Number_Eighty" xml:space="preserve">
+    <value>هشتاد</value>
+  </data>
+  <data name="Number_Eleven" xml:space="preserve">
+    <value>یازده</value>
+  </data>
+  <data name="Number_Fifteen" xml:space="preserve">
+    <value>پانزده</value>
+  </data>
+  <data name="Number_Fifty" xml:space="preserve">
+    <value>پنجاه</value>
+  </data>
+  <data name="Number_Five" xml:space="preserve">
+    <value>پنج</value>
+  </data>
+  <data name="Number_FiveHundred" xml:space="preserve">
+    <value>پانصد</value>
+  </data>
+  <data name="Number_Four" xml:space="preserve">
+    <value>چهار</value>
+  </data>
+  <data name="Number_FourHundred" xml:space="preserve">
+    <value>چهارصد</value>
+  </data>
+  <data name="Number_Fourteen" xml:space="preserve">
+    <value>چهارده</value>
+  </data>
+  <data name="Number_Fourty" xml:space="preserve">
+    <value>چهل</value>
+  </data>
+  <data name="Number_Milliard" xml:space="preserve">
+    <value>میلیارد</value>
+    <comment>گیگا</comment>
+  </data>
+  <data name="Number_Million" xml:space="preserve">
+    <value>میلیون</value>
+  </data>
+  <data name="Number_Nine" xml:space="preserve">
+    <value>نه</value>
+  </data>
+  <data name="Number_NineHundred" xml:space="preserve">
+    <value>نهصد</value>
+  </data>
+  <data name="Number_Nineteen" xml:space="preserve">
+    <value>نوزده</value>
+  </data>
+  <data name="Number_Ninety" xml:space="preserve">
+    <value>نود</value>
+  </data>
+  <data name="Number_One" xml:space="preserve">
+    <value>یک</value>
+  </data>
+  <data name="Number_OneHundred" xml:space="preserve">
+    <value>صد</value>
+  </data>
+  <data name="Number_Seven" xml:space="preserve">
+    <value>هفت</value>
+  </data>
+  <data name="Number_SevenHundred" xml:space="preserve">
+    <value>هفتصد</value>
+  </data>
+  <data name="Number_Seventeen" xml:space="preserve">
+    <value>هفده</value>
+  </data>
+  <data name="Number_Seventy" xml:space="preserve">
+    <value>هفتاد</value>
+  </data>
+  <data name="Number_Six" xml:space="preserve">
+    <value>شش</value>
+  </data>
+  <data name="Number_SixHundred" xml:space="preserve">
+    <value>ششصد</value>
+  </data>
+  <data name="Number_Sixteen" xml:space="preserve">
+    <value>شانزده</value>
+  </data>
+  <data name="Number_Sixty" xml:space="preserve">
+    <value>شصت</value>
+  </data>
+  <data name="Number_Ten" xml:space="preserve">
+    <value>ده</value>
+  </data>
+  <data name="Number_Thirteen" xml:space="preserve">
+    <value>سیزده</value>
+  </data>
+  <data name="Number_Thirty" xml:space="preserve">
+    <value>سی</value>
+  </data>
+  <data name="Number_Thousand" xml:space="preserve">
+    <value>هزار</value>
+  </data>
+  <data name="Number_Three" xml:space="preserve">
+    <value>سه</value>
+  </data>
+  <data name="Number_ThreeHundred" xml:space="preserve">
+    <value>سیصد</value>
+  </data>
+  <data name="Number_Trilliard" xml:space="preserve">
+    <value>تریلیارد</value>
+    <comment>زِتا</comment>
+  </data>
+  <data name="Number_Trillion" xml:space="preserve">
+    <value>تریلیون</value>
+    <comment>اگزا</comment>
+  </data>
+  <data name="Number_Twelve" xml:space="preserve">
+    <value>دوازده</value>
+  </data>
+  <data name="Number_Twenty" xml:space="preserve">
+    <value>بیست</value>
+  </data>
+  <data name="Number_Two" xml:space="preserve">
+    <value>دو</value>
+  </data>
+  <data name="Number_TwoHundred" xml:space="preserve">
+    <value>دویست</value>
+  </data>
+  <data name="Toman" xml:space="preserve">
+    <value>تومان</value>
+  </data>
+  <data name="Rial" xml:space="preserve">
+    <value>ريال</value>
+  </data>
 </root>

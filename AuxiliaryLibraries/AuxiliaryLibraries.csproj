@@ -52,6 +52,7 @@
     <Compile Include="AuxiliaryCalendar.cs" />
     <Compile Include="AuxiliaryDirectoryFileHelper.cs" />
     <Compile Include="AuxiliaryEncryption.cs" />
+    <Compile Include="AuxiliaryPriceModel.cs" />
     <Compile Include="Enums\EncryptType.cs" />
     <Compile Include="Enums\PersianDayOfWeek.cs" />
     <Compile Include="Extentions\RegexPatterns.cs" />

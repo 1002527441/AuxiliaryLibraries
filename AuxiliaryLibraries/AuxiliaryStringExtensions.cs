@@ -135,7 +135,7 @@ namespace AuxiliaryLibraries
         /// Convert Persian number to English numbers
         /// </summary>
         /// <param name="number">Numbers as string</param>
-        /// <returns>string</returmns>
+        /// <returns>string</returns>
         public static string ToEnglishNumber(this string number)
         {
             if (System.Threading.Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "en".ToLower())
@@ -271,6 +271,18 @@ namespace AuxiliaryLibraries
             if (string.IsNullOrEmpty(number))
                 return false;
             return new Regex(RegexPatterns.MobileNumber).IsMatch(number);
+        }
+
+        /// <summary>
+        /// Check validity of iranian (Urban telephone) phone number format
+        /// </summary>
+        /// <param name="number">Mobile number</param>
+        /// <returns>bool</returns>
+        public static bool IsPhoneNumberValid(this string number)
+        {
+            if (string.IsNullOrEmpty(number))
+                return false;
+            return new Regex(RegexPatterns.PhoneNumber).IsMatch(number);
         }
 
         /// <summary>
@@ -507,18 +519,16 @@ namespace AuxiliaryLibraries
         }
 
         /// <summary>
-        /// Convert a persian date with format '1397/1/1' TO '1397/01/01'.
-        /// Be Careful that the year must be 4 characters.
+        /// Normalize Persian Date
         /// </summary>
-        /// <param name="date">Contains the persian date</param>
-        /// <param name="separator">The separator of year, month and day. The default value is '/'.</param>
+        /// <param name="text"></param>
         /// <returns></returns>
-        public static string NormalizePersianDate(this string date, char separator = '/')
+        public static string NormalizePersianDate(this string text)
         {
-            if (string.IsNullOrEmpty(date))
+            if (string.IsNullOrEmpty(text))
                 return string.Empty;
             var result = string.Empty;
-            var parts = date.Split(separator);
+            var parts = text.Split('/');
             if (parts.Length != 3)
                 return string.Empty;
             var firstPart = true;
@@ -533,7 +543,7 @@ namespace AuxiliaryLibraries
                     return string.Empty;
                 else if (!firstPart)
                 {
-                    result += part.Length == 2 ? part : string.Format($"{separator}0{0}", part);
+                    result += part.Length == 2 ? part : string.Format("/0{0}", part);
                 }
                 firstPart = false;
             }
@@ -806,24 +816,6 @@ namespace AuxiliaryLibraries
             {
                 return string.Empty;
             }
-        }
-
-        /// <summary>
-        /// This function splits text into different parts separately.
-        /// For example, plainText is 'AuxiliaryLibraries'. If you set partLength to 4, it splits to ["Auxi", "liar", "yLib", "ibra", "arie", "s"].
-        /// </summary>
-        /// <param name="plainText"></param>
-        /// <param name="partLength"></param>
-        /// <returns></returns>
-        public static IEnumerable<String> SplitInParts(this String plainText, Int32 partLength)
-        {
-            if (plainText == null)
-                throw new ArgumentNullException("s");
-            if (partLength <= 0)
-                throw new ArgumentException("Part length has to be positive.", "partLength");
-
-            for (var i = 0; i < plainText.Length; i += partLength)
-                yield return plainText.Substring(i, Math.Min(partLength, plainText.Length - i));
         }
     }
 }
