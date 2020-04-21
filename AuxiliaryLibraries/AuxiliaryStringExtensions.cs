@@ -135,7 +135,7 @@ namespace AuxiliaryLibraries
         /// Convert Persian number to English numbers
         /// </summary>
         /// <param name="number">Numbers as string</param>
-        /// <returns>string</returmns>
+        /// <returns>string</returns>
         public static string ToEnglishNumber(this string number)
         {
             if (System.Threading.Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "en".ToLower())
@@ -271,6 +271,18 @@ namespace AuxiliaryLibraries
             if (string.IsNullOrEmpty(number))
                 return false;
             return new Regex(RegexPatterns.MobileNumber).IsMatch(number);
+        }
+
+        /// <summary>
+        /// Check validity of iranian (Urban telephone) phone number format
+        /// </summary>
+        /// <param name="number">Mobile number</param>
+        /// <returns>bool</returns>
+        public static bool IsPhoneNumberValid(this string number)
+        {
+            if (string.IsNullOrEmpty(number))
+                return false;
+            return new Regex(RegexPatterns.PhoneNumber).IsMatch(number);
         }
 
         /// <summary>
@@ -506,6 +518,11 @@ namespace AuxiliaryLibraries
             return -1;
         }
 
+        /// <summary>
+        /// Normalize Persian Date
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static string NormalizePersianDate(this string text)
         {
             if (string.IsNullOrEmpty(text))

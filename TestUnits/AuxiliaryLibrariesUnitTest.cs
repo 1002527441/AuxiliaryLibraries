@@ -7,6 +7,7 @@ namespace TestUnits
     [TestClass]
     public class AuxiliaryLibrariesUnitTest
     {
+        //nuget pack Package.nuspec
         [TestMethod]
         public void ToPrettyDate()
         {
@@ -157,13 +158,13 @@ namespace TestUnits
         [TestMethod]
         public void Encrypt()
         {
-            var str1 = AuxiliaryEncryption.Encrypt("Amin", "Keeping in mind that every every character of that string is 1 byte, or 8 bits, in size (assuming ASCII/UTF8 encoding), we are encoding 6 bytes, or 48 bits, of data. According to the equation, we expect the output length to be (6 bytes / 3 bytes) * 4 characters = 8 characters .Nov 14, 2012");
-            var str2 = AuxiliaryEncryption.Encrypt("Mostafa", "Keeping in mind that every every character of that string is 1 byte, or 8 bits, in size (assuming ASCII/UTF8 encoding), we are encoding 6 bytes, or 48 bits, of data. According to the equation, we expect the output length to be (6 bytes / 3 bytes) * 4 characters = 8 characters .Nov 14, 2012");
-            var str3 = AuxiliaryEncryption.Encrypt("amin", "Keeping in mind that every every character of that string is 1 byte, or 8 bits, in size (assuming ASCII/UTF8 encoding), we are encoding 6 bytes, or 48 bits, of data. According to the equation, we expect the output length to be (6 bytes / 3 bytes) * 4 characters = 8 characters .Nov 14, 2012");
-            var str4 = AuxiliaryEncryption.Encrypt("mostafa", "Keeping in mind that every every character of that string is 1 byte, or 8 bits, in size (assuming ASCII/UTF8 encoding), we are encoding 6 bytes, or 48 bits, of data. According to the equation, we expect the output length to be (6 bytes / 3 bytes) * 4 characters = 8 characters .Nov 14, 2012");
-            var str5 = AuxiliaryEncryption.Encrypt("fahime", "Keeping in mind that every every character of that string is 1 byte, or 8 bits, in size (assuming ASCII/UTF8 encoding), we are encoding 6 bytes, or 48 bits, of data. According to the equation, we expect the output length to be (6 bytes / 3 bytes) * 4 characters = 8 characters .Nov 14, 2012");
-            var str6 = AuxiliaryEncryption.Encrypt("Fahime", "Keeping in mind that every every character of that string is 1 byte, or 8 bits, in size (assuming ASCII/UTF8 encoding), we are encoding 6 bytes, or 48 bits, of data. According to the equation, we expect the output length to be (6 bytes / 3 bytes) * 4 characters = 8 characters .Nov 14, 2012");
-            var str7 = AuxiliaryEncryption.Encrypt("AmiN", "Keeping in mind that every every character of that string is 1 byte, or 8 bits, in size (assuming ASCII/UTF8 encoding), we are encoding 6 bytes, or 48 bits, of data. According to the equation, we expect the output length to be (6 bytes / 3 bytes) * 4 characters = 8 characters .Nov 14, 2012");
+            var str1 = AuxiliaryEncryption.RC4.Encrypt("Amin", "Keeping in mind that every every character of that string is 1 byte, or 8 bits, in size (assuming ASCII/UTF8 encoding), we are encoding 6 bytes, or 48 bits, of data. According to the equation, we expect the output length to be (6 bytes / 3 bytes) * 4 characters = 8 characters .Nov 14, 2012");
+            var str2 = AuxiliaryEncryption.RC4.Encrypt("Mostafa", "Keeping in mind that every every character of that string is 1 byte, or 8 bits, in size (assuming ASCII/UTF8 encoding), we are encoding 6 bytes, or 48 bits, of data. According to the equation, we expect the output length to be (6 bytes / 3 bytes) * 4 characters = 8 characters .Nov 14, 2012");
+            var str3 = AuxiliaryEncryption.RC4.Encrypt("amin", "Keeping in mind that every every character of that string is 1 byte, or 8 bits, in size (assuming ASCII/UTF8 encoding), we are encoding 6 bytes, or 48 bits, of data. According to the equation, we expect the output length to be (6 bytes / 3 bytes) * 4 characters = 8 characters .Nov 14, 2012");
+            var str4 = AuxiliaryEncryption.RC4.Encrypt("mostafa", "Keeping in mind that every every character of that string is 1 byte, or 8 bits, in size (assuming ASCII/UTF8 encoding), we are encoding 6 bytes, or 48 bits, of data. According to the equation, we expect the output length to be (6 bytes / 3 bytes) * 4 characters = 8 characters .Nov 14, 2012");
+            var str5 = AuxiliaryEncryption.RC4.Encrypt("fahime", "Keeping in mind that every every character of that string is 1 byte, or 8 bits, in size (assuming ASCII/UTF8 encoding), we are encoding 6 bytes, or 48 bits, of data. According to the equation, we expect the output length to be (6 bytes / 3 bytes) * 4 characters = 8 characters .Nov 14, 2012");
+            var str6 = AuxiliaryEncryption.RC4.Encrypt("Fahime", "Keeping in mind that every every character of that string is 1 byte, or 8 bits, in size (assuming ASCII/UTF8 encoding), we are encoding 6 bytes, or 48 bits, of data. According to the equation, we expect the output length to be (6 bytes / 3 bytes) * 4 characters = 8 characters .Nov 14, 2012");
+            var str7 = AuxiliaryEncryption.RC4.Encrypt("AmiN", "Keeping in mind that every every character of that string is 1 byte, or 8 bits, in size (assuming ASCII/UTF8 encoding), we are encoding 6 bytes, or 48 bits, of data. According to the equation, we expect the output length to be (6 bytes / 3 bytes) * 4 characters = 8 characters .Nov 14, 2012");
             var b1 = str1.Length;
             var b2 = str2.Length;
             var b3 = str3.Length;
@@ -171,6 +172,26 @@ namespace TestUnits
             var b5 = str5.Length;
             var b6 = str6.Length;
             var b7 = str7.Length;
+        }
+
+        [TestMethod]
+        public void RSAEncrypttion()
+        {
+            var rsa = new AuxiliaryEncryption.RSA(2048);
+            rsa.SavePrivateKey(@"X:\Fahime\Archive\Sadad\PrivateKey.xml");
+            rsa.SavePublicKey(@"X:\Fahime\Archive\Sadad\PublicKey.xml");
+        }
+
+        [TestMethod]
+        public void PriceModel()
+        {
+            var price = new AuxiliaryPriceModel();
+            price.Price = 1000000;
+            price.SetPersianCurrency(AuxiliaryPriceModel.PersianCurrency.Rial, AuxiliaryPriceModel.PersianCurrency.Rial);
+            price.SetPersianCurrency(AuxiliaryPriceModel.PersianCurrency.Rial, AuxiliaryPriceModel.PersianCurrency.Toman);
+            price.SetPersianCurrency(AuxiliaryPriceModel.PersianCurrency.Toman, AuxiliaryPriceModel.PersianCurrency.Toman);
+            price.SetPersianCurrency(AuxiliaryPriceModel.PersianCurrency.Toman, AuxiliaryPriceModel.PersianCurrency.Rial);
+            Assert.IsTrue(true);
         }
     }
 }

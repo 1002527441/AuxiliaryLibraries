@@ -19,7 +19,7 @@ namespace AuxiliaryLibraries.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class DisplayNames {
@@ -655,6 +655,15 @@ namespace AuxiliaryLibraries.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to رایگان.
+        /// </summary>
+        internal static string Free {
+            get {
+                return ResourceManager.GetString("Free", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Friday.
         /// </summary>
         internal static string Friday {
@@ -997,6 +1006,402 @@ namespace AuxiliaryLibraries.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to بیلیارد.
+        /// </summary>
+        internal static string Number_Billiard {
+            get {
+                return ResourceManager.GetString("Number_Billiard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to بیلیون.
+        /// </summary>
+        internal static string Number_Billion {
+            get {
+                return ResourceManager.GetString("Number_Billion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to هشت.
+        /// </summary>
+        internal static string Number_Eight {
+            get {
+                return ResourceManager.GetString("Number_Eight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to هجده.
+        /// </summary>
+        internal static string Number_Eighteen {
+            get {
+                return ResourceManager.GetString("Number_Eighteen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to هشتصد.
+        /// </summary>
+        internal static string Number_EightHundred {
+            get {
+                return ResourceManager.GetString("Number_EightHundred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to هشتاد.
+        /// </summary>
+        internal static string Number_Eighty {
+            get {
+                return ResourceManager.GetString("Number_Eighty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to یازده.
+        /// </summary>
+        internal static string Number_Eleven {
+            get {
+                return ResourceManager.GetString("Number_Eleven", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to پانزده.
+        /// </summary>
+        internal static string Number_Fifteen {
+            get {
+                return ResourceManager.GetString("Number_Fifteen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to پنجاه.
+        /// </summary>
+        internal static string Number_Fifty {
+            get {
+                return ResourceManager.GetString("Number_Fifty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to پنج.
+        /// </summary>
+        internal static string Number_Five {
+            get {
+                return ResourceManager.GetString("Number_Five", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to پانصد.
+        /// </summary>
+        internal static string Number_FiveHundred {
+            get {
+                return ResourceManager.GetString("Number_FiveHundred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to چهار.
+        /// </summary>
+        internal static string Number_Four {
+            get {
+                return ResourceManager.GetString("Number_Four", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to چهارصد.
+        /// </summary>
+        internal static string Number_FourHundred {
+            get {
+                return ResourceManager.GetString("Number_FourHundred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to چهارده.
+        /// </summary>
+        internal static string Number_Fourteen {
+            get {
+                return ResourceManager.GetString("Number_Fourteen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to چهل.
+        /// </summary>
+        internal static string Number_Fourty {
+            get {
+                return ResourceManager.GetString("Number_Fourty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to میلیارد.
+        /// </summary>
+        internal static string Number_Milliard {
+            get {
+                return ResourceManager.GetString("Number_Milliard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to میلیون.
+        /// </summary>
+        internal static string Number_Million {
+            get {
+                return ResourceManager.GetString("Number_Million", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نه.
+        /// </summary>
+        internal static string Number_Nine {
+            get {
+                return ResourceManager.GetString("Number_Nine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نهصد.
+        /// </summary>
+        internal static string Number_NineHundred {
+            get {
+                return ResourceManager.GetString("Number_NineHundred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نوزده.
+        /// </summary>
+        internal static string Number_Nineteen {
+            get {
+                return ResourceManager.GetString("Number_Nineteen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نود.
+        /// </summary>
+        internal static string Number_Ninety {
+            get {
+                return ResourceManager.GetString("Number_Ninety", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to یک.
+        /// </summary>
+        internal static string Number_One {
+            get {
+                return ResourceManager.GetString("Number_One", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to صد.
+        /// </summary>
+        internal static string Number_OneHundred {
+            get {
+                return ResourceManager.GetString("Number_OneHundred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to هفت.
+        /// </summary>
+        internal static string Number_Seven {
+            get {
+                return ResourceManager.GetString("Number_Seven", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to هفتصد.
+        /// </summary>
+        internal static string Number_SevenHundred {
+            get {
+                return ResourceManager.GetString("Number_SevenHundred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to هفده.
+        /// </summary>
+        internal static string Number_Seventeen {
+            get {
+                return ResourceManager.GetString("Number_Seventeen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to هفتاد.
+        /// </summary>
+        internal static string Number_Seventy {
+            get {
+                return ResourceManager.GetString("Number_Seventy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to شش.
+        /// </summary>
+        internal static string Number_Six {
+            get {
+                return ResourceManager.GetString("Number_Six", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ششصد.
+        /// </summary>
+        internal static string Number_SixHundred {
+            get {
+                return ResourceManager.GetString("Number_SixHundred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to شانزده.
+        /// </summary>
+        internal static string Number_Sixteen {
+            get {
+                return ResourceManager.GetString("Number_Sixteen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to شصت.
+        /// </summary>
+        internal static string Number_Sixty {
+            get {
+                return ResourceManager.GetString("Number_Sixty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ده.
+        /// </summary>
+        internal static string Number_Ten {
+            get {
+                return ResourceManager.GetString("Number_Ten", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to سیزده.
+        /// </summary>
+        internal static string Number_Thirteen {
+            get {
+                return ResourceManager.GetString("Number_Thirteen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to سی.
+        /// </summary>
+        internal static string Number_Thirty {
+            get {
+                return ResourceManager.GetString("Number_Thirty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to هزار.
+        /// </summary>
+        internal static string Number_Thousand {
+            get {
+                return ResourceManager.GetString("Number_Thousand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to سه.
+        /// </summary>
+        internal static string Number_Three {
+            get {
+                return ResourceManager.GetString("Number_Three", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to سیصد.
+        /// </summary>
+        internal static string Number_ThreeHundred {
+            get {
+                return ResourceManager.GetString("Number_ThreeHundred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تریلیارد.
+        /// </summary>
+        internal static string Number_Trilliard {
+            get {
+                return ResourceManager.GetString("Number_Trilliard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تریلیون.
+        /// </summary>
+        internal static string Number_Trillion {
+            get {
+                return ResourceManager.GetString("Number_Trillion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to دوازده.
+        /// </summary>
+        internal static string Number_Twelve {
+            get {
+                return ResourceManager.GetString("Number_Twelve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to بیست.
+        /// </summary>
+        internal static string Number_Twenty {
+            get {
+                return ResourceManager.GetString("Number_Twenty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to دو.
+        /// </summary>
+        internal static string Number_Two {
+            get {
+                return ResourceManager.GetString("Number_Two", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to دویست.
+        /// </summary>
+        internal static string Number_TwoHundred {
+            get {
+                return ResourceManager.GetString("Number_TwoHundred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ريال.
+        /// </summary>
+        internal static string Rial {
+            get {
+                return ResourceManager.GetString("Rial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saturday.
         /// </summary>
         internal static string Saturday {
@@ -1083,6 +1488,15 @@ namespace AuxiliaryLibraries.Resources {
         internal static string TodayPersian {
             get {
                 return ResourceManager.GetString("TodayPersian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تومان.
+        /// </summary>
+        internal static string Toman {
+            get {
+                return ResourceManager.GetString("Toman", resourceCulture);
             }
         }
         
