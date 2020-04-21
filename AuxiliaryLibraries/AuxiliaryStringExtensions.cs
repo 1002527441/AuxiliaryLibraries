@@ -506,12 +506,19 @@ namespace AuxiliaryLibraries
             return -1;
         }
 
-        public static string NormalizePersianDate(this string text)
+        /// <summary>
+        /// Convert a persian date with format '1397/1/1' TO '1397/01/01'.
+        /// Be Careful that the year must be 4 characters.
+        /// </summary>
+        /// <param name="date">Contains the persian date</param>
+        /// <param name="separator">The separator of year, month and day. The default value is '/'.</param>
+        /// <returns></returns>
+        public static string NormalizePersianDate(this string date, char separator = '/')
         {
-            if (string.IsNullOrEmpty(text))
+            if (string.IsNullOrEmpty(date))
                 return string.Empty;
             var result = string.Empty;
-            var parts = text.Split('/');
+            var parts = date.Split(separator);
             if (parts.Length != 3)
                 return string.Empty;
             var firstPart = true;
@@ -526,7 +533,7 @@ namespace AuxiliaryLibraries
                     return string.Empty;
                 else if (!firstPart)
                 {
-                    result += part.Length == 2 ? part : string.Format("/0{0}", part);
+                    result += part.Length == 2 ? part : string.Format($"{separator}0{0}", part);
                 }
                 firstPart = false;
             }
@@ -799,6 +806,24 @@ namespace AuxiliaryLibraries
             {
                 return string.Empty;
             }
+        }
+
+        /// <summary>
+        /// This function splits text into different parts separately.
+        /// For example, plainText is 'AuxiliaryLibraries'. If you set partLength to 4, it splits to ["Auxi", "liar", "yLib", "ibra", "arie", "s"].
+        /// </summary>
+        /// <param name="plainText"></param>
+        /// <param name="partLength"></param>
+        /// <returns></returns>
+        public static IEnumerable<String> SplitInParts(this String plainText, Int32 partLength)
+        {
+            if (plainText == null)
+                throw new ArgumentNullException("s");
+            if (partLength <= 0)
+                throw new ArgumentException("Part length has to be positive.", "partLength");
+
+            for (var i = 0; i < plainText.Length; i += partLength)
+                yield return plainText.Substring(i, Math.Min(partLength, plainText.Length - i));
         }
     }
 }

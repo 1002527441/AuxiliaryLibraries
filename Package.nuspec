@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>AuxiliaryLibraries</id>
-    <version>1.0.17</version>
+    <version>1.1.0</version>
 	<title>Auxiliary libraries</title>
     <authors>AmiN Zamani</authors>
     <owners>AmiN Zamani</owners>
@@ -11,7 +11,7 @@
     <iconUrl>http://hoodadtech.com/images/AuxiliaryLibraries_Logo.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Accessory to Persian calendar, string extensions, encryption, ip, log and rest api for .Net. You can easily use it.</description>
-    <releaseNotes>Fix bug of ToPrettyDay function and add ToPrettyDayOfWeek and ToPrettyDateTime functions in AuxiliaryCalendar. Rename some unclear function names, and extend them in AuxiliaryStringExtensions.</releaseNotes>
+    <releaseNotes>Add two other algorithms is Auxiliary Encryption. So there are three different algorithms which are RC4, AES and RSA.</releaseNotes>
 	<summary>Accessory to Persian calendar, string extensions, encryption, ip, log and rest api for .Net. You can easily use it. Queue structure, Directory and File helper, Auxiliary Log, Convert Persian date to Georgian</summary>
 	<language>en-US</language>
     <copyright>Copyright 2017</copyright>

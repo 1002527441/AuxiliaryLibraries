@@ -1,4 +1,5 @@
-﻿using AuxiliaryLibraries.Resources;
+﻿using AuxiliaryLibraries.Enums;
+using AuxiliaryLibraries.Resources;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -61,6 +62,18 @@ namespace AuxiliaryLibraries
         /// Persian Date Pattern
         /// </summary>
         public const string PersianDatePattern = @"[1-9][0-9]{3}[-/, ][0-9]{2}[-/, ][0-9]{2}";
+        /// <summary>
+        /// Persian Date Pattern
+        /// </summary>
+        public const string PersianDatePattern1 = @"[1-9][0-9]{3}[-/, ][0-9]{1}[-/, ][0-9]{2}";
+        /// <summary>
+        /// Persian Date Pattern
+        /// </summary>
+        public const string PersianDatePattern2 = @"[1-9][0-9]{3}[-/, ][0-9]{2}[-/, ][0-9]{1}";
+        /// <summary>
+        /// Persian Date Pattern
+        /// </summary>
+        public const string PersianDatePattern3 = @"[1-9][0-9]{3}[-/, ][0-9]{1}[-/, ][0-9]{1}";
         /// <summary>
         /// Different Valid Separators
         /// </summary>
@@ -433,7 +446,7 @@ namespace AuxiliaryLibraries
             long absoluteDiff = 0;
 
             var resultDay = General(date, toPersian, out diff, out absoluteDiff);
-            
+
             var timeOfDayPersian = $"ساعت {date.ToString(hourPattern)}";
             var timeOfDayEnglish = $"at {date.ToString(hourPattern)}";
 
@@ -442,7 +455,7 @@ namespace AuxiliaryLibraries
                 1, //Tomorrow
                 -1 //Yesterday
             };
-            
+
             //if (time >= midNightTime)
             //{
             //    result = toPersian ? $"{resultDay} {timeOfDay}" : $"{resultDay} at {date.ToString(hourPattern)}";
@@ -451,7 +464,7 @@ namespace AuxiliaryLibraries
             //{
             //    result = toPersian ? $"{resultDay} {timeOfDay}" : $"{resultDay} at {date.ToString(hourPattern)}";
             //}
-            if(listOfDay.Contains(diff))
+            if (listOfDay.Contains(diff))
             {
                 result = toPersian ? $"{resultDay} {timeOfDayPersian}" : $"{resultDay} {timeOfDayEnglish}";
             }
@@ -473,7 +486,7 @@ namespace AuxiliaryLibraries
                 var dayOfMonth = DayOfMonth(day, toPersian);
                 var monthOfYear = Month(month, toPersian);
                 monthOfYear = toPersian ? $"{monthOfYear} ماه" : $"of {monthOfYear}";
-                result = toPersian ? $"{dayOfWeek} {dayOfMonth} {monthOfYear} {year} {timeOfDayPersian}":
+                result = toPersian ? $"{dayOfWeek} {dayOfMonth} {monthOfYear} {year} {timeOfDayPersian}" :
                                      $"{dayOfWeek} {dayOfMonth} {monthOfYear} {year} {timeOfDayEnglish}";
             }
 
@@ -628,24 +641,24 @@ namespace AuxiliaryLibraries
         /// <param name="toPersian">If you want to convert to persian date send it true, and for miladi date send false. Default value is true</param>
         /// <param name="dayNumber">If you chose persian date, it may need to return 1 شنبه, instead of یکشنبه. So set it true</param>
         /// <returns>string</returns>
-        public static string DayOfWeek(DateTime dateTime, bool toPersian, bool dayNumber)
+        public static string DayOfWeek(this DateTime dateTime, bool toPersian = true, bool dayNumber = false)
         {
             switch (dateTime.DayOfWeek)
             {
                 case System.DayOfWeek.Sunday:
-                        return toPersian ? dayNumber ? $"1 {DisplayNames.SaturdayPersian}" : DisplayNames.SundayPersian : DisplayNames.Sunday;
+                    return toPersian ? dayNumber ? $"1 {DisplayNames.SaturdayPersian}" : DisplayNames.SundayPersian : DisplayNames.Sunday;
                 case System.DayOfWeek.Monday:
-                        return toPersian ? dayNumber ? $"2 {DisplayNames.SaturdayPersian}" : DisplayNames.MondayPersian : DisplayNames.Monday;
+                    return toPersian ? dayNumber ? $"2 {DisplayNames.SaturdayPersian}" : DisplayNames.MondayPersian : DisplayNames.Monday;
                 case System.DayOfWeek.Tuesday:
-                        return toPersian ? dayNumber ? $"3 {DisplayNames.SaturdayPersian}" : DisplayNames.TuesdayPersian : DisplayNames.Tuesday;
+                    return toPersian ? dayNumber ? $"3 {DisplayNames.SaturdayPersian}" : DisplayNames.TuesdayPersian : DisplayNames.Tuesday;
                 case System.DayOfWeek.Wednesday:
-                        return toPersian ? dayNumber ? $"4 {DisplayNames.SaturdayPersian}" : DisplayNames.WednesdayPersian : DisplayNames.Wednesday;
+                    return toPersian ? dayNumber ? $"4 {DisplayNames.SaturdayPersian}" : DisplayNames.WednesdayPersian : DisplayNames.Wednesday;
                 case System.DayOfWeek.Thursday:
-                        return toPersian ? dayNumber ? $"5 {DisplayNames.SaturdayPersian}" : DisplayNames.ThursdayPersian : DisplayNames.Thursday;
+                    return toPersian ? dayNumber ? $"5 {DisplayNames.SaturdayPersian}" : DisplayNames.ThursdayPersian : DisplayNames.Thursday;
                 case System.DayOfWeek.Friday:
-                        return toPersian ? DisplayNames.FridayPersian : DisplayNames.Friday;
+                    return toPersian ? DisplayNames.FridayPersian : DisplayNames.Friday;
                 case System.DayOfWeek.Saturday:
-                        return toPersian ? DisplayNames.SaturdayPersian : DisplayNames.Saturday;
+                    return toPersian ? DisplayNames.SaturdayPersian : DisplayNames.Saturday;
             }
             return string.Empty;
         }
@@ -654,39 +667,39 @@ namespace AuxiliaryLibraries
         /// Get name of days in week by their number
         /// </summary>
         /// <param name="day"></param>
-        /// <param name="isPersian"></param>
+        /// <param name="toPersian"></param>
         /// <returns>string</returns>
-        public static string DayOfWeek(int day, bool isPersian)
+        public static string DayOfWeek(this int day, bool toPersian = true)
         {
             switch (day)
             {
                 case 1:
                     {
-                        return isPersian ? DisplayNames.SaturdayPersian : DisplayNames.Saturday;
+                        return toPersian ? DisplayNames.SaturdayPersian : DisplayNames.Saturday;
                     }
                 case 2:
                     {
-                        return isPersian ? DisplayNames.SundayPersian : DisplayNames.Sunday;
+                        return toPersian ? DisplayNames.SundayPersian : DisplayNames.Sunday;
                     }
                 case 3:
                     {
-                        return isPersian ? DisplayNames.MondayPersian : DisplayNames.Monday;
+                        return toPersian ? DisplayNames.MondayPersian : DisplayNames.Monday;
                     }
                 case 4:
                     {
-                        return isPersian ? DisplayNames.TuesdayPersian : DisplayNames.Tuesday;
+                        return toPersian ? DisplayNames.TuesdayPersian : DisplayNames.Tuesday;
                     }
                 case 5:
                     {
-                        return isPersian ? DisplayNames.WednesdayPersian : DisplayNames.Wednesday;
+                        return toPersian ? DisplayNames.WednesdayPersian : DisplayNames.Wednesday;
                     }
                 case 6:
                     {
-                        return isPersian ? DisplayNames.ThursdayPersian : DisplayNames.Thursday;
+                        return toPersian ? DisplayNames.ThursdayPersian : DisplayNames.Thursday;
                     }
                 case 7:
                     {
-                        return isPersian ? DisplayNames.FridayPersian : DisplayNames.Friday;
+                        return toPersian ? DisplayNames.FridayPersian : DisplayNames.Friday;
                     }
                 default:
                     {
@@ -744,135 +757,135 @@ namespace AuxiliaryLibraries
         /// Get name of days in month by their number
         /// </summary>
         /// <param name="day"></param>
-        /// <param name="isPersian"></param>
+        /// <param name="toPersian"></param>
         /// <returns>string</returns>
-        public static string DayOfMonth(int day, bool isPersian)
+        public static string DayOfMonth(int day, bool toPersian = true)
         {
             switch (day)
             {
                 case 1:
                     {
-                        return isPersian ? DisplayNames.day1Persian : DisplayNames.day1;
+                        return toPersian ? DisplayNames.day1Persian : DisplayNames.day1;
                     }
                 case 2:
                     {
-                        return isPersian ? DisplayNames.day2Persian : DisplayNames.day2;
+                        return toPersian ? DisplayNames.day2Persian : DisplayNames.day2;
                     }
                 case 3:
                     {
-                        return isPersian ? DisplayNames.day3Persian : DisplayNames.day3;
+                        return toPersian ? DisplayNames.day3Persian : DisplayNames.day3;
                     }
                 case 4:
                     {
-                        return isPersian ? DisplayNames.day4Persian : DisplayNames.day4;
+                        return toPersian ? DisplayNames.day4Persian : DisplayNames.day4;
                     }
                 case 5:
                     {
-                        return isPersian ? DisplayNames.day5Persian : DisplayNames.day5;
+                        return toPersian ? DisplayNames.day5Persian : DisplayNames.day5;
                     }
                 case 6:
                     {
-                        return isPersian ? DisplayNames.day6Persian : DisplayNames.day6;
+                        return toPersian ? DisplayNames.day6Persian : DisplayNames.day6;
                     }
                 case 7:
                     {
-                        return isPersian ? DisplayNames.day7Persian : DisplayNames.day7;
+                        return toPersian ? DisplayNames.day7Persian : DisplayNames.day7;
                     }
                 case 8:
                     {
-                        return isPersian ? DisplayNames.day8Persian : DisplayNames.day8;
+                        return toPersian ? DisplayNames.day8Persian : DisplayNames.day8;
                     }
                 case 9:
                     {
-                        return isPersian ? DisplayNames.day9Persian : DisplayNames.day9;
+                        return toPersian ? DisplayNames.day9Persian : DisplayNames.day9;
                     }
                 case 10:
                     {
-                        return isPersian ? DisplayNames.day10Persian : DisplayNames.day10;
+                        return toPersian ? DisplayNames.day10Persian : DisplayNames.day10;
                     }
                 case 11:
                     {
-                        return isPersian ? DisplayNames.day11Persian : DisplayNames.day11;
+                        return toPersian ? DisplayNames.day11Persian : DisplayNames.day11;
                     }
                 case 12:
                     {
-                        return isPersian ? DisplayNames.day12Persian : DisplayNames.day12;
+                        return toPersian ? DisplayNames.day12Persian : DisplayNames.day12;
                     }
                 case 13:
                     {
-                        return isPersian ? DisplayNames.day13Persian : DisplayNames.day13;
+                        return toPersian ? DisplayNames.day13Persian : DisplayNames.day13;
                     }
                 case 14:
                     {
-                        return isPersian ? DisplayNames.day14Persian : DisplayNames.day14;
+                        return toPersian ? DisplayNames.day14Persian : DisplayNames.day14;
                     }
                 case 15:
                     {
-                        return isPersian ? DisplayNames.day15Persian : DisplayNames.day15;
+                        return toPersian ? DisplayNames.day15Persian : DisplayNames.day15;
                     }
                 case 16:
                     {
-                        return isPersian ? DisplayNames.day16Persian : DisplayNames.day16;
+                        return toPersian ? DisplayNames.day16Persian : DisplayNames.day16;
                     }
                 case 17:
                     {
-                        return isPersian ? DisplayNames.day17Persian : DisplayNames.day17;
+                        return toPersian ? DisplayNames.day17Persian : DisplayNames.day17;
                     }
                 case 18:
                     {
-                        return isPersian ? DisplayNames.day18Persian : DisplayNames.day18;
+                        return toPersian ? DisplayNames.day18Persian : DisplayNames.day18;
                     }
                 case 19:
                     {
-                        return isPersian ? DisplayNames.day19Persian : DisplayNames.day19;
+                        return toPersian ? DisplayNames.day19Persian : DisplayNames.day19;
                     }
                 case 20:
                     {
-                        return isPersian ? DisplayNames.day20Persian : DisplayNames.day20;
+                        return toPersian ? DisplayNames.day20Persian : DisplayNames.day20;
                     }
                 case 21:
                     {
-                        return isPersian ? DisplayNames.day21Persian : DisplayNames.day21;
+                        return toPersian ? DisplayNames.day21Persian : DisplayNames.day21;
                     }
                 case 22:
                     {
-                        return isPersian ? DisplayNames.day22Persian : DisplayNames.day22;
+                        return toPersian ? DisplayNames.day22Persian : DisplayNames.day22;
                     }
                 case 23:
                     {
-                        return isPersian ? DisplayNames.day23Persian : DisplayNames.day23;
+                        return toPersian ? DisplayNames.day23Persian : DisplayNames.day23;
                     }
                 case 24:
                     {
-                        return isPersian ? DisplayNames.day24Persian : DisplayNames.day24;
+                        return toPersian ? DisplayNames.day24Persian : DisplayNames.day24;
                     }
                 case 25:
                     {
-                        return isPersian ? DisplayNames.day25Persian : DisplayNames.day25;
+                        return toPersian ? DisplayNames.day25Persian : DisplayNames.day25;
                     }
                 case 26:
                     {
-                        return isPersian ? DisplayNames.day26Persian : DisplayNames.day26;
+                        return toPersian ? DisplayNames.day26Persian : DisplayNames.day26;
                     }
                 case 27:
                     {
-                        return isPersian ? DisplayNames.day27Persian : DisplayNames.day27;
+                        return toPersian ? DisplayNames.day27Persian : DisplayNames.day27;
                     }
                 case 28:
                     {
-                        return isPersian ? DisplayNames.day28Persian : DisplayNames.day28;
+                        return toPersian ? DisplayNames.day28Persian : DisplayNames.day28;
                     }
                 case 29:
                     {
-                        return isPersian ? DisplayNames.day29Persian : DisplayNames.day29;
+                        return toPersian ? DisplayNames.day29Persian : DisplayNames.day29;
                     }
                 case 30:
                     {
-                        return isPersian ? DisplayNames.day30Persian : DisplayNames.day30;
+                        return toPersian ? DisplayNames.day30Persian : DisplayNames.day30;
                     }
                 case 31:
                     {
-                        return isPersian ? DisplayNames.day31Persian : DisplayNames.day31;
+                        return toPersian ? DisplayNames.day31Persian : DisplayNames.day31;
                     }
                 default:
                     {
@@ -885,36 +898,77 @@ namespace AuxiliaryLibraries
         /// Return name of month by its index, if set the isPersian to true it'll return persian names and if the isPersian set to false it'll miladi names
         /// </summary>
         /// <param name="month"></param>
-        /// <param name="isPersian"></param>
+        /// <param name="toPersian"></param>
         /// <returns>string</returns> 
-        public static string Month(int month, bool isPersian)
+        public static string Month(int month, bool toPersian = true)
         {
             switch (month)
             {
                 case 1:
-                    return isPersian ? DisplayNames.Month1Persian : DisplayNames.Month1;
+                    return toPersian ? DisplayNames.Month1Persian : DisplayNames.Month1;
                 case 2:
-                    return isPersian ? DisplayNames.Month2Persian : DisplayNames.Month2;
+                    return toPersian ? DisplayNames.Month2Persian : DisplayNames.Month2;
                 case 3:
-                    return isPersian ? DisplayNames.Month3Persian : DisplayNames.Month3;
+                    return toPersian ? DisplayNames.Month3Persian : DisplayNames.Month3;
                 case 4:
-                    return isPersian ? DisplayNames.Month4Persian : DisplayNames.Month4;
+                    return toPersian ? DisplayNames.Month4Persian : DisplayNames.Month4;
                 case 5:
-                    return isPersian ? DisplayNames.Month5Persian : DisplayNames.Month5;
+                    return toPersian ? DisplayNames.Month5Persian : DisplayNames.Month5;
                 case 6:
-                    return isPersian ? DisplayNames.Month6Persian : DisplayNames.Month6;
+                    return toPersian ? DisplayNames.Month6Persian : DisplayNames.Month6;
                 case 7:
-                    return isPersian ? DisplayNames.Month7Persian : DisplayNames.Month7;
+                    return toPersian ? DisplayNames.Month7Persian : DisplayNames.Month7;
                 case 8:
-                    return isPersian ? DisplayNames.Month8Persian : DisplayNames.Month8;
+                    return toPersian ? DisplayNames.Month8Persian : DisplayNames.Month8;
                 case 9:
-                    return isPersian ? DisplayNames.Month9Persian : DisplayNames.Month9;
+                    return toPersian ? DisplayNames.Month9Persian : DisplayNames.Month9;
                 case 10:
-                    return isPersian ? DisplayNames.Month10Persian : DisplayNames.Month10;
+                    return toPersian ? DisplayNames.Month10Persian : DisplayNames.Month10;
                 case 11:
-                    return isPersian ? DisplayNames.Month11Persian : DisplayNames.Month11;
+                    return toPersian ? DisplayNames.Month11Persian : DisplayNames.Month11;
                 case 12:
-                    return isPersian ? DisplayNames.Month12Persian : DisplayNames.Month12;
+                    return toPersian ? DisplayNames.Month12Persian : DisplayNames.Month12;
+                default:
+                    return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Return name of month by its index, if set the isPersian to true it'll return persian names and if the isPersian set to false it'll miladi names
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <param name="toPersian"></param>
+        /// <returns>string</returns> 
+        public static string Month(this DateTime dateTime, bool toPersian = true)
+        {
+            PersianCalendar shamsi = new PersianCalendar();
+
+            switch (shamsi.GetMonth(dateTime))
+            {
+                case 1:
+                    return toPersian ? DisplayNames.Month1Persian : DisplayNames.Month1;
+                case 2:
+                    return toPersian ? DisplayNames.Month2Persian : DisplayNames.Month2;
+                case 3:
+                    return toPersian ? DisplayNames.Month3Persian : DisplayNames.Month3;
+                case 4:
+                    return toPersian ? DisplayNames.Month4Persian : DisplayNames.Month4;
+                case 5:
+                    return toPersian ? DisplayNames.Month5Persian : DisplayNames.Month5;
+                case 6:
+                    return toPersian ? DisplayNames.Month6Persian : DisplayNames.Month6;
+                case 7:
+                    return toPersian ? DisplayNames.Month7Persian : DisplayNames.Month7;
+                case 8:
+                    return toPersian ? DisplayNames.Month8Persian : DisplayNames.Month8;
+                case 9:
+                    return toPersian ? DisplayNames.Month9Persian : DisplayNames.Month9;
+                case 10:
+                    return toPersian ? DisplayNames.Month10Persian : DisplayNames.Month10;
+                case 11:
+                    return toPersian ? DisplayNames.Month11Persian : DisplayNames.Month11;
+                case 12:
+                    return toPersian ? DisplayNames.Month12Persian : DisplayNames.Month12;
                 default:
                     return string.Empty;
             }
@@ -948,21 +1002,236 @@ namespace AuxiliaryLibraries
         /// Seperators sould be on if ('),(/),( ),(,)
         /// First part should be 4 digits, second and third must be 2 digits
         /// Smaples : 1300-01-01 , 1300/10/01 , 1300 08 23
-        /// If the passed value is not valid, it will return Datetime.Now
+        /// If the passed value is not valid, it will return new DateTime()
         /// </summary>
         /// <param name="persianDate"></param>
         /// <returns>DateTime</returns>
-        public static DateTime ToDateTime(string persianDate)
+        public static DateTime ToDateTime(this string persianDate)
         {
-            Regex regex = new Regex(PersianDatePattern);
-            if (regex.IsMatch(persianDate))
+            if (new Regex(PersianDatePattern).IsMatch(persianDate)
+                || new Regex(PersianDatePattern1).IsMatch(persianDate)
+                || new Regex(PersianDatePattern2).IsMatch(persianDate)
+                || new Regex(PersianDatePattern3).IsMatch(persianDate))
             {
                 int year = 0, month = 0, day = 0;
                 var numbers = persianDate.Split(Seperators);
                 if (Int32.TryParse(numbers[0], out year) && Int32.TryParse(numbers[1], out month) && Int32.TryParse(numbers[2], out day))
                     return ToDateTime(year, month, day);
             }
-            return DateTime.Now;
+            return new DateTime();
+        }
+
+        /// <summary>
+        /// Return first day of month as DateTime object.
+        /// By default toPersian is set to true, and it means it will convert input dateTime to persian date, calculate first day of month and it will convert the reslut to DateTime object again.
+        /// If toPersian sets as false, it just calculate dateTime in miladi system.
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <param name="toPersian"></param>
+        /// <returns></returns>
+        public static DateTime FirstDayOfMonth(this DateTime dateTime, bool toPersian = true)
+        {
+            if (toPersian)
+            {
+                PersianCalendar shamsi = new PersianCalendar();
+                int year = shamsi.GetYear(DateTime.Now);
+                int month = shamsi.GetMonth(DateTime.Now);
+                int day = shamsi.GetDayOfMonth(DateTime.Now);
+
+                var firstDayOfMonth = ToDateTime($"{year}-{month.ToTowDigits()}-01");
+                return firstDayOfMonth;
+            }
+            return new DateTime(dateTime.Year, dateTime.Month, 1);
+        }
+
+        /// <summary>
+        /// Return first day of month as string and in persian.
+        /// The input dateTime is string and it must be passed a variable as persian datetime.
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public static string FirstDayOfMonth(this string dateTime)
+        {
+            var date = dateTime.ToDateTime();
+            var miladi = date.FirstDayOfMonth();
+            return miladi.ToPersianDate();
+        }
+
+        /// <summary>
+        /// Return last day of month as DateTime object.
+        /// By default toPersian is set to true, and it means it will convert input dateTime to persian date, calculate last day of month and it will convert the reslut to DateTime object again.
+        /// If toPersian sets as false, it just calculate dateTime in miladi system.
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <param name="toPersian"></param>
+        /// <returns></returns>
+        public static DateTime LastDayOfMonth(this DateTime dateTime, bool toPersian = true)
+        {
+            if (toPersian)
+            {
+                PersianCalendar shamsi = new PersianCalendar();
+                int month = shamsi.GetMonth(DateTime.Now);
+
+                var firstDayOfMonth = FirstDayOfMonth(dateTime);
+                var lastDayOfMonth = month <= 6 ? firstDayOfMonth.AddDays(31) : firstDayOfMonth.AddDays(30);
+                return lastDayOfMonth;
+            }
+            return dateTime.FirstDayOfMonth(toPersian).AddMonths(1);
+        }
+
+        /// <summary>
+        /// Return last day of month as string and in persian.
+        /// The input dateTime is string and it must be passed a variable as persian datetime.
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public static string LastDayOfMonth(this string dateTime)
+        {
+            var date = dateTime.ToDateTime();
+            var miladi = date.LastDayOfMonth();
+            return miladi.ToPersianDate();
+        }
+
+        /// <summary>
+        /// Return first day of current week
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public static DateTime FirstDayOfWeek(this DateTime dateTime)
+        {
+            //Sunday = 0, Monday = 1, Tuesday = 2, Wednesday = 3, Thursday = 4, Friday = 5, Saturday = 6
+            var dayIndex = dateTime.DayOfWeek;
+            if (dayIndex > 0)
+            {
+                var temp = (int)dayIndex * -1;
+                var fistDayOfWeek = dateTime.AddDays(temp);
+                return fistDayOfWeek;
+            }
+            else return dateTime;
+        }
+
+        /// <summary>
+        /// Return first day of current week as Miladi Datetime
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public static DateTime FirstDayOfWeek(this string dateTime)
+        {
+            //Saturday = 0, Sunday = 1, Monday = 2, Tuesday = 3, Wednesday = 4, Thursday = 5, Friday = 6
+            var date = dateTime.ToDateTime();
+            var dayIndex = date.PersianDayOfWeek();
+            if (dayIndex > 0)
+            {
+                var temp = (int)dayIndex * -1;
+                var fistDayOfWeek = date.AddDays(temp);
+                return fistDayOfWeek;
+            }
+            else return date;
+        }
+
+        /// <summary>
+        /// Return first day of current week as Persian Datetime in string
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <param name="toPersian"></param>
+        /// <returns></returns>
+        public static string FirstDayOfWeek(this string dateTime, bool toPersian)
+        {
+            //Saturday = 0, Sunday = 1, Monday = 2, Tuesday = 3, Wednesday = 4, Thursday = 5, Friday = 6
+            return dateTime.FirstDayOfWeek().ToPersianDate();
+        }
+
+        /// <summary>
+        /// Return last day of current week
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public static DateTime LastDayOfWeek(this DateTime dateTime)
+        {
+            //Sunday = 0, Monday = 1, Tuesday = 2, Wednesday = 3, Thursday = 4, Friday = 5, Saturday = 6
+            var dayIndex = dateTime.DayOfWeek;
+            if ((int)dayIndex < 6)
+            {
+                var temp = 6 - (int)dayIndex;
+                var lastDayOfWeek = dateTime.AddDays(temp);
+                return lastDayOfWeek;
+            }
+            else return dateTime;
+        }
+
+        /// <summary>
+        /// Return last day of current week as Miladi DateTime
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public static DateTime LastDayOfWeek(this string dateTime)
+        {
+            //Sunday = 0, Monday = 1, Tuesday = 2, Wednesday = 3, Thursday = 4, Friday = 5, Saturday = 6
+            var date = dateTime.ToDateTime();
+            var dayIndex = date.PersianDayOfWeek();
+            if ((int)dayIndex < 6)
+            {
+                var temp = 6 - (int)dayIndex;
+                var lastDayOfWeek = date.AddDays(temp);
+                return lastDayOfWeek;
+            }
+            else return date;
+        }
+
+        /// <summary>
+        /// Return last day of current week as Persian DateTime in string
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <param name="toPersian"></param>
+        /// <returns></returns>
+        public static string LastDayOfWeek(this string dateTime, bool toPersian)
+        {
+            //Sunday = 0, Monday = 1, Tuesday = 2, Wednesday = 3, Thursday = 4, Friday = 5, Saturday = 6
+            return dateTime.LastDayOfWeek().ToPersianDate();
+        }
+
+        /// <summary>
+        /// Get Persian Day Of Week
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public static PersianDayOfWeek PersianDayOfWeek(this DateTime dateTime)
+        {
+            //Saturday = 0, Sunday = 1, Monday = 2, Tuesday = 3, Wednesday = 4, Thursday = 5, Friday = 6
+            var dayIndex = dateTime.DayOfWeek;
+            switch (dayIndex)
+            {
+                case System.DayOfWeek.Sunday:
+                    return Enums.PersianDayOfWeek.Shanbe;
+                case System.DayOfWeek.Monday:
+                    return Enums.PersianDayOfWeek.Yekshanbe;
+                case System.DayOfWeek.Tuesday:
+                    return Enums.PersianDayOfWeek.Doshanbe;
+                case System.DayOfWeek.Wednesday:
+                    return Enums.PersianDayOfWeek.Seshanbe;
+                case System.DayOfWeek.Thursday:
+                    return Enums.PersianDayOfWeek.Chaharshanbe;
+                case System.DayOfWeek.Friday:
+                    return Enums.PersianDayOfWeek.Panjshanbe;
+                case System.DayOfWeek.Saturday:
+                    return Enums.PersianDayOfWeek.Jomeh;
+            }
+            return Enums.PersianDayOfWeek.Shanbe;
+        }
+
+        /// <summary>
+        /// It returns year, month and day of your dateTime in persian as out integer
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <param name="day"></param>
+        public static void SplitToPersianYearMonthDay(this DateTime dateTime, out int year, out int month, out int day)
+        {
+            PersianCalendar shamsi = new PersianCalendar();
+            year = shamsi.GetYear(dateTime);
+            month = shamsi.GetMonth(dateTime);
+            day = shamsi.GetDayOfMonth(dateTime);
         }
     }
 

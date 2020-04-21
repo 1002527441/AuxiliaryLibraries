@@ -53,6 +53,7 @@
     <Compile Include="AuxiliaryDirectoryFileHelper.cs" />
     <Compile Include="AuxiliaryEncryption.cs" />
     <Compile Include="Enums\EncryptType.cs" />
+    <Compile Include="Enums\PersianDayOfWeek.cs" />
     <Compile Include="Extentions\RegexPatterns.cs" />
     <Compile Include="AuxiliaryIpAddress.cs" />
     <Compile Include="AuxiliaryLog.cs" />
