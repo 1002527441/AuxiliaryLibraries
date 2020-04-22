@@ -57,6 +57,7 @@
     <Compile Include="AuxilaryServices\AuxiliaryPriceModel.cs" />
     <Compile Include="AuxilaryServices\AuxiliaryZip.cs" />
     <Compile Include="Enums\EncryptType.cs" />
+    <Compile Include="Enums\PersianDayOfWeek.cs" />
     <Compile Include="Extentions\RegexPatterns.cs" />
     <Compile Include="AuxilaryServices\AuxiliaryIpAddress.cs" />
     <Compile Include="AuxilaryServices\AuxiliaryLog.cs" />
