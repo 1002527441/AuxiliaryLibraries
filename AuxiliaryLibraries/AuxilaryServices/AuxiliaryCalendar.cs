@@ -11,11 +11,29 @@ namespace AuxiliaryLibraries
     /// </summary>
     public static class AuxiliaryCalendar
     {
+        /// <summary>
+        /// Second Ticks
+        /// </summary>
         public const long secondTicks = 10000000;
+        /// <summary>
+        /// Minute Ticks
+        /// </summary>
         public const long minuteTicks = 600000000;
+        /// <summary>
+        /// Hour Ticks
+        /// </summary>
         public const long hourTicks = 36000000000;
+        /// <summary>
+        /// 
+        /// </summary>
         public const long dayTicks = 864000000000;
+        /// <summary>
+        /// Week Ticks
+        /// </summary>
         public const long weekTicks = 6048000000000;
+        /// <summary>
+        /// Month Ticks
+        /// </summary>
         public const long monthTicks = 25920000000000;
         /// <summary>
         /// Year Pattern

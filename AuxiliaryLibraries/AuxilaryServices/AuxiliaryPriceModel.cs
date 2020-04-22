@@ -66,7 +66,7 @@ namespace AuxiliaryLibraries
                     this.PriceShortFormat = result.PriceShortFormat;
                     this.PriceCurrency = result.PriceCurrency;
                     this.PriceDescription = result.PriceDescription;
-                    this.PriceCommaDeLimited = this.Price.ToMoney(",");
+                    this.PriceCommaDeLimited = this.Price.ToCommaDelimited(",");
                     this.PriceCommaDeLimitedDescription = this.Price > 0 ? $"{this.PriceCommaDeLimited} {this.Currency}" : DisplayNames.Free;
                 }
             }

@@ -6,7 +6,7 @@ using System.ServiceModel.Channels;
 namespace AuxiliaryLibraries
 {
     /// <summary>
-    /// IP
+    /// AuxiliaryIpAddress helps you to work with IPs
     /// </summary>
     public static class AuxiliaryIpAddress
     {
@@ -31,11 +31,34 @@ namespace AuxiliaryLibraries
             else if (HttpContext.Current != null)
             {
                 return IPAddress.Parse(HttpContext.Current.Request.UserHostAddress);
+
+                var ip = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+
+                if (string.IsNullOrEmpty(ip))
+                    ip = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+                return IPAddress.Parse(ip);
             }
             else
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// You can get Local IP Address
+        /// </summary>
+        /// <returns></returns>
+        public static string GetLocalIPAddress()
+        {
+            var host = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new System.Exception("No network adapters with an IPv4 address in the system!");
         }
 
         /// <summary>

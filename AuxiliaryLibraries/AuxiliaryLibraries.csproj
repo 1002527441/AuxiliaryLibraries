@@ -37,6 +37,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Channels" />
     <Reference Include="System.Web" />
@@ -49,23 +50,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuxiliaryCalendar.cs" />
-    <Compile Include="AuxiliaryDirectoryFileHelper.cs" />
-    <Compile Include="AuxiliaryEncryption.cs" />
-    <Compile Include="AuxiliaryPriceModel.cs" />
+    <Compile Include="AuxilaryServices\AuxiliaryCalendar.cs" />
+    <Compile Include="AuxilaryServices\AuxiliaryDirectoryFileHelper.cs" />
+    <Compile Include="AuxilaryServices\AuxiliaryEncryption.cs" />
+    <Compile Include="AuxilaryServices\AuxiliaryHttp.cs" />
+    <Compile Include="AuxilaryServices\AuxiliaryPriceModel.cs" />
+    <Compile Include="AuxilaryServices\AuxiliaryZip.cs" />
     <Compile Include="Enums\EncryptType.cs" />
     <Compile Include="Extentions\RegexPatterns.cs" />
-    <Compile Include="AuxiliaryIpAddress.cs" />
-    <Compile Include="AuxiliaryLog.cs" />
+    <Compile Include="AuxilaryServices\AuxiliaryIpAddress.cs" />
+    <Compile Include="AuxilaryServices\AuxiliaryLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AuxiliaryQueue.cs" />
+    <Compile Include="AuxilaryServices\AuxiliaryQueue.cs" />
     <Compile Include="Resources\DisplayNames1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DisplayNames.resx</DependentUpon>
     </Compile>
-    <Compile Include="AuxiliaryRestApi.cs" />
-    <Compile Include="AuxiliaryStringExtensions.cs" />
+    <Compile Include="AuxilaryServices\AuxiliaryRestApi.cs" />
+    <Compile Include="AuxilaryServices\AuxiliaryExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\DisplayNames.resx">
@@ -75,6 +78,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AuxiliaryLibraries.StringExtentions\AuxiliaryLibraries.StringExtentions.csproj">
+      <Project>{6D4B60B6-FB31-4997-B248-CC44A1C6ABAE}</Project>
+      <Name>AuxiliaryLibraries.StringExtentions</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -16,12 +16,59 @@ namespace AuxiliaryLibraries
     /// Email, cellnumber and nationalId validation
     /// Verify or generate words as password(MD5)
     /// </summary>
-    public static class AuxiliaryStringExtensions
+    public static class AuxiliaryExtensions
     {
         /// <summary>
         /// Persian alphabet
         /// </summary>
-        public static string FA_CHARS = "ابپتثجچحخدذرزژسصضطظعغکگلمنوهیء";
+        public static readonly string FA_CHARS = "ابپتثجچحخدذرزژسصضطظعغکگلمنوهیء";
+
+        /// <summary>
+        /// English Size Suffixes
+        /// </summary>
+        public static readonly string[] SizeSuffixes =
+           { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
+
+        /// <summary>
+        /// Persian Size Suffixes
+        /// </summary>
+        public static readonly string[] PersianSizeSuffixes =
+                   { "بایت", "کیلوبایت", "مگابایت", "گیگابایت", "ترابایت", "پتابایت", "اگزابایت", "زتابایت", "یوتابایت" };
+
+        /// <summary>
+        /// ToPrettySize helps you to get size of files as a pereety format
+        /// 1) 512 MG
+        /// 2) 512 مگابایت
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="decimalPlaces"></param>
+        /// <param name="toPersian"></param>
+        /// <returns></returns>
+        public static string ToPrettySize(this Int64 value, int decimalPlaces = 1, bool toPersian = true)
+        {
+            if (decimalPlaces < 0) { throw new ArgumentOutOfRangeException("decimalPlaces"); }
+            if (value < 0) { return "-" + ToPrettySize(-value); }
+            if (value == 0) { return toPersian ? string.Format("{0:n" + decimalPlaces + "} بایت", 0) : string.Format("{0:n" + decimalPlaces + "} bytes", 0); }
+
+            // mag is 0 for bytes, 1 for KB, 2, for MB, etc.
+            int mag = (int)Math.Log(value, 1024);
+
+            // 1L << (mag * 10) == 2 ^ (10 * mag) 
+            // [i.e. the number of bytes in the unit corresponding to mag]
+            decimal adjustedSize = (decimal)value / (1L << (mag * 10));
+
+            // make adjustment when the value is large enough that
+            // it would round up to 1000 or more
+            if (Math.Round(adjustedSize, decimalPlaces) >= 1000)
+            {
+                mag += 1;
+                adjustedSize /= 1024;
+            }
+            var msg = toPersian ? PersianSizeSuffixes[mag] : SizeSuffixes[mag];
+            return string.Format("{0:n" + decimalPlaces + "} {1}",
+                adjustedSize,
+                msg);
+        }
 
         /// <summary>
         /// If the term be English, it will return True
@@ -244,8 +291,7 @@ namespace AuxiliaryLibraries
         {
             if (string.IsNullOrEmpty(nationalId))
                 return false;
-            Regex rgx = new Regex(RegexPatterns.NationalID);
-            return rgx.IsMatch(nationalId);
+            return AuxiliaryRegexPatterns.NationalID.IsMatch(nationalId);
         }
 
         /// <summary>
@@ -257,8 +303,7 @@ namespace AuxiliaryLibraries
         {
             if (string.IsNullOrEmpty(email))
                 return false;
-            Regex rgx = new Regex(RegexPatterns.Email);
-            return rgx.IsMatch(email);
+            return AuxiliaryRegexPatterns.Email.IsMatch(email);
         }
 
         /// <summary>
@@ -270,7 +315,7 @@ namespace AuxiliaryLibraries
         {
             if (string.IsNullOrEmpty(number))
                 return false;
-            return new Regex(RegexPatterns.MobileNumber).IsMatch(number);
+            return AuxiliaryRegexPatterns.MobileNumber.IsMatch(number);
         }
 
         /// <summary>
@@ -282,7 +327,7 @@ namespace AuxiliaryLibraries
         {
             if (string.IsNullOrEmpty(number))
                 return false;
-            return new Regex(RegexPatterns.PhoneNumber).IsMatch(number);
+            return AuxiliaryRegexPatterns.PhoneNumber.IsMatch(number);
         }
 
         /// <summary>
@@ -420,88 +465,92 @@ namespace AuxiliaryLibraries
         /// <summary>
         /// Convert price to string and Seperate it by separator
         /// </summary>
-        /// <param name="price"></param>
+        /// <param name="number"></param>
         /// <param name="separator"></param>
+        /// <param name="individualLength"></param>
         /// <returns></returns>
-        public static string ToMoney(this int price, string separator = ".")
+        public static string ToCommaDelimited(this int number, string separator = ",", int individualLength = 3)
         {
-            return ((long)price).ToMoney(separator);
+            return ((long)number).ToCommaDelimited(separator);
         }
 
         /// <summary>
-        /// Convert price to string and Seperate it by separator
+        /// Convert number to string and Seperate it by separator
         /// </summary>
-        /// <param name="price"></param>
+        /// <param name="number"></param>
         /// <param name="separator"></param>
+        /// <param name="separatedSize"></param>
         /// <returns></returns>
-        public static string ToMoney(this long price, string separator = ".")
+        public static string ToCommaDelimited(this long number, string separator = ",", int separatedSize = 3)
         {
-            return price.ToString("N0", new NumberFormatInfo()
+            return number.ToString("N0", new NumberFormatInfo()
             {
-                NumberGroupSizes = new[] { 3 },
+                NumberGroupSizes = new[] { separatedSize },
                 NumberGroupSeparator = separator
             });
         }
 
         /// <summary>
-        ///  Convert price to string and Seperate it by separator and put 'تومان' after it
-        ///  If pass isRial as true, divide price to 10 first.
+        ///  Convert price to AuxiliaryPriceModel
+        ///  AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
         /// </summary>
-        /// <param name="price"></param>
-        /// <param name="isRial"></param>
+        /// <param name="price">The price you need to convert</param>
+        /// <param name="baseCurrency">The currency of price parameter</param>
+        /// <param name="targetCurrency">The currency of result</param>
         /// <returns></returns>
-        public static string ToToman(this int price, bool isRial = true)
-        {
-            return ((long)price).ToMoney();
-        }
+        public static AuxiliaryPriceModel ToMoney(this int price, AuxiliaryPriceModel.PersianCurrency baseCurrency = AuxiliaryPriceModel.PersianCurrency.Rial, 
+            AuxiliaryPriceModel.PersianCurrency targetCurrency = AuxiliaryPriceModel.PersianCurrency.Toman) => new AuxiliaryPriceModel(price, baseCurrency, targetCurrency);
 
         /// <summary>
-        /// Convert price to string and Seperate it by separator and put 'تومان' after it
-        /// If pass isRial as true, divide price to 10 first. And the default value is true
+        ///  Convert price to AuxiliaryPriceModel
+        ///  AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
         /// </summary>
-        /// <param name="price"></param>
-        /// <param name="isRial"></param>
+        /// <param name="price">The price you need to convert</param>
+        /// <param name="baseCurrency">The currency of price parameter</param>
+        /// <param name="targetCurrency">The currency of result</param>
         /// <returns></returns>
-        public static string ToToman(this long price, bool isRial = true)
-        {
-            if (price <= 0)
-                return string.Format("{0} تومان", price);
-
-            if (isRial)
-                price /= 10;
-
-            return string.Format("{0} تومان", (object)price.ToMoney());
-        }
+        public static AuxiliaryPriceModel ToToman(this long price, AuxiliaryPriceModel.PersianCurrency baseCurrency = AuxiliaryPriceModel.PersianCurrency.Rial,
+            AuxiliaryPriceModel.PersianCurrency targetCurrency = AuxiliaryPriceModel.PersianCurrency.Toman) => new AuxiliaryPriceModel(price, baseCurrency, targetCurrency);
 
         /// <summary>
-        /// Convert price to string and Seperate it by separator and put 'ريال' after it
-        /// If pass isToman as true, multiplication price by 10 first. And the default value is true
+        ///  Convert price to AuxiliaryPriceModel
+        ///  AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
         /// </summary>
-        /// <param name="price"></param>
-        /// <param name="isToman"></param>
+        /// <param name="price">The price you need to convert</param>
+        /// <param name="baseCurrency">The currency of price parameter</param>
         /// <returns></returns>
-        public static string ToRial(this int price, bool isToman = true)
-        {
-            return ((long)price).ToRial();
-        }
+        public static AuxiliaryPriceModel ToToman(this int price, AuxiliaryPriceModel.PersianCurrency baseCurrency = AuxiliaryPriceModel.PersianCurrency.Rial) 
+            => new AuxiliaryPriceModel(price, baseCurrency);
 
         /// <summary>
-        /// Convert price to string and Seperate it by separator and put 'ريال' after it
-        /// If pass isToman as true, multiplication price by 10 first. And the default value is true
+        ///  Convert price to AuxiliaryPriceModel
+        ///  AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
         /// </summary>
-        /// <param name="price"></param>
-        /// <param name="isToman"></param>
+        /// <param name="price">The price you need to convert</param>
+        /// <param name="baseCurrency">The currency of price parameter</param>
         /// <returns></returns>
-        public static string ToRial(this long price, bool isToman = true)
-        {
-            if (price <= 0)
-                return string.Format("{0} ريال", price);
+        public static AuxiliaryPriceModel ToToman(this long price, AuxiliaryPriceModel.PersianCurrency baseCurrency = AuxiliaryPriceModel.PersianCurrency.Rial)
+            => new AuxiliaryPriceModel(price, baseCurrency);
 
-            if (isToman)
-                price *= 10;
+        /// <summary>
+        ///  Convert price to AuxiliaryPriceModel
+        ///  AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+        /// </summary>
+        /// <param name="price">The price you need to convert</param>
+        /// <param name="baseCurrency">The currency of price parameter</param>
+        /// <returns></returns>
+        public static AuxiliaryPriceModel ToRial(this int price, AuxiliaryPriceModel.PersianCurrency baseCurrency = AuxiliaryPriceModel.PersianCurrency.Rial) 
+            => new AuxiliaryPriceModel(price, baseCurrency);
 
-            return string.Format("{0} ريال", price.ToMoney());
-        }
+        /// <summary>
+        ///  Convert price to AuxiliaryPriceModel
+        ///  AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+        /// </summary>
+        /// <param name="price">The price you need to convert</param>
+        /// <param name="baseCurrency">The currency of price parameter</param>
+        /// <returns></returns>
+        public static AuxiliaryPriceModel ToRial(this long price, AuxiliaryPriceModel.PersianCurrency baseCurrency = AuxiliaryPriceModel.PersianCurrency.Rial) 
+            => new AuxiliaryPriceModel(price, baseCurrency);
 
         /// <summary>
         /// This function extracts from the text just digits.
@@ -816,6 +865,94 @@ namespace AuxiliaryLibraries
             {
                 return string.Empty;
             }
+        }
+
+        /// <summary>
+        /// Convert object to boolean
+        /// </summary>
+        /// <param name="o"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static bool ToBooleanOrDefault(this object o, bool defaultValue = false)
+        {
+            if (o == null)
+                return defaultValue;
+            string value = o.ToString().ToLower();
+            switch (value)
+            {
+                case "yes":
+                case "true":
+                case "ok":
+                case "y":
+                    return true;
+                case "no":
+                case "false":
+                case "n":
+                    return false;
+                default:
+                    bool b;
+                    if (bool.TryParse(o.ToString(), out b))
+                        return b;
+                    break;
+            }
+            return defaultValue;
+        }
+
+        /// <summary>
+        /// Convert DateTime to TimeStamp
+        /// Unix time is a system for describing a point in time. It is the number of seconds that have elapsed since the Unix epoch, that is the time 00:00:00 UTC on 1 January 1970, minus leap seconds.
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public static long ToUnixTimestamp(this DateTime dateTime)
+        {
+            var epoch = dateTime - new DateTime(1970, 1, 1, 0, 0, 0);
+            return (long)epoch.TotalSeconds;
+        }
+
+        /// <summary>
+        /// Convert TimeStamp to DateTime
+        /// </summary>
+        /// <param name="timeStamp"></param>
+        /// <param name="dateTimeKind"></param>
+        /// <returns></returns>
+        public static DateTime FromTimeStampToDateTime(this long timeStamp, DateTimeKind dateTimeKind = DateTimeKind.Local)
+        {
+            // Unix timestamp is seconds past epoch
+            DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, dateTimeKind);
+            dtDateTime = dtDateTime.AddSeconds(timeStamp).ToLocalTime();
+            return dtDateTime;
+        }
+
+        /// <summary>
+        /// Convert datetime to mobile datetime format
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public static string ToMobileDateTime(this DateTime dateTime) => dateTime.ToDateTimeFormat("yyyy-MM-dd'T'HH:mm:sszzz");
+
+        /// <summary>
+        /// Convert DateTime to any other format
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <param name="format"></param>
+        /// <returns></returns>
+        public static string ToDateTimeFormat(this DateTime dateTime, string format = "yyyyMMddHHmmssffff") => dateTime.ToString(format);
+
+        /// <summary>
+        /// Get Random Password
+        /// </summary>
+        /// <param name="len"></param>
+        /// <param name="isNumberic"></param>
+        /// <returns></returns>
+        public static string GetRandomPassword(int len = 6, bool isNumberic = false)
+        {
+            if (isNumberic)
+            {
+                Random generator = new Random();
+                return generator.Next(0, 999999).ToString("D6");
+            }
+            return Guid.NewGuid().ToString().Replace("-", "").Substring(0, len);
         }
     }
 }
