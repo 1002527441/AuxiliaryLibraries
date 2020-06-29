@@ -6,7 +6,6 @@ using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Web;
 
 namespace AuxiliaryLibraries
@@ -498,8 +497,8 @@ namespace AuxiliaryLibraries
         /// <param name="baseCurrency">The currency of price parameter</param>
         /// <param name="targetCurrency">The currency of result</param>
         /// <returns></returns>
-        public static AuxiliaryPriceModel ToMoney(this int price, AuxiliaryPriceModel.PersianCurrency baseCurrency = AuxiliaryPriceModel.PersianCurrency.Rial, 
-            AuxiliaryPriceModel.PersianCurrency targetCurrency = AuxiliaryPriceModel.PersianCurrency.Toman) => new AuxiliaryPriceModel(price, baseCurrency, targetCurrency);
+        public static AuxiliaryPriceModel ToMoney(this int price, AuxiliaryPriceModel.PersianCurrency baseCurrency = AuxiliaryPriceModel.PersianCurrency.Rial) => 
+            new AuxiliaryPriceModel(price, baseCurrency, AuxiliaryPriceModel.PersianCurrency.Toman);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -509,28 +508,8 @@ namespace AuxiliaryLibraries
         /// <param name="baseCurrency">The currency of price parameter</param>
         /// <param name="targetCurrency">The currency of result</param>
         /// <returns></returns>
-        public static AuxiliaryPriceModel ToToman(this long price, AuxiliaryPriceModel.PersianCurrency baseCurrency = AuxiliaryPriceModel.PersianCurrency.Rial,
-            AuxiliaryPriceModel.PersianCurrency targetCurrency = AuxiliaryPriceModel.PersianCurrency.Toman) => new AuxiliaryPriceModel(price, baseCurrency, targetCurrency);
-
-        /// <summary>
-        ///  Convert price to AuxiliaryPriceModel
-        ///  AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
-        /// </summary>
-        /// <param name="price">The price you need to convert</param>
-        /// <param name="baseCurrency">The currency of price parameter</param>
-        /// <returns></returns>
-        public static AuxiliaryPriceModel ToToman(this int price, AuxiliaryPriceModel.PersianCurrency baseCurrency = AuxiliaryPriceModel.PersianCurrency.Rial) 
-            => new AuxiliaryPriceModel(price, baseCurrency);
-
-        /// <summary>
-        ///  Convert price to AuxiliaryPriceModel
-        ///  AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
-        /// </summary>
-        /// <param name="price">The price you need to convert</param>
-        /// <param name="baseCurrency">The currency of price parameter</param>
-        /// <returns></returns>
-        public static AuxiliaryPriceModel ToToman(this long price, AuxiliaryPriceModel.PersianCurrency baseCurrency = AuxiliaryPriceModel.PersianCurrency.Rial)
-            => new AuxiliaryPriceModel(price, baseCurrency);
+        public static AuxiliaryPriceModel ToToman(this long price, AuxiliaryPriceModel.PersianCurrency baseCurrency = AuxiliaryPriceModel.PersianCurrency.Rial) => 
+            new AuxiliaryPriceModel(price, baseCurrency, AuxiliaryPriceModel.PersianCurrency.Toman);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -540,7 +519,7 @@ namespace AuxiliaryLibraries
         /// <param name="baseCurrency">The currency of price parameter</param>
         /// <returns></returns>
         public static AuxiliaryPriceModel ToRial(this int price, AuxiliaryPriceModel.PersianCurrency baseCurrency = AuxiliaryPriceModel.PersianCurrency.Rial) 
-            => new AuxiliaryPriceModel(price, baseCurrency);
+            => new AuxiliaryPriceModel(price, baseCurrency, AuxiliaryPriceModel.PersianCurrency.Rial);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -550,7 +529,7 @@ namespace AuxiliaryLibraries
         /// <param name="baseCurrency">The currency of price parameter</param>
         /// <returns></returns>
         public static AuxiliaryPriceModel ToRial(this long price, AuxiliaryPriceModel.PersianCurrency baseCurrency = AuxiliaryPriceModel.PersianCurrency.Rial) 
-            => new AuxiliaryPriceModel(price, baseCurrency);
+            => new AuxiliaryPriceModel(price, baseCurrency, AuxiliaryPriceModel.PersianCurrency.Rial);
 
         /// <summary>
         /// This function extracts from the text just digits.

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AuxiliaryLibraries.Extentions;
 using AuxiliaryLibraries.Resources;
 
 namespace AuxiliaryLibraries
@@ -31,8 +28,8 @@ namespace AuxiliaryLibraries
         private List<int> powers = new List<int>() { 21, 18, 15, 12, 9, 6, 3 };
         private long _realPrice = -1;
         private long _price = 0;
-        private PersianCurrency _priceArgumentCurrency = PersianCurrency.Rial;
-        private PersianCurrency _resultCurrency = PersianCurrency.Toman;
+        private PersianCurrency _priceBaseCurrency = PersianCurrency.Rial;
+        private PersianCurrency _priceTargetCurrency = PersianCurrency.Toman;
 
         /// <summary>
         /// The Price
@@ -46,11 +43,11 @@ namespace AuxiliaryLibraries
 
                 if (_realPrice > 0)
                 {
-                    if (_priceArgumentCurrency != _resultCurrency)
+                    if (_priceBaseCurrency != _priceTargetCurrency)
                     {
-                        if (_priceArgumentCurrency == PersianCurrency.Rial && _resultCurrency == PersianCurrency.Toman)
+                        if (_priceBaseCurrency == PersianCurrency.Rial && _priceTargetCurrency == PersianCurrency.Toman)
                             _price = _realPrice / 10;
-                        else if (_priceArgumentCurrency == PersianCurrency.Toman && _resultCurrency == PersianCurrency.Rial)
+                        else if (_priceBaseCurrency == PersianCurrency.Toman && _priceTargetCurrency == PersianCurrency.Rial)
                             _price = _realPrice * 10;
                     }
                     else
@@ -59,7 +56,7 @@ namespace AuxiliaryLibraries
                 else
                     _price = 0;
                 
-                this.Currency = _resultCurrency == PersianCurrency.Rial ? DisplayNames.Rial : DisplayNames.Toman;
+                this.Currency = _priceTargetCurrency == PersianCurrency.Rial ? DisplayNames.Rial : DisplayNames.Toman;
                 if (_realPrice >= 0)
                 {
                     var result = Calculate(_price);
@@ -108,25 +105,25 @@ namespace AuxiliaryLibraries
         /// Pass price as a value to constructor
         /// </summary>
         /// <param name="price"></param>
-        /// <param name="priceArgumentCurrency">If the price value which you passed is Rial set it "Rial", otherwise pass it as "Toman"</param>
-        /// <param name="resultCurrency">If you need to receive the price as Toman set it "Toman", otherwise pass it as "Rial"</param>
-        public AuxiliaryPriceModel(long price, PersianCurrency priceArgumentCurrency = PersianCurrency.Rial, PersianCurrency resultCurrency = PersianCurrency.Toman)
+        /// <param name="priceBaseCurrency">If the price value which you passed is Rial set it "Rial", otherwise pass it as "Toman"</param>
+        /// <param name="priceTargetCurrency">If you need to receive the price as Toman set it "Toman", otherwise pass it as "Rial"</param>
+        public AuxiliaryPriceModel(long price, PersianCurrency priceBaseCurrency = PersianCurrency.Rial, PersianCurrency priceTargetCurrency = PersianCurrency.Toman)
         {
+            this._priceBaseCurrency = priceBaseCurrency;
+            this._priceTargetCurrency = priceTargetCurrency;
             this.Price = price;
-            this._priceArgumentCurrency = priceArgumentCurrency;
-            this._resultCurrency = resultCurrency;
         }
 
         /// <summary>
         /// Change Toman To Rial or vice versa
         /// </summary>
-        /// <param name="priceArgumentCurrency"></param>
-        /// <param name="resultCurrency"></param>
+        /// <param name="priceBaseCurrency"></param>
+        /// <param name="priceTargetCurrency"></param>
         /// <returns></returns>
-        public void SetPersianCurrency(PersianCurrency priceArgumentCurrency = PersianCurrency.Rial, PersianCurrency resultCurrency = PersianCurrency.Toman)
+        public void SetPersianCurrency(PersianCurrency priceBaseCurrency = PersianCurrency.Rial, PersianCurrency priceTargetCurrency = PersianCurrency.Toman)
         {
-            this._priceArgumentCurrency = priceArgumentCurrency;
-            this._resultCurrency = resultCurrency;
+            this._priceBaseCurrency = priceBaseCurrency;
+            this._priceTargetCurrency = priceTargetCurrency;
             Price = _realPrice;
         }
 

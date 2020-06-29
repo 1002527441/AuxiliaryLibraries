@@ -185,8 +185,10 @@ namespace TestUnits
         [TestMethod]
         public void PriceModel()
         {
+            int _price = 1000;
+            var result = AuxiliaryLibraries.AuxiliaryExtensions.ToToman(_price, AuxiliaryPriceModel.PersianCurrency.Toman);
             var price = new AuxiliaryPriceModel();
-            price.Price = 1000000;
+            price.Price = _price;
             price.SetPersianCurrency(AuxiliaryPriceModel.PersianCurrency.Rial, AuxiliaryPriceModel.PersianCurrency.Rial);
             price.SetPersianCurrency(AuxiliaryPriceModel.PersianCurrency.Rial, AuxiliaryPriceModel.PersianCurrency.Toman);
             price.SetPersianCurrency(AuxiliaryPriceModel.PersianCurrency.Toman, AuxiliaryPriceModel.PersianCurrency.Toman);

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>AuxiliaryLibraries</id>
-    <version>1.1.0</version>
+    <version>1.1.2</version>
 	<title>Auxiliary libraries</title>
     <authors>AmiN Zamani</authors>
     <owners>AmiN Zamani</owners>
@@ -10,12 +10,12 @@
     <projectUrl>https://github.com/amin8zamany/AuxiliaryLibraries</projectUrl>
     <iconUrl>http://hoodadtech.com/images/AuxiliaryLibraries_Logo.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Accessory to Persian calendar, string extensions, encryption, ip, log and rest api for .Net. You can easily use it.</description>
-    <releaseNotes>Add two other algorithms is Auxiliary Encryption. So there are three different algorithms which are RC4, AES and RSA.</releaseNotes>
-	<summary>Accessory to Persian calendar, string extensions, encryption, ip, log and rest api for .Net. You can easily use it. Queue structure, Directory and File helper, Auxiliary Log, Convert Persian date to Georgian</summary>
+    <description>AuxiliaryLibraries is a library which allows you to have some useful tools, especially for Iranian. The tools are: Accessory to Persian calendar, extensions (lots of useful string, int, log, datetime, and ... extensions ), encryption (There are three different algorithms which are RC4, AES and RSA.), ip, log, rest api tools, Zip, and PriceModel for .Net. You can easily use it.</description>
+    <releaseNotes>Update StringExtensions to Extensions and add some useful function to it. Beside we add Zip and PriceModel to the library.</releaseNotes>
+	<summary>AuxiliaryLibraries is a library which allows you to have some useful tools, especially for Iranian. These tools are: Accessory to Persian calendar (Convert Persian date to Georgian and vice versa with pretty formats), extensions (lots of useful string, int, log, datetime, and ... extensions ), encryption (There are three different algorithms which are RC4, AES and RSA.), ip, log, rest api tools, Zip, PriceModel, Queue structure, and Directory and File helper.</summary>
 	<language>en-US</language>
-    <copyright>Copyright 2017</copyright>
-    <tags>REST, API, JSON, String, File helper, Calendar, Persian, Ip, Encryption, Log, Queue</tags>
+    <copyright>Copyright 2020, All rights reserved.</copyright>
+    <tags>REST, API, JSON, Extensions, File helper, Calendar, Persian, Ip, Encryption, Log, Queue, Zip, PriceModel</tags>
     <dependencies>
       <dependency id="RestSharp" version="105.2.3.0" />
     </dependencies>
