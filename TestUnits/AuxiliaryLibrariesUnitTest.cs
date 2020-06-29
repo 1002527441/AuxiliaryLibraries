@@ -186,7 +186,8 @@ namespace TestUnits
         public void PriceModel()
         {
             int _price = 1000;
-            var result = AuxiliaryLibraries.AuxiliaryExtensions.ToToman(_price, AuxiliaryPriceModel.PersianCurrency.Toman);
+            var result1 = _price.ToToman(AuxiliaryPriceModel.PersianCurrency.Toman).PriceCommaDeLimited.ToPersianNumber();
+            var result2 = Convert.ToInt64(_price).ToToman(AuxiliaryPriceModel.PersianCurrency.Toman).PriceCommaDeLimited.ToPersianNumber();
             var price = new AuxiliaryPriceModel();
             price.Price = _price;
             price.SetPersianCurrency(AuxiliaryPriceModel.PersianCurrency.Rial, AuxiliaryPriceModel.PersianCurrency.Rial);
