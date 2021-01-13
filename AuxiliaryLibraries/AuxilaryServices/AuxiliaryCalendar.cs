@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using System.Web.UI;
 
 namespace AuxiliaryLibraries
 {
@@ -1062,7 +1063,7 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="persianDate"></param>
         /// <returns>DateTime</returns>
-        public static DateTime ToDateTime(string persianDate)
+        public static DateTime ToDateTime(this string persianDate)
         {
             Regex regex = new Regex(PersianDatePattern);
             if (regex.IsMatch(persianDate))
@@ -1073,6 +1074,68 @@ namespace AuxiliaryLibraries
                     return ToDateTime(year, month, day);
             }
             return DateTime.Now;
+        }
+
+        /// <summary>
+        /// Get the first day of month Date
+        /// </summary>
+        /// <param name="isPersian"></param>
+        /// <returns></returns>
+        public static DateTime GetFirstDayOfThisMonth(bool isPersian = true)
+        {
+            if (isPersian)
+            {
+                var today = DateTime.Today.ToPersianDate();
+                var date = $"{today.Substring(0, today.LastIndexOf("/"))}/01";
+                return date.ToDateTime();
+            }
+            return new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+        }
+
+        /// <summary>
+        /// Get the first day of month Date
+        /// </summary>
+        /// <param name="isPersian"></param>
+        /// <returns></returns>
+        public static DateTime GetFirstDayOfThisWeek(bool isPersian = true)
+        {
+            var today = DateTime.Today;
+            var firstDayOFWeek = isPersian ? System.DayOfWeek.Saturday : System.DayOfWeek.Monday;
+            var nextNearestDay = today.GetNextNearestWeekday(firstDayOFWeek);
+            return nextNearestDay.AddDays(-7);
+        }
+
+        /// <summary>
+        /// Get Next Nearest day of Week 
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="day"></param>
+        /// <returns></returns>
+        public static DateTime GetNextNearestWeekday(this DateTime start, DayOfWeek day)
+        {
+            // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]
+            int daysToAdd = ((int)day - (int)start.DayOfWeek + 7) % 7;
+            return start.AddDays(daysToAdd);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="xDay">Must be less than 30</param>
+        /// <param name="isPersian"></param>
+        /// <returns></returns>
+        public static DateTime GetFirstDayOfLastXDay(this int xDay, bool isPersian = true)
+        {
+            xDay = xDay > 30 ? 30 : xDay;
+            var firstDayOfMonth = GetFirstDayOfThisMonth(isPersian);
+            var today = DateTime.Today;
+            var day = firstDayOfMonth;
+            do
+            {
+                day = day.AddDays(xDay);
+            }
+            while (today >= day);
+            return day.AddDays((xDay * -1));
         }
     }
 

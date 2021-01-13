@@ -290,7 +290,15 @@ namespace AuxiliaryLibraries
         {
             if (string.IsNullOrEmpty(nationalId))
                 return false;
-            return AuxiliaryRegexPatterns.NationalID.IsMatch(nationalId);
+            if (!AuxiliaryRegexPatterns.NationalID.IsMatch(nationalId))
+                return false;
+
+            var check = Convert.ToInt32(nationalId.Substring(9, 1));
+            var sum = Enumerable.Range(0, 9)
+                .Select(x => Convert.ToInt32(nationalId.Substring(x, 1)) * (10 - x))
+                .Sum() % 11;
+
+            return (sum < 2 && check == sum) || (sum >= 2 && check + sum == 11);
         }
 
         /// <summary>

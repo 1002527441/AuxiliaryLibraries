@@ -196,5 +196,30 @@ namespace TestUnits
             price.SetPersianCurrency(AuxiliaryPriceModel.PersianCurrency.Toman, AuxiliaryPriceModel.PersianCurrency.Rial);
             Assert.IsTrue(true);
         }
+
+        [TestMethod]
+        public void GetFirstDayOfThisMonth()
+        {
+            var persianToday = AuxiliaryCalendar.GetFirstDayOfThisMonth();
+            var today = AuxiliaryCalendar.GetFirstDayOfThisMonth(false);
+        }
+
+        [TestMethod]
+        public void GetFirstDayOfThisWeek()
+        {
+            var persianToday = AuxiliaryCalendar.GetFirstDayOfThisWeek();
+            var today = AuxiliaryCalendar.GetFirstDayOfThisWeek(false);
+        }
+
+        [TestMethod]
+        public void GetFirstDayOfLastXDay()
+        {
+            var day0 = AuxiliaryCalendar.GetFirstDayOfLastXDay(1);
+            var day1 = AuxiliaryCalendar.GetFirstDayOfLastXDay(2);
+            var day2 = AuxiliaryCalendar.GetFirstDayOfLastXDay(8);
+            var day3 = AuxiliaryCalendar.GetFirstDayOfLastXDay(10);
+            var day4 = AuxiliaryCalendar.GetFirstDayOfLastXDay(15);
+            var day5 = AuxiliaryCalendar.GetFirstDayOfLastXDay(23);
+        }
     }
 }

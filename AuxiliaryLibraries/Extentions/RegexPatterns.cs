@@ -30,7 +30,7 @@ namespace AuxiliaryLibraries.Extentions
         /// <summary>
         /// NationalID Pattern
         /// </summary>
-        public static Regex NationalID = new Regex(@"^[0-9]{10}$");
+        public static Regex NationalID = new Regex(@"^\d{10}$");
 
         /// <summary>
         /// Mobile request Check Pattern
