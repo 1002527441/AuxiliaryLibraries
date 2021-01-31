@@ -708,27 +708,27 @@
     <value>دلار</value>
   </data>
   <data name="Number_Billiardth" xml:space="preserve">
-    <value>پیکو</value>
-    <comment>بیلیونم</comment>
+    <value>بیلیونم</value>
+    <comment>پیکو</comment>
   </data>
   <data name="Number_Billionth" xml:space="preserve">
-    <value>نانو</value>
-    <comment>میلیاردم</comment>
+    <value>میلیاردم</value>
+    <comment>نانو</comment>
   </data>
   <data name="Number_Hunrdredth" xml:space="preserve">
     <value>صدم</value>
     <comment>سانتی</comment>
   </data>
   <data name="Number_Millionth" xml:space="preserve">
-    <value>میکرو</value>
-    <comment>میلیونم</comment>
+    <value>میلیونم</value>
+    <comment>میکرو</comment>
   </data>
   <data name="Number_Thenth" xml:space="preserve">
     <value>دهم</value>
     <comment>دسی</comment>
   </data>
   <data name="Number_Thousandth" xml:space="preserve">
-    <value>میلی</value>
+    <value>هزارم</value>
     <comment>هزارم</comment>
   </data>
   <data name="Number_Centi" xml:space="preserve">

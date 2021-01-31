@@ -1042,7 +1042,7 @@ namespace AuxiliaryLibraries.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to پیکو.
+        ///   Looks up a localized string similar to بیلیونم.
         /// </summary>
         internal static string Number_Billiardth {
             get {
@@ -1060,7 +1060,7 @@ namespace AuxiliaryLibraries.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to نانو.
+        ///   Looks up a localized string similar to میلیاردم.
         /// </summary>
         internal static string Number_Billionth {
             get {
@@ -1285,7 +1285,7 @@ namespace AuxiliaryLibraries.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to میکرو.
+        ///   Looks up a localized string similar to میلیونم.
         /// </summary>
         internal static string Number_Millionth {
             get {
@@ -1501,7 +1501,7 @@ namespace AuxiliaryLibraries.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to میلی.
+        ///   Looks up a localized string similar to هزارم.
         /// </summary>
         internal static string Number_Thousandth {
             get {
