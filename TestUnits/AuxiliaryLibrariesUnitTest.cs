@@ -196,11 +196,13 @@ namespace TestUnits
             var price6 = new AuxiliaryPriceModel(1000, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.USD);
             var price7 = new AuxiliaryPriceModel(1000, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.EUR);
             var price8 = new AuxiliaryPriceModel(1000, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.GBP);
-            var price9 = new AuxiliaryPriceModel(0.0012, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.BTC);
-            var price10 = new AuxiliaryPriceModel(0.0012, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.BTC, true);
+            var price9 = new AuxiliaryPriceModel(0.012, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.BTC);
+            var price10 = new AuxiliaryPriceModel(0.012, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.BTC, true);
             var price11 = new AuxiliaryPriceModel(0.087, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.BTC);
-            var price12 = new AuxiliaryPriceModel(0.97, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.BTC);
-            var price13 = new AuxiliaryPriceModel(0.0012141611, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.BTC, true);
+            var price12 = new AuxiliaryPriceModel(0.087, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.BTC, true);
+            var price13 = new AuxiliaryPriceModel(0.97, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.BTC);
+            var price14 = new AuxiliaryPriceModel(0.0012, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.BTC, true);
+            var price15 = new AuxiliaryPriceModel(0.0012141611, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.BTC, true);
             Assert.IsTrue(true);
         }
 

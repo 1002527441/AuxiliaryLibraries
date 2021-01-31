@@ -188,7 +188,8 @@ namespace AuxiliaryLibraries
                     }
                     else
                     {
-                        var _power = power > -3 ? BitConverter.GetBytes(decimal.GetBits((decimal)price)[3])[2] * -1 : power;
+                        var count = BitConverter.GetBytes(decimal.GetBits((decimal)price)[3])[2] * -1;
+                        var _power = powers.Any(x => x == count) ? count : power;
                         CalculateDecimals(price, _power, ref priceShortFormat, ref priceCurrency, ref priceDescriptyion, metricSystem);
                         return this;
                     }
