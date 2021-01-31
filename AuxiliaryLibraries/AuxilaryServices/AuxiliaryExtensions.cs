@@ -498,15 +498,18 @@ namespace AuxiliaryLibraries
         }
 
         /// <summary>
-        ///  Convert price to AuxiliaryPriceModel
-        ///  AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+        /// Convert number to string and Seperate it by separator
         /// </summary>
-        /// <param name="price">The price you need to convert</param>
-        /// <param name="baseCurrency">The currency of price parameter</param>
-        /// <param name="targetCurrency">The currency of result</param>
+        /// <param name="number"></param>
+        /// <param name="separator"></param>
+        /// <param name="separatedSize"></param>
         /// <returns></returns>
-        public static AuxiliaryPriceModel ToMoney(this int price, AuxiliaryPriceModel.PersianCurrency baseCurrency = AuxiliaryPriceModel.PersianCurrency.Rial) =>
-            new AuxiliaryPriceModel(price, baseCurrency, AuxiliaryPriceModel.PersianCurrency.Toman);
+        public static string ToCommaDelimited(this double number, string separator = ",", int separatedSize = 3)
+        {
+            long tempNum = Convert.ToInt64(number);
+            long decimalNum = (long)(((decimal)number % 1) * 100);
+            return decimalNum > 0 ? $"{tempNum.ToCommaDelimited()}.{decimalNum.ToCommaDelimited()}" : tempNum.ToCommaDelimited();
+        }
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -516,7 +519,18 @@ namespace AuxiliaryLibraries
         /// <param name="baseCurrency">The currency of price parameter</param>
         /// <param name="targetCurrency">The currency of result</param>
         /// <returns></returns>
-        public static AuxiliaryPriceModel ToToman(this int price, AuxiliaryPriceModel.PersianCurrency baseCurrency = AuxiliaryPriceModel.PersianCurrency.Rial) =>
+        public static AuxiliaryPriceModel ToMoney(this int price, AuxiliaryPriceModel.Currency baseCurrency = AuxiliaryPriceModel.Currency.IRR) =>
+            new AuxiliaryPriceModel(price, baseCurrency, AuxiliaryPriceModel.Currency.Toman);
+
+        /// <summary>
+        ///  Convert price to AuxiliaryPriceModel
+        ///  AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+        /// </summary>
+        /// <param name="price">The price you need to convert</param>
+        /// <param name="baseCurrency">The currency of price parameter</param>
+        /// <param name="targetCurrency">The currency of result</param>
+        /// <returns></returns>
+        public static AuxiliaryPriceModel ToToman(this int price, AuxiliaryPriceModel.Currency baseCurrency = AuxiliaryPriceModel.Currency.IRR) =>
             ToToman(Convert.ToInt64(price), baseCurrency);
 
         /// <summary>
@@ -527,8 +541,8 @@ namespace AuxiliaryLibraries
         /// <param name="baseCurrency">The currency of price parameter</param>
         /// <param name="targetCurrency">The currency of result</param>
         /// <returns></returns>
-        public static AuxiliaryPriceModel ToToman(this long price, AuxiliaryPriceModel.PersianCurrency baseCurrency = AuxiliaryPriceModel.PersianCurrency.Rial) =>
-            new AuxiliaryPriceModel(price, baseCurrency, AuxiliaryPriceModel.PersianCurrency.Toman);
+        public static AuxiliaryPriceModel ToToman(this long price, AuxiliaryPriceModel.Currency baseCurrency = AuxiliaryPriceModel.Currency.IRR) =>
+            new AuxiliaryPriceModel(price, baseCurrency, AuxiliaryPriceModel.Currency.Toman);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -537,7 +551,7 @@ namespace AuxiliaryLibraries
         /// <param name="price">The price you need to convert</param>
         /// <param name="baseCurrency">The currency of price parameter</param>
         /// <returns></returns>
-        public static AuxiliaryPriceModel ToRial(this int price, AuxiliaryPriceModel.PersianCurrency baseCurrency = AuxiliaryPriceModel.PersianCurrency.Rial) =>
+        public static AuxiliaryPriceModel ToRial(this int price, AuxiliaryPriceModel.Currency baseCurrency = AuxiliaryPriceModel.Currency.IRR) =>
             ToRial(Convert.ToInt64(price), baseCurrency);
 
         /// <summary>
@@ -547,8 +561,8 @@ namespace AuxiliaryLibraries
         /// <param name="price">The price you need to convert</param>
         /// <param name="baseCurrency">The currency of price parameter</param>
         /// <returns></returns>
-        public static AuxiliaryPriceModel ToRial(this long price, AuxiliaryPriceModel.PersianCurrency baseCurrency = AuxiliaryPriceModel.PersianCurrency.Rial) =>
-            new AuxiliaryPriceModel(price, baseCurrency, AuxiliaryPriceModel.PersianCurrency.Rial);
+        public static AuxiliaryPriceModel ToRial(this long price, AuxiliaryPriceModel.Currency baseCurrency = AuxiliaryPriceModel.Currency.IRR) =>
+            new AuxiliaryPriceModel(price, baseCurrency, AuxiliaryPriceModel.Currency.IRR);
 
         /// <summary>
         /// This function extracts from the text just digits.

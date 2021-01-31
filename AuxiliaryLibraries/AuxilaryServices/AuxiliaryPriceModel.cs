@@ -13,28 +13,45 @@ namespace AuxiliaryLibraries
         /// <summary>
         /// Persian Currency
         /// </summary>
-        public enum PersianCurrency
+        public enum Currency
         {
             /// <summary>
             /// Rial
             /// </summary>
-            Rial = 1,
+            IRR = 1,
             /// <summary>
             /// Toman
             /// </summary>
-            Toman = 2
+            Toman = 2,
+            /// <summary>
+            /// US Dollar
+            /// </summary>
+            USD = 3,
+            /// <summary>
+            /// Euro
+            /// </summary>
+            EUR = 4,
+            /// <summary>
+            /// British Pund
+            /// </summary>
+            GBP = 5,
+            /// <summary>
+            /// Bitcoin
+            /// </summary>
+            BTC = 6,
+
         }
 
-        private List<int> powers = new List<int>() { 21, 18, 15, 12, 9, 6, 3 };
-        private long _realPrice = -1;
-        private long _price = 0;
-        private PersianCurrency _priceBaseCurrency = PersianCurrency.Rial;
-        private PersianCurrency _priceTargetCurrency = PersianCurrency.Toman;
+        private List<int> powers = new List<int>() { 21, 18, 15, 12, 9, 6, 3, 0, -1, -2, -3, -6, -9, -12 };
+        private double _realPrice = -1;
+        private double _price = 0;
+        private Currency _sourceCurrency = Currency.IRR;
+        private Currency _destinationCurrency = Currency.Toman;
 
         /// <summary>
         /// The Price
         /// </summary>
-        public long Price
+        public double Price
         {
             get => _price;
             set
@@ -43,20 +60,22 @@ namespace AuxiliaryLibraries
 
                 if (_realPrice > 0)
                 {
-                    if (_priceBaseCurrency != _priceTargetCurrency)
+                    if (_sourceCurrency != _destinationCurrency)
                     {
-                        if (_priceBaseCurrency == PersianCurrency.Rial && _priceTargetCurrency == PersianCurrency.Toman)
+                        if (_sourceCurrency == Currency.IRR && _destinationCurrency == Currency.Toman)
                             _price = _realPrice / 10;
-                        else if (_priceBaseCurrency == PersianCurrency.Toman && _priceTargetCurrency == PersianCurrency.Rial)
+                        else if (_sourceCurrency == Currency.Toman && _destinationCurrency == Currency.IRR)
                             _price = _realPrice * 10;
+                        else
+                            _price = _realPrice;
                     }
                     else
                         _price = _realPrice;
                 }
                 else
                     _price = 0;
-                
-                this.Currency = _priceTargetCurrency == PersianCurrency.Rial ? DisplayNames.Rial : DisplayNames.Toman;
+
+                this.CurrencyDescription = GetCurrencyDescription(_destinationCurrency);
                 if (_realPrice >= 0)
                 {
                     var result = Calculate(_price);
@@ -64,7 +83,7 @@ namespace AuxiliaryLibraries
                     this.PriceCurrency = result.PriceCurrency;
                     this.PriceDescription = result.PriceDescription;
                     this.PriceCommaDeLimited = this.Price.ToCommaDelimited(",");
-                    this.PriceCommaDeLimitedDescription = this.Price > 0 ? $"{this.PriceCommaDeLimited} {this.Currency}" : DisplayNames.Free;
+                    this.PriceCommaDeLimitedDescription = this.Price > 0 ? $"{this.PriceCommaDeLimited} {this.CurrencyDescription}" : DisplayNames.Free;
                 }
             }
         }
@@ -79,7 +98,7 @@ namespace AuxiliaryLibraries
         /// <summary>
         /// Currency
         /// </summary>
-        public string Currency { get; set; }
+        public string CurrencyDescription { get; set; }
         /// <summary>
         /// Price Description
         /// </summary>
@@ -92,14 +111,7 @@ namespace AuxiliaryLibraries
         /// Price Comma DeLimited Description
         /// </summary>
         public string PriceCommaDeLimitedDescription { get; set; }
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public AuxiliaryPriceModel()
-        {
-
-        }
+        public bool MetricSystem { get; set; }
 
         /// <summary>
         /// Pass price as a value to constructor
@@ -107,11 +119,19 @@ namespace AuxiliaryLibraries
         /// <param name="price"></param>
         /// <param name="priceBaseCurrency">If the price value which you passed is Rial set it "Rial", otherwise pass it as "Toman"</param>
         /// <param name="priceTargetCurrency">If you need to receive the price as Toman set it "Toman", otherwise pass it as "Rial"</param>
-        public AuxiliaryPriceModel(long price, PersianCurrency priceBaseCurrency = PersianCurrency.Rial, PersianCurrency priceTargetCurrency = PersianCurrency.Toman)
+        public AuxiliaryPriceModel(double price, Currency priceBaseCurrency = Currency.IRR, Currency priceTargetCurrency = Currency.Toman, bool metricSystem = false)
         {
-            this._priceBaseCurrency = priceBaseCurrency;
-            this._priceTargetCurrency = priceTargetCurrency;
-            this.Price = price;
+            try
+            {
+                this._sourceCurrency = priceBaseCurrency;
+                this._destinationCurrency = priceTargetCurrency;
+                this.Price = price;
+                this.MetricSystem = metricSystem;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         /// <summary>
@@ -120,11 +140,12 @@ namespace AuxiliaryLibraries
         /// <param name="priceBaseCurrency"></param>
         /// <param name="priceTargetCurrency"></param>
         /// <returns></returns>
-        public void SetPersianCurrency(PersianCurrency priceBaseCurrency = PersianCurrency.Rial, PersianCurrency priceTargetCurrency = PersianCurrency.Toman)
+        public void SetPersianCurrency(Currency priceBaseCurrency = Currency.IRR, Currency priceTargetCurrency = Currency.Toman, bool metricSystem = false)
         {
-            this._priceBaseCurrency = priceBaseCurrency;
-            this._priceTargetCurrency = priceTargetCurrency;
+            this._sourceCurrency = priceBaseCurrency;
+            this._destinationCurrency = priceTargetCurrency;
             Price = _realPrice;
+            this.MetricSystem = metricSystem;
         }
 
         #region Private Functions
@@ -134,86 +155,81 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price"></param>
         /// <returns></returns>
-        private AuxiliaryPriceModel Calculate(long price)
+        private AuxiliaryPriceModel Calculate(double price, bool metricSystem = false)
         {
             //Price must pass as Toman
-            string priceDescriptyion = string.Empty, priceCurrency = this.Currency;
-            long priceShortFormat = 0;
+            string priceDescriptyion = string.Empty, priceCurrency = this.CurrencyDescription;
+            double priceShortFormat = 0;
             if (price <= 0)
-                return new AuxiliaryPriceModel()
-                {
-                    //Price = 0, //Don't Set it
-                    PriceCurrency = priceCurrency,
-                    PriceShortFormat = 0,
-                    PriceDescription = DisplayNames.Free
-                };
+            {
+                //this.Price = 0, //Don't Set it
+                this.PriceCurrency = priceCurrency;
+                this.PriceShortFormat = 0;
+                this.PriceDescription = DisplayNames.Free;
+                return this;
+            }
             priceShortFormat = price;
 
             foreach (var power in powers)
             {
                 if (price >= Math.Pow(10, power))
                 {
-                    var powerd = Math.Pow(10, power);
+                    double powerd = Math.Pow(10, power);
                     var remained = price % powerd;
-                    priceShortFormat = (long)price / (long)powerd;
-                    priceCurrency = GetPriceCurrency(power);
+                    priceShortFormat = price / powerd;
+                    priceCurrency = GetPriceCurrency(power, metricSystem);
                     if (remained > 0)
                     {
-                        var result = Calculate((long)remained);
+                        var result = Calculate((double)remained);
                         priceDescriptyion = $"{ToLetters((int)priceShortFormat)} {priceCurrency} و {result.PriceDescription}";
                     }
                     else
-                        priceDescriptyion = $"{ToLetters((int)priceShortFormat)} {priceCurrency} {this.Currency}";
-                    priceShortFormat = Convert.ToInt64(Round(price, powerd, power));
-                    return new AuxiliaryPriceModel()
-                    {
-                        //Price = price, //Don't Set It
-                        PriceCurrency = $"{priceCurrency} {this.Currency}",
-                        PriceShortFormat = priceShortFormat,
-                        PriceDescription = priceDescriptyion
-                    };
+                        priceDescriptyion = $"{ToLetters((int)priceShortFormat)} {priceCurrency} {this.CurrencyDescription}";
+                    priceShortFormat = Convert.ToDouble(Round(price, powerd, power));
+                    //this.Price = price, //Don't Set It
+                    this.PriceCurrency = $"{priceCurrency} {this.CurrencyDescription}";
+                    this.PriceShortFormat = (long)priceShortFormat;
+                    this.PriceDescription = priceDescriptyion;
+                    return this;
                 }
             }
-            return new AuxiliaryPriceModel()
-            {
-                //Price = price, //Don't Set It
-                PriceCurrency = priceCurrency,
-                PriceShortFormat = price,
-                PriceDescription = $"{ToLetters((int)price)} {priceCurrency}"
-            };
+
+            //this.Price = price, //Don't Set It
+            this.PriceCurrency = priceCurrency;
+            this.PriceShortFormat = (long)price;
+            this.PriceDescription = $"{ToLetters((int)price)} {priceCurrency}";
+            return this;
         }
 
         private double Round(double price, double powerd, int power)
         {
             var number = Math.Ceiling(Math.Round(price, 0, MidpointRounding.AwayFromZero));
-            var remained = (long)number % (long)powerd;
-            var rounded = (long)number / (long)powerd;
-            if (Convert.ToInt32(remained.ToString().ToCharArray(0, 1).FirstOrDefault().ToString()) > 5)
+            var remained = (double)number % (double)powerd;
+            var rounded = (double)number / (double)powerd;
+            if (Convert.ToDouble(remained.ToString().ToCharArray(0, 1).FirstOrDefault().ToString()) > 5)
                 rounded++;
             return rounded;
         }
 
-        private string GetPriceCurrency(int power)
+        private string GetPriceCurrency(int power, bool metricSystem)
         {
-            switch (power)
+            return power switch
             {
-                case 21:
-                    return DisplayNames.Number_Trilliard;
-                case 18:
-                    return DisplayNames.Number_Trillion;
-                case 15:
-                    return DisplayNames.Number_Billiard;
-                case 12:
-                    return DisplayNames.Number_Billion;
-                case 9:
-                    return DisplayNames.Number_Milliard;
-                case 6:
-                    return DisplayNames.Number_Million;
-                case 3:
-                    return DisplayNames.Number_Thousand;
-                default:
-                    return string.Empty;
-            }
+                21 => metricSystem ? DisplayNames.Number_Zetta : DisplayNames.Number_Trilliard,
+                18 => metricSystem ? DisplayNames.Number_Exa : DisplayNames.Number_Trillion,
+                15 => metricSystem ? DisplayNames.Number_Peta : DisplayNames.Number_Billiard,
+                12 => metricSystem ? DisplayNames.Number_Tera : DisplayNames.Number_Billion,
+                9 => metricSystem ? DisplayNames.Number_Giga : DisplayNames.Number_Milliard,
+                6 => metricSystem ? DisplayNames.Number_Mega : DisplayNames.Number_Million,
+                3 => metricSystem ? DisplayNames.Number_Kilo : DisplayNames.Number_Thousand,
+                -1 => metricSystem ? DisplayNames.Number_Deci : DisplayNames.Number_Thenth,
+                -2 => metricSystem ? DisplayNames.Number_Centi : DisplayNames.Number_Hunrdredth,
+                -3 => metricSystem ? DisplayNames.Number_Mili : DisplayNames.Number_Thousandth,
+                -6 => metricSystem ? DisplayNames.Number_Micro : DisplayNames.Number_Millionth,
+                -9 => metricSystem ? DisplayNames.Number_Nano : DisplayNames.Number_Billionth,
+                -12 => metricSystem ? DisplayNames.Number_Pico : DisplayNames.Number_Billiardth,
+                _ => string.Empty
+            };
         }
 
         private string ToLetters(int price)
@@ -406,6 +422,20 @@ namespace AuxiliaryLibraries
                     break;
             }
             return string.Empty;
+        }
+
+        private string GetCurrencyDescription(Currency currency)
+        {
+            return currency switch
+            {
+                Currency.IRR => DisplayNames.Rial,
+                Currency.Toman => DisplayNames.Toman,
+                Currency.BTC => DisplayNames.BTC,
+                Currency.EUR => DisplayNames.EUR,
+                Currency.GBP => DisplayNames.GBP,
+                Currency.USD => DisplayNames.USD,
+                _ => DisplayNames.Rial
+            };
         }
         #endregion
     }

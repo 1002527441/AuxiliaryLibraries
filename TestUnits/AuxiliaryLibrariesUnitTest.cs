@@ -185,15 +185,20 @@ namespace TestUnits
         [TestMethod]
         public void PriceModel()
         {
-            int _price = 1000;
-            var result1 = _price.ToToman(AuxiliaryPriceModel.PersianCurrency.Toman).PriceCommaDeLimited.ToPersianNumber();
-            var result2 = Convert.ToInt64(_price).ToToman(AuxiliaryPriceModel.PersianCurrency.Toman).PriceCommaDeLimited.ToPersianNumber();
-            var price = new AuxiliaryPriceModel();
-            price.Price = _price;
-            price.SetPersianCurrency(AuxiliaryPriceModel.PersianCurrency.Rial, AuxiliaryPriceModel.PersianCurrency.Rial);
-            price.SetPersianCurrency(AuxiliaryPriceModel.PersianCurrency.Rial, AuxiliaryPriceModel.PersianCurrency.Toman);
-            price.SetPersianCurrency(AuxiliaryPriceModel.PersianCurrency.Toman, AuxiliaryPriceModel.PersianCurrency.Toman);
-            price.SetPersianCurrency(AuxiliaryPriceModel.PersianCurrency.Toman, AuxiliaryPriceModel.PersianCurrency.Rial);
+            //int _price = 1000;
+            //var result1 = _price.ToToman(AuxiliaryPriceModel.Currency.Toman).PriceCommaDeLimited.ToPersianNumber();
+            //var result2 = Convert.ToInt64(_price).ToToman(AuxiliaryPriceModel.Currency.Toman).PriceCommaDeLimited.ToPersianNumber();
+            //var price1 = new AuxiliaryPriceModel(1000, AuxiliaryPriceModel.Currency.IRR, AuxiliaryPriceModel.Currency.IRR);
+            //var price2 = new AuxiliaryPriceModel(1000, AuxiliaryPriceModel.Currency.IRR, AuxiliaryPriceModel.Currency.Toman);
+            //var price3 = new AuxiliaryPriceModel(1000, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.Toman);
+            //var price4 = new AuxiliaryPriceModel(1000, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.IRR);
+            //var price5 = new AuxiliaryPriceModel(1000, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.BTC);
+            //var price6 = new AuxiliaryPriceModel(1000, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.USD);
+            //var price7 = new AuxiliaryPriceModel(1000, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.EUR);
+            //var price8 = new AuxiliaryPriceModel(1000, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.GBP);
+            var price9 = new AuxiliaryPriceModel(0.0012, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.BTC);
+            var price10 = new AuxiliaryPriceModel(0.087, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.BTC);
+            var price11 = new AuxiliaryPriceModel(0.97, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.BTC);
             Assert.IsTrue(true);
         }
 

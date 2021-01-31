@@ -695,4 +695,79 @@
   <data name="Rial" xml:space="preserve">
     <value>ريال</value>
   </data>
+  <data name="BTC" xml:space="preserve">
+    <value>بیت کوین</value>
+  </data>
+  <data name="EUR" xml:space="preserve">
+    <value>یورو</value>
+  </data>
+  <data name="GBP" xml:space="preserve">
+    <value>پوند</value>
+  </data>
+  <data name="USD" xml:space="preserve">
+    <value>دلار</value>
+  </data>
+  <data name="Number_Billiardth" xml:space="preserve">
+    <value>پیکو</value>
+    <comment>بیلیونم</comment>
+  </data>
+  <data name="Number_Billionth" xml:space="preserve">
+    <value>نانو</value>
+    <comment>میلیاردم</comment>
+  </data>
+  <data name="Number_Hunrdredth" xml:space="preserve">
+    <value>صدم</value>
+    <comment>سانتی</comment>
+  </data>
+  <data name="Number_Millionth" xml:space="preserve">
+    <value>میکرو</value>
+    <comment>میلیونم</comment>
+  </data>
+  <data name="Number_Thenth" xml:space="preserve">
+    <value>دهم</value>
+    <comment>دسی</comment>
+  </data>
+  <data name="Number_Thousandth" xml:space="preserve">
+    <value>میلی</value>
+    <comment>هزارم</comment>
+  </data>
+  <data name="Number_Centi" xml:space="preserve">
+    <value>سانتی</value>
+  </data>
+  <data name="Number_Deci" xml:space="preserve">
+    <value>دسی</value>
+  </data>
+  <data name="Number_Exa" xml:space="preserve">
+    <value>اگزا</value>
+  </data>
+  <data name="Number_Giga" xml:space="preserve">
+    <value>گیگا</value>
+  </data>
+  <data name="Number_Kilo" xml:space="preserve">
+    <value>کیلو</value>
+  </data>
+  <data name="Number_Mega" xml:space="preserve">
+    <value>مگا</value>
+  </data>
+  <data name="Number_Micro" xml:space="preserve">
+    <value>میکرو</value>
+  </data>
+  <data name="Number_Mili" xml:space="preserve">
+    <value>میلی</value>
+  </data>
+  <data name="Number_Nano" xml:space="preserve">
+    <value>نانو</value>
+  </data>
+  <data name="Number_Peta" xml:space="preserve">
+    <value>پتا</value>
+  </data>
+  <data name="Number_Pico" xml:space="preserve">
+    <value>پیکو</value>
+  </data>
+  <data name="Number_Tera" xml:space="preserve">
+    <value>ترا</value>
+  </data>
+  <data name="Number_Zetta" xml:space="preserve">
+    <value>زتا</value>
+  </data>
 </root>

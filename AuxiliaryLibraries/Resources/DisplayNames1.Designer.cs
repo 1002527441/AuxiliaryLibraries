@@ -19,7 +19,7 @@ namespace AuxiliaryLibraries.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class DisplayNames {
@@ -57,6 +57,15 @@ namespace AuxiliaryLibraries.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to بیت کوین.
+        /// </summary>
+        internal static string BTC {
+            get {
+                return ResourceManager.GetString("BTC", resourceCulture);
             }
         }
         
@@ -655,6 +664,15 @@ namespace AuxiliaryLibraries.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to یورو.
+        /// </summary>
+        internal static string EUR {
+            get {
+                return ResourceManager.GetString("EUR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to رایگان.
         /// </summary>
         internal static string Free {
@@ -678,6 +696,15 @@ namespace AuxiliaryLibraries.Resources {
         internal static string FridayPersian {
             get {
                 return ResourceManager.GetString("FridayPersian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to پوند.
+        /// </summary>
+        internal static string GBP {
+            get {
+                return ResourceManager.GetString("GBP", resourceCulture);
             }
         }
         
@@ -1015,11 +1042,47 @@ namespace AuxiliaryLibraries.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to پیکو.
+        /// </summary>
+        internal static string Number_Billiardth {
+            get {
+                return ResourceManager.GetString("Number_Billiardth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to بیلیون.
         /// </summary>
         internal static string Number_Billion {
             get {
                 return ResourceManager.GetString("Number_Billion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نانو.
+        /// </summary>
+        internal static string Number_Billionth {
+            get {
+                return ResourceManager.GetString("Number_Billionth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to سانتی.
+        /// </summary>
+        internal static string Number_Centi {
+            get {
+                return ResourceManager.GetString("Number_Centi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to دسی.
+        /// </summary>
+        internal static string Number_Deci {
+            get {
+                return ResourceManager.GetString("Number_Deci", resourceCulture);
             }
         }
         
@@ -1065,6 +1128,15 @@ namespace AuxiliaryLibraries.Resources {
         internal static string Number_Eleven {
             get {
                 return ResourceManager.GetString("Number_Eleven", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to اگزا.
+        /// </summary>
+        internal static string Number_Exa {
+            get {
+                return ResourceManager.GetString("Number_Exa", resourceCulture);
             }
         }
         
@@ -1141,6 +1213,60 @@ namespace AuxiliaryLibraries.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to گیگا.
+        /// </summary>
+        internal static string Number_Giga {
+            get {
+                return ResourceManager.GetString("Number_Giga", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to صدم.
+        /// </summary>
+        internal static string Number_Hunrdredth {
+            get {
+                return ResourceManager.GetString("Number_Hunrdredth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to کیلو.
+        /// </summary>
+        internal static string Number_Kilo {
+            get {
+                return ResourceManager.GetString("Number_Kilo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to مگا.
+        /// </summary>
+        internal static string Number_Mega {
+            get {
+                return ResourceManager.GetString("Number_Mega", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to میکرو.
+        /// </summary>
+        internal static string Number_Micro {
+            get {
+                return ResourceManager.GetString("Number_Micro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to میلی.
+        /// </summary>
+        internal static string Number_Mili {
+            get {
+                return ResourceManager.GetString("Number_Mili", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to میلیارد.
         /// </summary>
         internal static string Number_Milliard {
@@ -1155,6 +1281,24 @@ namespace AuxiliaryLibraries.Resources {
         internal static string Number_Million {
             get {
                 return ResourceManager.GetString("Number_Million", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to میکرو.
+        /// </summary>
+        internal static string Number_Millionth {
+            get {
+                return ResourceManager.GetString("Number_Millionth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نانو.
+        /// </summary>
+        internal static string Number_Nano {
+            get {
+                return ResourceManager.GetString("Number_Nano", resourceCulture);
             }
         }
         
@@ -1209,6 +1353,24 @@ namespace AuxiliaryLibraries.Resources {
         internal static string Number_OneHundred {
             get {
                 return ResourceManager.GetString("Number_OneHundred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to پتا.
+        /// </summary>
+        internal static string Number_Peta {
+            get {
+                return ResourceManager.GetString("Number_Peta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to پیکو.
+        /// </summary>
+        internal static string Number_Pico {
+            get {
+                return ResourceManager.GetString("Number_Pico", resourceCulture);
             }
         }
         
@@ -1294,6 +1456,24 @@ namespace AuxiliaryLibraries.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ترا.
+        /// </summary>
+        internal static string Number_Tera {
+            get {
+                return ResourceManager.GetString("Number_Tera", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to دهم.
+        /// </summary>
+        internal static string Number_Thenth {
+            get {
+                return ResourceManager.GetString("Number_Thenth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to سیزده.
         /// </summary>
         internal static string Number_Thirteen {
@@ -1317,6 +1497,15 @@ namespace AuxiliaryLibraries.Resources {
         internal static string Number_Thousand {
             get {
                 return ResourceManager.GetString("Number_Thousand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to میلی.
+        /// </summary>
+        internal static string Number_Thousandth {
+            get {
+                return ResourceManager.GetString("Number_Thousandth", resourceCulture);
             }
         }
         
@@ -1389,6 +1578,15 @@ namespace AuxiliaryLibraries.Resources {
         internal static string Number_TwoHundred {
             get {
                 return ResourceManager.GetString("Number_TwoHundred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to زتا.
+        /// </summary>
+        internal static string Number_Zetta {
+            get {
+                return ResourceManager.GetString("Number_Zetta", resourceCulture);
             }
         }
         
@@ -1533,6 +1731,15 @@ namespace AuxiliaryLibraries.Resources {
         internal static string TuesdayPersian {
             get {
                 return ResourceManager.GetString("TuesdayPersian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to دلار.
+        /// </summary>
+        internal static string USD {
+            get {
+                return ResourceManager.GetString("USD", resourceCulture);
             }
         }
         
