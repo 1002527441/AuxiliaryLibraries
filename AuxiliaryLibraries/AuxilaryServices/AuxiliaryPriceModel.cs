@@ -7,6 +7,7 @@ namespace AuxiliaryLibraries
 {
     /// <summary>
     /// Convert price either Toman or Rial to other formats of Iranian currency
+    /// https://fa.wikipedia.org/wiki/%D9%BE%DB%8C%D8%B4%D9%88%D9%86%D8%AF%D9%87%D8%A7%DB%8C_%D8%A7%D8%B3%E2%80%8C%D8%A2%DB%8C
     /// </summary>
     public class AuxiliaryPriceModel
     {

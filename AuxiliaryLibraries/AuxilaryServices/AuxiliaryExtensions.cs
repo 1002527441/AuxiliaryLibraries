@@ -550,6 +550,17 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="baseCurrency">The currency of price parameter</param>
+        /// <param name="targetCurrency">The currency of result</param>
+        /// <returns></returns>
+        public static AuxiliaryPriceModel ToToman(this double price, AuxiliaryPriceModel.Currency baseCurrency = AuxiliaryPriceModel.Currency.IRR) =>
+            new AuxiliaryPriceModel(price, baseCurrency, AuxiliaryPriceModel.Currency.Toman);
+
+        /// <summary>
+        ///  Convert price to AuxiliaryPriceModel
+        ///  AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+        /// </summary>
+        /// <param name="price">The price you need to convert</param>
+        /// <param name="baseCurrency">The currency of price parameter</param>
         /// <returns></returns>
         public static AuxiliaryPriceModel ToRial(this int price, AuxiliaryPriceModel.Currency baseCurrency = AuxiliaryPriceModel.Currency.IRR) =>
             ToRial(Convert.ToInt64(price), baseCurrency);
@@ -563,6 +574,56 @@ namespace AuxiliaryLibraries
         /// <returns></returns>
         public static AuxiliaryPriceModel ToRial(this long price, AuxiliaryPriceModel.Currency baseCurrency = AuxiliaryPriceModel.Currency.IRR) =>
             new AuxiliaryPriceModel(price, baseCurrency, AuxiliaryPriceModel.Currency.IRR);
+
+        /// <summary>
+        ///  Convert price to AuxiliaryPriceModel
+        ///  AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+        /// </summary>
+        /// <param name="price">The price you need to convert</param>
+        /// <param name="baseCurrency">The currency of price parameter</param>
+        /// <returns></returns>
+        public static AuxiliaryPriceModel ToRial(this double price, AuxiliaryPriceModel.Currency baseCurrency = AuxiliaryPriceModel.Currency.IRR) =>
+            new AuxiliaryPriceModel(price, baseCurrency, AuxiliaryPriceModel.Currency.IRR);
+
+        /// <summary>
+        ///  Convert price to AuxiliaryPriceModel
+        ///  AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+        /// </summary>
+        /// <param name="price">The price you need to convert</param>
+        /// <param name="baseCurrency">The currency of price parameter</param>
+        /// <returns></returns>
+        public static AuxiliaryPriceModel ToBTC(this double price) => 
+            new AuxiliaryPriceModel(price, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.BTC);
+
+        /// <summary>
+        ///  Convert price to AuxiliaryPriceModel
+        ///  AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+        /// </summary>
+        /// <param name="price">The price you need to convert</param>
+        /// <param name="baseCurrency">The currency of price parameter</param>
+        /// <returns></returns>
+        public static AuxiliaryPriceModel ToUSD(this double price) =>
+            new AuxiliaryPriceModel(price, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.USD);
+
+        /// <summary>
+        ///  Convert price to AuxiliaryPriceModel
+        ///  AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+        /// </summary>
+        /// <param name="price">The price you need to convert</param>
+        /// <param name="baseCurrency">The currency of price parameter</param>
+        /// <returns></returns>
+        public static AuxiliaryPriceModel ToGBP(this double price) =>
+            new AuxiliaryPriceModel(price, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.GBP);
+
+        /// <summary>
+        ///  Convert price to AuxiliaryPriceModel
+        ///  AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+        /// </summary>
+        /// <param name="price">The price you need to convert</param>
+        /// <param name="baseCurrency">The currency of price parameter</param>
+        /// <returns></returns>
+        public static AuxiliaryPriceModel ToEUR(this double price) =>
+            new AuxiliaryPriceModel(price, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.EUR);
 
         /// <summary>
         /// This function extracts from the text just digits.
