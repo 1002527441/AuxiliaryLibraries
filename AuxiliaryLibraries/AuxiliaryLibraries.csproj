@@ -56,7 +56,15 @@
     <Compile Include="AuxilaryServices\AuxiliaryDirectoryFileHelper.cs" />
     <Compile Include="AuxilaryServices\AuxiliaryEncryption.cs" />
     <Compile Include="AuxilaryServices\AuxiliaryHttp.cs" />
-    <Compile Include="AuxilaryServices\AuxiliaryPriceModel.cs" />
+    <Compile Include="AuxilaryServices\AuxiliaryPriceModel\AuxiliaryBasicPriceModel.cs" />
+    <Compile Include="AuxilaryServices\AuxiliaryPriceModel\AuxiliaryFloatPriceModel.cs" />
+    <Compile Include="AuxilaryServices\AuxiliaryPriceModel\AuxiliaryIntPriceModel .cs" />
+    <Compile Include="AuxilaryServices\AuxiliaryPriceModel\AuxiliaryLongPriceModel.cs" />
+    <Compile Include="AuxilaryServices\AuxiliaryPriceModel\AuxiliaryDecimalPriceModel.cs" />
+    <Compile Include="AuxilaryServices\AuxiliaryPriceModel\AuxiliaryDoublePriceModel.cs" />
+    <Compile Include="Enums\Currency.cs" />
+    <Compile Include="Enums\AuxiliaryBasicPriceModel.NumberType.cs" />
+    <Compile Include="AuxilaryServices\AuxiliaryPriceModel\AuxiliaryPriceModel.cs" />
     <Compile Include="AuxilaryServices\AuxiliaryZip.cs" />
     <Compile Include="Enums\EncryptType.cs" />
     <Compile Include="Enums\PersianDayOfWeek.cs" />

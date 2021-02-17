@@ -203,6 +203,12 @@ namespace TestUnits
             var price13 = new AuxiliaryPriceModel(0.97, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.BTC);
             var price14 = new AuxiliaryPriceModel(0.0012, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.BTC, true);
             var price15 = new AuxiliaryPriceModel(0.0012141611, AuxiliaryPriceModel.Currency.Toman, AuxiliaryPriceModel.Currency.BTC, true);
+            var price16 = Convert.ToDouble("0.0012141611141611").ToBTC();
+            var price17 = Convert.ToDouble("0.00121400121001211611").ToBTC();
+            var price18 = Convert.ToDouble("0.0012140012140012140012141611").ToBTC();
+            var price19 = Convert.ToDouble("0.00003899999999999999929396754527743951257434673607349395751953125").ToBTC();
+            var price20 = double.MaxValue.ToBTC();
+            var price21 = Convert.ToDouble("0.0000389999999999999992939675452774395125743467360734939575195312500003899999999999999929396754527743951257434673607349395751953125").ToBTC();
             Assert.IsTrue(true);
         }
 
