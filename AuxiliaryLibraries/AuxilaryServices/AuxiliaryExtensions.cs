@@ -594,10 +594,29 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="baseCurrency">The currency of price parameter</param>
-        /// <param name="targetCurrency">The currency of result</param>
+        /// <returns></returns>
+        public static AuxiliaryFloatPriceModel ToToman(this float price, Currency baseCurrency = Currency.IRR) =>
+            new AuxiliaryFloatPriceModel(price, baseCurrency, Currency.Toman);
+
+        /// <summary>
+        ///  Convert price to AuxiliaryPriceModel
+        ///  AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+        /// </summary>
+        /// <param name="price">The price you need to convert</param>
+        /// <param name="baseCurrency">The currency of price parameter</param>
         /// <returns></returns>
         public static AuxiliaryDoublePriceModel ToToman(this double price, Currency baseCurrency = Currency.IRR) =>
             new AuxiliaryDoublePriceModel(price, baseCurrency, Currency.Toman);
+
+        /// <summary>
+        ///  Convert price to AuxiliaryPriceModel
+        ///  AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+        /// </summary>
+        /// <param name="price">The price you need to convert</param>
+        /// <param name="baseCurrency">The currency of price parameter</param>
+        /// <returns></returns>
+        public static AuxiliaryDecimalPriceModel ToToman(this decimal price, Currency baseCurrency = Currency.IRR) =>
+            new AuxiliaryDecimalPriceModel(price, baseCurrency, Currency.Toman);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -626,8 +645,28 @@ namespace AuxiliaryLibraries
         /// <param name="price">The price you need to convert</param>
         /// <param name="baseCurrency">The currency of price parameter</param>
         /// <returns></returns>
+        public static AuxiliaryFloatPriceModel ToRial(this float price, Currency baseCurrency = Currency.IRR) =>
+            new AuxiliaryFloatPriceModel(price, baseCurrency, Currency.IRR);
+
+        /// <summary>
+        ///  Convert price to AuxiliaryPriceModel
+        ///  AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+        /// </summary>
+        /// <param name="price">The price you need to convert</param>
+        /// <param name="baseCurrency">The currency of price parameter</param>
+        /// <returns></returns>
         public static AuxiliaryDoublePriceModel ToRial(this double price, Currency baseCurrency = Currency.IRR) =>
             new AuxiliaryDoublePriceModel(price, baseCurrency, Currency.IRR);
+
+        /// <summary>
+        ///  Convert price to AuxiliaryPriceModel
+        ///  AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+        /// </summary>
+        /// <param name="price">The price you need to convert</param>
+        /// <param name="baseCurrency">The currency of price parameter</param>
+        /// <returns></returns>
+        public static AuxiliaryDecimalPriceModel ToRial(this decimal price, Currency baseCurrency = Currency.IRR) =>
+            new AuxiliaryDecimalPriceModel(price, baseCurrency, Currency.IRR);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
