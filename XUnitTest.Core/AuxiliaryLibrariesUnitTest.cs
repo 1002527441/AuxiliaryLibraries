@@ -1,17 +1,15 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using Xunit;
 using AuxiliaryLibraries;
 
-namespace TestUnits
+namespace XUnitTest.Core
 {
-    [TestClass]
     public class AuxiliaryLibrariesUnitTest
     {
-        //nuget pack Package.nuspec
-        [TestMethod]
+        [Fact]
         public void ToPrettyDate()
         {
-            var persian_date1 = new DateTime(2019,01,07).ToPrettyDate();
+            var persian_date1 = new DateTime(2019, 01, 07).ToPrettyDate();
             var persian_today = DateTime.Now.ToPrettyDate();
             var persian_yesterday = DateTime.Now.AddDays(-1).ToPrettyDate();
             var persian_date = DateTime.Now.AddDays(-10).ToPrettyDate();
@@ -33,16 +31,16 @@ namespace TestUnits
             var utc_yesterday = DateTime.UtcNow.AddDays(-1).ToPrettyDate(true, false);
             var utc_date = DateTime.UtcNow.AddDays(-10).ToPrettyDate(true, false);
 
-            Assert.AreEqual(persian_today, utc_persian_today);
-            Assert.AreEqual(persian_yesterday, utc_persian_yesterday);
-            Assert.AreEqual(persian_date, utc_persian_date);
-
-            Assert.AreEqual(todat, utc_today);
-            Assert.AreEqual(yesterday, utc_yesterday);
-            Assert.AreEqual(date, utc_date);
+            Assert.Equal(persian_today, utc_persian_today);
+            Assert.Equal(persian_yesterday, utc_persian_yesterday);
+            Assert.Equal(persian_date, utc_persian_date);
+                   
+            Assert.Equal(todat, utc_today);
+            Assert.Equal(yesterday, utc_yesterday);
+            Assert.Equal(date, utc_date);
         }
 
-        [TestMethod]
+        [Fact]
         public void ToPrettyTime()
         {
             var persian_today = DateTime.Now.ToPrettyTime();
@@ -81,26 +79,26 @@ namespace TestUnits
             var utc_Months = DateTime.UtcNow.AddMonths(-3).ToPrettyTime(true, false);
             var utc_Years = DateTime.UtcNow.AddMonths(-20).ToPrettyTime(true, false);
 
-            Assert.AreEqual(persian_today, utc_persian_today);
-            Assert.AreEqual(persian_Seconds, utc_persian_Seconds);
-            Assert.AreEqual(persian_Minutes, utc_persian_Minutes);
-            Assert.AreEqual(persian_Hours, utc_persian_Hours);
-            Assert.AreEqual(persian_Days, utc_persian_Days);
-            Assert.AreEqual(persian_Weeks, utc_persian_Weeks);
-            Assert.AreEqual(persian_Months, utc_persian_Months);
-            Assert.AreEqual(persian_Years, utc_persian_Years);
-
-            Assert.AreEqual(today, utc_today);
-            Assert.AreEqual(Seconds, utc_Seconds);
-            Assert.AreEqual(Minutes, utc_Minutes);
-            Assert.AreEqual(Hours, utc_Hours);
-            Assert.AreEqual(Days, utc_Days);
-            Assert.AreEqual(Weeks, utc_Weeks);
-            Assert.AreEqual(Months, utc_Months);
-            Assert.AreEqual(Years, utc_Years);
+            Assert.Equal(persian_today, utc_persian_today);
+            Assert.Equal(persian_Seconds, utc_persian_Seconds);
+            Assert.Equal(persian_Minutes, utc_persian_Minutes);
+            Assert.Equal(persian_Hours, utc_persian_Hours);
+            Assert.Equal(persian_Days, utc_persian_Days);
+            Assert.Equal(persian_Weeks, utc_persian_Weeks);
+            Assert.Equal(persian_Months, utc_persian_Months);
+            Assert.Equal(persian_Years, utc_persian_Years);
+                   
+            Assert.Equal(today, utc_today);
+            Assert.Equal(Seconds, utc_Seconds);
+            Assert.Equal(Minutes, utc_Minutes);
+            Assert.Equal(Hours, utc_Hours);
+            Assert.Equal(Days, utc_Days);
+            Assert.Equal(Weeks, utc_Weeks);
+            Assert.Equal(Months, utc_Months);
+            Assert.Equal(Years, utc_Years);
         }
 
-        [TestMethod]
+        [Fact]
         public void ToPrettyDay()
         {
             var _M8_day = DateTime.Now.AddDays(-8).ToPrettyDay();
@@ -122,7 +120,7 @@ namespace TestUnits
             var _8_day = DateTime.Now.AddDays(8).ToPrettyDay();
         }
 
-        [TestMethod]
+        [Fact]
         public void ToPrettyWeekDay()
         {
             var _M8_day = DateTime.Now.AddDays(-8).ToPrettyDayOfWeek();
@@ -144,7 +142,7 @@ namespace TestUnits
             var _8_day = DateTime.Now.AddDays(8).ToPrettyDayOfWeek();
         }
 
-        [TestMethod]
+        [Fact]
         public void ToDateTime()
         {
             var enDate = new DateTime(2017, 11, 22);
@@ -152,10 +150,10 @@ namespace TestUnits
             string date = "1396-09-01";
             var second = AuxiliaryCalendar.ToDateTime(date) == enDate;
 
-            Assert.IsTrue(first && second);
+            Assert.True(first && second);
         }
 
-        [TestMethod]
+        [Fact]
         public void Encrypt()
         {
             var str1 = AuxiliaryEncryption.RC4.Encrypt("Amin", "Keeping in mind that every every character of that string is 1 byte, or 8 bits, in size (assuming ASCII/UTF8 encoding), we are encoding 6 bytes, or 48 bits, of data. According to the equation, we expect the output length to be (6 bytes / 3 bytes) * 4 characters = 8 characters .Nov 14, 2012");
@@ -174,7 +172,7 @@ namespace TestUnits
             var b7 = str7.Length;
         }
 
-        [TestMethod]
+        [Fact]
         public void RSAEncrypttion()
         {
             var rsa = new AuxiliaryEncryption.RSA(2048);
@@ -182,7 +180,7 @@ namespace TestUnits
             rsa.SavePublicKey(@"X:\Fahime\Archive\Sadad\PublicKey.xml");
         }
 
-        [TestMethod]
+        [Fact]
         public void PriceModel()
         {
             var nDouble = ((double)569825.23).ToCommaDelimited();
@@ -211,24 +209,24 @@ namespace TestUnits
             var price18 = Convert.ToDouble("0.00003899999999999999929396754527743951257434673607349395751953125").ToBTC();
             var price19 = double.MaxValue.ToBTC();
             var price20 = Convert.ToDecimal("0.0000389999999999999992939675452774395125743467360734939575195312500003899999999999999929396754527743951257434673607349395751953125").ToBTC();
-            Assert.IsTrue(true);
+            Assert.True(true);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetFirstDayOfThisMonth()
         {
             var persianToday = AuxiliaryCalendar.GetFirstDayOfThisMonth();
             var today = AuxiliaryCalendar.GetFirstDayOfThisMonth(false);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetFirstDayOfThisWeek()
         {
             var persianToday = AuxiliaryCalendar.GetFirstDayOfThisWeek();
             var today = AuxiliaryCalendar.GetFirstDayOfThisWeek(false);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetFirstDayOfLastXDay()
         {
             var day0 = AuxiliaryCalendar.GetFirstDayOfLastXDay(1);

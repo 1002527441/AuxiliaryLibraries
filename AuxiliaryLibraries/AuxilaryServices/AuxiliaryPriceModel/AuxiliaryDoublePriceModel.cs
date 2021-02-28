@@ -45,16 +45,16 @@ namespace AuxiliaryLibraries
                     this.PriceShortFormat = result.PriceShortFormat;
                     this.PriceCurrency = result.PriceCurrency;
                     this.PriceDescription = result.PriceDescription;
-                    this.PriceCommaDeLimited = this.Price % 1 == 0 ? this.Price.ToCommaDelimited(",") : this._PriceShortFormat.ToCommaDelimited(",");
-                    this.PriceCommaDeLimitedDescription = this.Price > 0 ? 
-                                                                this.Price % 1 == 0 ? 
+                    this.PriceCommaDeLimited = this.Price.ToCommaDelimited();
+                    this.PriceCommaDeLimitedDescription = this.Price > 0 ?
+                                                                this.Price % 1 == 0 ?
                                                                 $"{this.PriceCommaDeLimited} {this.CurrencyDescription}" :
-                                                                $"{this.PriceCommaDeLimited} {this.PriceCurrency}" : 
+                                                                $"{this.PriceCommaDeLimited} {this.PriceCurrency}" :
                                                                 DisplayNames.Free;
                 }
             }
         }
-        
+
         /// <summary>
         /// Pass price as a value to constructor
         /// </summary>
@@ -114,7 +114,7 @@ namespace AuxiliaryLibraries
                     {
                         var count = BitConverter.GetBytes(decimal.GetBits((decimal)price)[3])[2] * -1;
                         var _power = powers.Any(x => x == count) ? count : power;
-                        CalculateDecimals(price, _power, ref priceShortFormat, ref priceCurrency, ref priceDescriptyion, metricSystem);
+                        CalculateDecimals(price, power, _power, ref priceShortFormat, ref priceCurrency, ref priceDescriptyion, metricSystem);
                         return this;
                     }
                 }
@@ -123,7 +123,7 @@ namespace AuxiliaryLibraries
             //this.Price = price, //Don't Set It
             this.PriceCurrency = priceCurrency;
             this.PriceShortFormat = (long)price;
-            this.PriceDescription = $"{ToLetters((int)price)} {priceCurrency}";
+            this.PriceDescription = $"{((long)price).ToPersianLetters()} {priceCurrency}";
             return this;
         }
 
@@ -145,10 +145,10 @@ namespace AuxiliaryLibraries
             if (remained > 0)
             {
                 var result = Calculate((double)remained);
-                priceDescriptyion = $"{ToLetters((int)priceShortFormat)} {priceCurrency} و {result.PriceDescription}";
+                priceDescriptyion = $"{((long)priceShortFormat).ToPersianLetters()} {priceCurrency} و {result.PriceDescription}";
             }
             else
-                priceDescriptyion = $"{ToLetters((int)priceShortFormat)} {priceCurrency} {this.CurrencyDescription}";
+                priceDescriptyion = $"{((long)priceShortFormat).ToPersianLetters()} {priceCurrency} {this.CurrencyDescription}";
             priceShortFormat = Convert.ToDouble(Round(price, powerd, power));
             //this.Price = price, //Don't Set It
             this.PriceCurrency = $"{priceCurrency} {this.CurrencyDescription}";
@@ -165,19 +165,40 @@ namespace AuxiliaryLibraries
         /// <param name="priceCurrency"></param>
         /// <param name="priceDescriptyion"></param>
         /// <param name="metricSystem"></param>
-        protected override void CalculateDecimals(double price, int power, ref double priceShortFormat, ref string priceCurrency, ref string priceDescriptyion, bool metricSystem)
+        protected override void CalculateDecimals(double price, int power, int decimalPower, ref double priceShortFormat, ref string priceCurrency, ref string priceDescriptyion, bool metricSystem)
         {
-            double remained = Convert.ToDouble(price.ToString().Replace("0", string.Empty).Replace(".", string.Empty));
-            priceCurrency = GetPriceCurrency(power, metricSystem);
-            var result = Calculate((double)remained);
+            var numList = price.ToString().Split('.');
 
-            priceDescriptyion = $"{result.PriceDescription.Replace(CurrencyDescription, string.Empty).Trim()} {priceCurrency} {this.CurrencyDescription}";
+            #region Decimal Side of Price
+            double decimalNumber = numList.Count() > 1 ? Convert.ToDouble(numList.Last()) : 0;  // The Right Side => after .
+            var priceDecimalCurrency = decimalNumber > 0 ? GetPriceCurrency(decimalPower, metricSystem) : string.Empty;
+            var decimalResult = decimalNumber > 0 ? Calculate(decimalNumber) : null;
+            var tempThis = decimalResult != null ? (AuxiliaryDoublePriceModel)this.Clone() : null;
+            #endregion
+
+            #region Integer Side of Price
+            double integerNumber = numList.Count() > 0 ? Convert.ToDouble(numList.First()) : 0; // The Left Side => before .
+            var priceIntegerCurrency = integerNumber > 0 ? GetPriceCurrency(power, metricSystem) : string.Empty;
+            var integerResult = integerNumber > 0 ? Calculate(integerNumber) : null;
+            #endregion
+
+            priceCurrency = GetPriceCurrency(integerNumber > 0 ? power : decimalPower, metricSystem);
+            if (integerResult != null)
+            {
+                priceDescriptyion = $"{integerResult.PriceDescription}";
+            }
+            if (tempThis != null)
+            {
+                if (integerResult != null)
+                    priceDescriptyion += $" و ";
+                priceDescriptyion += $"{tempThis.PriceDescription.Replace(CurrencyDescription, string.Empty).Trim()} {priceDecimalCurrency} {this.CurrencyDescription}";
+            }
 
             //this.Price = price, //Don't Set It
             this.PriceCurrency = $"{priceCurrency} {this.CurrencyDescription}".Replace("  ", " ").Trim();
-            this.PriceShortFormat = result.PriceShortFormat;
-            this.PriceDescription = priceDescriptyion;
-            this._PriceShortFormat = (long)remained;
+            this.PriceShortFormat = integerResult != null ? integerResult.PriceShortFormat : tempThis.PriceShortFormat;
+            this.PriceDescription = priceDescriptyion.Replace("  ", " ").Trim();
+            this._PriceShortFormat = (long)integerNumber;
         }
 
         /// <summary>

@@ -114,7 +114,7 @@ namespace AuxiliaryLibraries
                     {
                         var count = BitConverter.GetBytes(decimal.GetBits((decimal)price)[3])[2] * -1;
                         var _power = powers.Any(x => x == count) ? count : power;
-                        CalculateDecimals(price, _power, ref priceShortFormat, ref priceCurrency, ref priceDescriptyion, metricSystem);
+                        CalculateDecimals(price, power, _power, ref priceShortFormat, ref priceCurrency, ref priceDescriptyion, metricSystem);
                         return this;
                     }
                 }
@@ -123,7 +123,7 @@ namespace AuxiliaryLibraries
             //this.Price = price, //Don't Set It
             this.PriceCurrency = priceCurrency;
             this.PriceShortFormat = (long)price;
-            this.PriceDescription = $"{ToLetters((int)price)} {priceCurrency}";
+            this.PriceDescription = $"{((long)price).ToPersianLetters()} {priceCurrency}";
             return this;
         }
 
@@ -145,10 +145,10 @@ namespace AuxiliaryLibraries
             if (remained > 0)
             {
                 var result = Calculate(remained);
-                priceDescriptyion = $"{ToLetters((int)priceShortFormat)} {priceCurrency} و {result.PriceDescription}";
+                priceDescriptyion = $"{((long)priceShortFormat).ToPersianLetters()} {priceCurrency} و {result.PriceDescription}";
             }
             else
-                priceDescriptyion = $"{ToLetters((int)priceShortFormat)} {priceCurrency} {this.CurrencyDescription}";
+                priceDescriptyion = $"{((long)priceShortFormat).ToPersianLetters()} {priceCurrency} {this.CurrencyDescription}";
             priceShortFormat = (float)Convert.ToDouble(Round(price, powerd, power));
             //this.Price = price, //Don't Set It
             this.PriceCurrency = $"{priceCurrency} {this.CurrencyDescription}";
@@ -165,7 +165,7 @@ namespace AuxiliaryLibraries
         /// <param name="priceCurrency"></param>
         /// <param name="priceDescriptyion"></param>
         /// <param name="metricSystem"></param>
-        protected override void CalculateDecimals(float price, int power, ref float priceShortFormat, ref string priceCurrency, ref string priceDescriptyion, bool metricSystem)
+        protected override void CalculateDecimals(float price, int power, int decimalPower, ref float priceShortFormat, ref string priceCurrency, ref string priceDescriptyion, bool metricSystem)
         {
             double remained = Convert.ToDouble(price.ToString().Replace("0", string.Empty).Replace(".", string.Empty));
             priceCurrency = GetPriceCurrency(power, metricSystem);

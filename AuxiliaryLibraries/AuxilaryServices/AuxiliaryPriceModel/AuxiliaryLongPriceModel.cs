@@ -105,25 +105,15 @@ namespace AuxiliaryLibraries
             {
                 if (price >= Convert.ToDecimal(Math.Pow(10, power)))
                 {
-                    if (price % 1 == 0)
-                    {
-                        CalculateIntegers(price, power, ref priceShortFormat, ref priceCurrency, ref priceDescriptyion, metricSystem);
-                        return this;
-                    }
-                    else
-                    {
-                        var count = BitConverter.GetBytes(decimal.GetBits((decimal)price)[3])[2] * -1;
-                        var _power = powers.Any(x => x == count) ? count : power;
-                        CalculateDecimals(price, _power, ref priceShortFormat, ref priceCurrency, ref priceDescriptyion, metricSystem);
-                        return this;
-                    }
+                    CalculateIntegers(price, power, ref priceShortFormat, ref priceCurrency, ref priceDescriptyion, metricSystem);
+                    return this;
                 }
             }
 
             //this.Price = price, //Don't Set It
             this.PriceCurrency = priceCurrency;
             this.PriceShortFormat = (long)price;
-            this.PriceDescription = $"{ToLetters((int)price)} {priceCurrency}";
+            this.PriceDescription = $"{((long)price).ToPersianLetters()} {priceCurrency}";
             return this;
         }
 
@@ -145,10 +135,10 @@ namespace AuxiliaryLibraries
             if (remained > 0)
             {
                 var result = Calculate(remained);
-                priceDescriptyion = $"{ToLetters((int)priceShortFormat)} {priceCurrency} و {result.PriceDescription}";
+                priceDescriptyion = $"{((long)priceShortFormat).ToPersianLetters()} {priceCurrency} و {result.PriceDescription}";
             }
             else
-                priceDescriptyion = $"{ToLetters((int)priceShortFormat)} {priceCurrency} {this.CurrencyDescription}";
+                priceDescriptyion = $"{((long)priceShortFormat).ToPersianLetters()} {priceCurrency} {this.CurrencyDescription}";
             priceShortFormat = Convert.ToInt64(Round(price, powerd, power));
             //this.Price = price, //Don't Set It
             this.PriceCurrency = $"{priceCurrency} {this.CurrencyDescription}";
@@ -165,19 +155,9 @@ namespace AuxiliaryLibraries
         /// <param name="priceCurrency"></param>
         /// <param name="priceDescriptyion"></param>
         /// <param name="metricSystem"></param>
-        protected override void CalculateDecimals(long price, int power, ref long priceShortFormat, ref string priceCurrency, ref string priceDescriptyion, bool metricSystem)
+        protected override void CalculateDecimals(long price, int power, int decimalPower, ref long priceShortFormat, ref string priceCurrency, ref string priceDescriptyion, bool metricSystem)
         {
-            double remained = Convert.ToDouble(price.ToString().Replace("0", string.Empty).Replace(".", string.Empty));
-            priceCurrency = GetPriceCurrency(power, metricSystem);
-            var result = Calculate((long)remained);
-
-            priceDescriptyion = $"{result.PriceDescription.Replace(CurrencyDescription, string.Empty).Trim()} {priceCurrency} {this.CurrencyDescription}";
-
-            //this.Price = price, //Don't Set It
-            this.PriceCurrency = $"{priceCurrency} {this.CurrencyDescription}".Replace("  ", " ").Trim();
-            this.PriceShortFormat = result.PriceShortFormat;
-            this.PriceDescription = priceDescriptyion;
-            this._PriceShortFormat = (long)remained;
+            CalculateIntegers(price, power, ref priceShortFormat, ref priceCurrency, ref priceDescriptyion, metricSystem);
         }
 
         /// <summary>

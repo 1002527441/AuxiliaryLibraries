@@ -122,7 +122,7 @@ namespace AuxiliaryLibraries
         /// <param name="priceCurrency"></param>
         /// <param name="priceDescriptyion"></param>
         /// <param name="metricSystem"></param>
-        protected virtual void CalculateDecimals(T price, int power, ref T priceShortFormat, ref string priceCurrency, ref string priceDescriptyion, bool metricSystem)
+        protected virtual void CalculateDecimals(T price, int power, int decimalPower, ref T priceShortFormat, ref string priceCurrency, ref string priceDescriptyion, bool metricSystem)
         {}
 
         /// <summary>
@@ -165,202 +165,6 @@ namespace AuxiliaryLibraries
         }
 
         /// <summary>
-        /// To Letters
-        /// </summary>
-        /// <param name="price"></param>
-        /// <returns></returns>
-        protected string ToLetters(int price)
-        {
-            var _price = string.Empty;
-            int hundreds = price >= 100 ? price / 100 : 0, tens = 0, units = 0;
-
-            #region tens
-            if (hundreds > 0)
-                tens = (price % 100) >= 10 ? (price % 100) / 10 : 0;
-            else
-                tens = price >= 10 ? price / 10 : 0;
-            #endregion
-
-            #region units
-            if (hundreds > 0)
-            {
-                if (tens > 0)
-                    units = ((price % 100) % 10);
-                else
-                    units = (price % 100);
-            }
-            else
-            {
-                if (tens > 0)
-                    units = (price % 10);
-                else
-                    units = price;
-            }
-            #endregion
-
-            var lst = new List<string>();
-            lst.Add(GetLetter(hundreds, NumberType.hundreds));
-            if (tens == 1 && units > 0)
-                lst.Add(GetLetter(Convert.ToInt32($"{tens}{units}"), NumberType.tens));
-            else
-            {
-                lst.Add(GetLetter(tens, NumberType.tens));
-                lst.Add(GetLetter(units, NumberType.units));
-            }
-
-            return string.Join(" و ", lst.Where(s => !string.IsNullOrEmpty(s)).ToList());
-        }
-
-        /// <summary>
-        /// Get Letter
-        /// </summary>
-        /// <param name="price"></param>
-        /// <param name="numberType"></param>
-        /// <returns></returns>
-        protected string GetLetter(int price, NumberType numberType)
-        {
-            switch (price)
-            {
-                case 19:
-                    return DisplayNames.Number_Nineteen;
-                case 18:
-                    return DisplayNames.Number_Eighteen;
-                case 17:
-                    return DisplayNames.Number_Seventeen;
-                case 16:
-                    return DisplayNames.Number_Sixteen;
-                case 15:
-                    return DisplayNames.Number_Fifteen;
-                case 14:
-                    return DisplayNames.Number_Fourteen;
-                case 13:
-                    return DisplayNames.Number_Thirteen;
-                case 12:
-                    return DisplayNames.Number_Twelve;
-                case 11:
-                    return DisplayNames.Number_Eleven;
-                case 9:
-                    {
-                        switch (numberType)
-                        {
-                            case NumberType.hundreds:
-                                return DisplayNames.Number_NineHundred;
-                            case NumberType.tens:
-                                return DisplayNames.Number_Ninety;
-                            case NumberType.units:
-                                return DisplayNames.Number_Nine;
-                        }
-                    }
-                    break;
-                case 8:
-                    {
-                        switch (numberType)
-                        {
-                            case NumberType.hundreds:
-                                return DisplayNames.Number_EightHundred;
-                            case NumberType.tens:
-                                return DisplayNames.Number_Eighty;
-                            case NumberType.units:
-                                return DisplayNames.Number_Eight;
-                        }
-                    }
-                    break;
-                case 7:
-                    {
-                        switch (numberType)
-                        {
-                            case NumberType.hundreds:
-                                return DisplayNames.Number_SevenHundred;
-                            case NumberType.tens:
-                                return DisplayNames.Number_Seventeen;
-                            case NumberType.units:
-                                return DisplayNames.Number_Seven;
-                        }
-                    }
-                    break;
-                case 6:
-                    {
-                        switch (numberType)
-                        {
-                            case NumberType.hundreds:
-                                return DisplayNames.Number_SixHundred;
-                            case NumberType.tens:
-                                return DisplayNames.Number_Sixty;
-                            case NumberType.units:
-                                return DisplayNames.Number_Six;
-                        }
-                    }
-                    break;
-                case 5:
-                    {
-                        switch (numberType)
-                        {
-                            case NumberType.hundreds:
-                                return DisplayNames.Number_FiveHundred;
-                            case NumberType.tens:
-                                return DisplayNames.Number_Fifty;
-                            case NumberType.units:
-                                return DisplayNames.Number_Five;
-                        }
-                    }
-                    break;
-                case 4:
-                    {
-                        switch (numberType)
-                        {
-                            case NumberType.hundreds:
-                                return DisplayNames.Number_FourHundred;
-                            case NumberType.tens:
-                                return DisplayNames.Number_Fourty;
-                            case NumberType.units:
-                                return DisplayNames.Number_Four;
-                        }
-                    }
-                    break;
-                case 3:
-                    {
-                        switch (numberType)
-                        {
-                            case NumberType.hundreds:
-                                return DisplayNames.Number_ThreeHundred;
-                            case NumberType.tens:
-                                return DisplayNames.Number_Thirty;
-                            case NumberType.units:
-                                return DisplayNames.Number_Three;
-                        }
-                    }
-                    break;
-                case 2:
-                    {
-                        switch (numberType)
-                        {
-                            case NumberType.hundreds:
-                                return DisplayNames.Number_TwoHundred;
-                            case NumberType.tens:
-                                return DisplayNames.Number_Twenty;
-                            case NumberType.units:
-                                return DisplayNames.Number_Two;
-                        }
-                    }
-                    break;
-                case 1:
-                    {
-                        switch (numberType)
-                        {
-                            case NumberType.hundreds:
-                                return DisplayNames.Number_OneHundred;
-                            case NumberType.tens:
-                                return DisplayNames.Number_Ten;
-                            case NumberType.units:
-                                return DisplayNames.Number_One;
-                        }
-                    }
-                    break;
-            }
-            return string.Empty;
-        }
-
-        /// <summary>
         /// Get Currency Description
         /// </summary>
         /// <param name="currency"></param>
@@ -377,6 +181,11 @@ namespace AuxiliaryLibraries
                 Currency.USD => DisplayNames.USD,
                 _ => DisplayNames.Rial
             };
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
         #endregion
     }

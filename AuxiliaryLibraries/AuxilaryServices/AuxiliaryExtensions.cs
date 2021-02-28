@@ -1,5 +1,6 @@
 ﻿using AuxiliaryLibraries.Enums;
 using AuxiliaryLibraries.Extentions;
+using AuxiliaryLibraries.Resources;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -489,11 +490,11 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="number"></param>
         /// <param name="separator"></param>
-        /// <param name="individualLength"></param>
+        /// <param name="separatedSize"></param>
         /// <returns></returns>
-        public static string ToCommaDelimited(this int number, string separator = ",", int individualLength = 3)
+        public static string ToCommaDelimited(this int number, string separator = ",", int separatedSize = 3)
         {
-            return ((long)number).ToCommaDelimited(separator);
+            return ((long)number).ToCommaDelimited(separator, separatedSize);
         }
 
         /// <summary>
@@ -521,9 +522,7 @@ namespace AuxiliaryLibraries
         /// <returns></returns>
         public static string ToCommaDelimited(this float number, string separator = ",", int separatedSize = 3)
         {
-            long tempNum = Convert.ToInt64(number);
-            long decimalNum = (long)(((decimal)number % 1) * 100);
-            return decimalNum > 0 ? $"{tempNum.ToCommaDelimited()}.{decimalNum.ToCommaDelimited()}" : tempNum.ToCommaDelimited();
+            return Convert.ToDecimal(number).ToCommaDelimited(separator, separatedSize);
         }
 
         /// <summary>
@@ -535,9 +534,7 @@ namespace AuxiliaryLibraries
         /// <returns></returns>
         public static string ToCommaDelimited(this double number, string separator = ",", int separatedSize = 3)
         {
-            long tempNum = Convert.ToInt64(number);
-            long decimalNum = (long)(((decimal)number % 1) * 100);
-            return decimalNum > 0 ? $"{tempNum.ToCommaDelimited()}.{decimalNum.ToCommaDelimited()}" : tempNum.ToCommaDelimited();
+            return Convert.ToDecimal(number).ToCommaDelimited(separator, separatedSize);
         }
 
         /// <summary>
@@ -549,9 +546,33 @@ namespace AuxiliaryLibraries
         /// <returns></returns>
         public static string ToCommaDelimited(this decimal number, string separator = ",", int separatedSize = 3)
         {
-            long tempNum = Convert.ToInt64(number);
-            long decimalNum = (long)(((decimal)number % 1) * 100);
-            return decimalNum > 0 ? $"{tempNum.ToCommaDelimited()}.{decimalNum.ToCommaDelimited()}" : tempNum.ToCommaDelimited();
+            var numbers = number.ToString().Split('.').ToList();
+            var numberFormatInfo = new NumberFormatInfo()
+            {
+                NumberGroupSizes = new[] { separatedSize },
+                NumberGroupSeparator = separator
+            };
+            var num = decimal.Parse(numbers[0]).ToString("N0", numberFormatInfo);
+            var point = string.Empty;
+            if (numbers.Count == 2)
+                point = CreateCommaSeparatedDecimalPoints(numbers[1]);
+
+            return !string.IsNullOrEmpty(point) ? $"{num}.{point}" : $"{num}";
+
+            string CreateCommaSeparatedDecimalPoints(string number)
+            {
+                //if all are zero return null
+
+                if (number.All(y => y == '0' || y == 0)) return null;
+
+                if (number.StartsWith("0"))
+                {
+                    number = '1' + number.Remove(0, 1);
+                    var point = decimal.Parse(number).ToString("N0", numberFormatInfo);
+                    return $"0{point.Remove(0, 1)}";
+                }
+                return decimal.Parse(number).ToString("N0", numberFormatInfo);
+            }
         }
 
         #region Money And Currency
@@ -1190,6 +1211,206 @@ namespace AuxiliaryLibraries
                 return generator.Next(0, 999999).ToString("D6");
             }
             return Guid.NewGuid().ToString().Replace("-", "").Substring(0, len);
+        }
+
+        /// <summary>
+        /// Convert Number To Persian Letters
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static string ToPersianLetters(this int number)
+        {
+            return ((long)number).ToPersianLetters();
+        }
+
+        /// <summary>
+        /// Convert Number To Persian Letters
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static string ToPersianLetters(this long number)
+        {
+            var _price = string.Empty;
+            long hundreds = number >= 100 ? number / 100 : 0, tens = 0, units = 0;
+
+            #region tens
+            if (hundreds > 0)
+                tens = (number % 100) >= 10 ? (number % 100) / 10 : 0;
+            else
+                tens = number >= 10 ? number / 10 : 0;
+            #endregion
+
+            #region units
+            if (hundreds > 0)
+            {
+                if (tens > 0)
+                    units = ((number % 100) % 10);
+                else
+                    units = (number % 100);
+            }
+            else
+            {
+                if (tens > 0)
+                    units = (number % 10);
+                else
+                    units = number;
+            }
+            #endregion
+
+            var lst = new List<string>();
+            lst.Add(GetLetter(hundreds, NumberType.hundreds));
+            if (tens == 1 && units > 0)
+                lst.Add(GetLetter(Convert.ToInt32($"{tens}{units}"), NumberType.tens));
+            else
+            {
+                lst.Add(GetLetter(tens, NumberType.tens));
+                lst.Add(GetLetter(units, NumberType.units));
+            }
+
+            return string.Join(" و ", lst.Where(s => !string.IsNullOrEmpty(s)).ToList());
+        }
+
+        private static string GetLetter(long number, NumberType numberType)
+        {
+            switch (number)
+            {
+                case 19:
+                    return DisplayNames.Number_Nineteen;
+                case 18:
+                    return DisplayNames.Number_Eighteen;
+                case 17:
+                    return DisplayNames.Number_Seventeen;
+                case 16:
+                    return DisplayNames.Number_Sixteen;
+                case 15:
+                    return DisplayNames.Number_Fifteen;
+                case 14:
+                    return DisplayNames.Number_Fourteen;
+                case 13:
+                    return DisplayNames.Number_Thirteen;
+                case 12:
+                    return DisplayNames.Number_Twelve;
+                case 11:
+                    return DisplayNames.Number_Eleven;
+                case 9:
+                    {
+                        switch (numberType)
+                        {
+                            case NumberType.hundreds:
+                                return DisplayNames.Number_NineHundred;
+                            case NumberType.tens:
+                                return DisplayNames.Number_Ninety;
+                            case NumberType.units:
+                                return DisplayNames.Number_Nine;
+                        }
+                    }
+                    break;
+                case 8:
+                    {
+                        switch (numberType)
+                        {
+                            case NumberType.hundreds:
+                                return DisplayNames.Number_EightHundred;
+                            case NumberType.tens:
+                                return DisplayNames.Number_Eighty;
+                            case NumberType.units:
+                                return DisplayNames.Number_Eight;
+                        }
+                    }
+                    break;
+                case 7:
+                    {
+                        switch (numberType)
+                        {
+                            case NumberType.hundreds:
+                                return DisplayNames.Number_SevenHundred;
+                            case NumberType.tens:
+                                return DisplayNames.Number_Seventeen;
+                            case NumberType.units:
+                                return DisplayNames.Number_Seven;
+                        }
+                    }
+                    break;
+                case 6:
+                    {
+                        switch (numberType)
+                        {
+                            case NumberType.hundreds:
+                                return DisplayNames.Number_SixHundred;
+                            case NumberType.tens:
+                                return DisplayNames.Number_Sixty;
+                            case NumberType.units:
+                                return DisplayNames.Number_Six;
+                        }
+                    }
+                    break;
+                case 5:
+                    {
+                        switch (numberType)
+                        {
+                            case NumberType.hundreds:
+                                return DisplayNames.Number_FiveHundred;
+                            case NumberType.tens:
+                                return DisplayNames.Number_Fifty;
+                            case NumberType.units:
+                                return DisplayNames.Number_Five;
+                        }
+                    }
+                    break;
+                case 4:
+                    {
+                        switch (numberType)
+                        {
+                            case NumberType.hundreds:
+                                return DisplayNames.Number_FourHundred;
+                            case NumberType.tens:
+                                return DisplayNames.Number_Fourty;
+                            case NumberType.units:
+                                return DisplayNames.Number_Four;
+                        }
+                    }
+                    break;
+                case 3:
+                    {
+                        switch (numberType)
+                        {
+                            case NumberType.hundreds:
+                                return DisplayNames.Number_ThreeHundred;
+                            case NumberType.tens:
+                                return DisplayNames.Number_Thirty;
+                            case NumberType.units:
+                                return DisplayNames.Number_Three;
+                        }
+                    }
+                    break;
+                case 2:
+                    {
+                        switch (numberType)
+                        {
+                            case NumberType.hundreds:
+                                return DisplayNames.Number_TwoHundred;
+                            case NumberType.tens:
+                                return DisplayNames.Number_Twenty;
+                            case NumberType.units:
+                                return DisplayNames.Number_Two;
+                        }
+                    }
+                    break;
+                case 1:
+                    {
+                        switch (numberType)
+                        {
+                            case NumberType.hundreds:
+                                return DisplayNames.Number_OneHundred;
+                            case NumberType.tens:
+                                return DisplayNames.Number_Ten;
+                            case NumberType.units:
+                                return DisplayNames.Number_One;
+                        }
+                    }
+                    break;
+            }
+            return string.Empty;
         }
     }
 }
