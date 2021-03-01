@@ -208,8 +208,12 @@ namespace TestUnits
             var price15_1 = new AuxiliaryDoublePriceModel(56825, Currency.USD, Currency.USD);
             var price16 = new AuxiliaryDoublePriceModel(56825.23, Currency.USD, Currency.USD);
             var price17 = Convert.ToDouble("0.0012141611141611").ToBTC();
+            var price17_1 = Convert.ToDecimal("47372.74").ToUSD();
+            var price17_2 = Convert.ToDouble("47372.74").ToUSD();
+            var price17_3 = ((float)47372.74).ToUSD();
             var price18 = Convert.ToDouble("0.00003899999999999999929396754527743951257434673607349395751953125").ToBTC();
             var price19 = double.MaxValue.ToBTC();
+            var price19_1 = float.MaxValue.ToBTC();
             var price20 = Convert.ToDecimal("0.0000389999999999999992939675452774395125743467360734939575195312500003899999999999999929396754527743951257434673607349395751953125").ToBTC();
             Assert.IsTrue(true);
         }

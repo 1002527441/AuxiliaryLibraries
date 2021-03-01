@@ -45,11 +45,9 @@ namespace AuxiliaryLibraries
                     this.PriceShortFormat = result.PriceShortFormat;
                     this.PriceCurrency = result.PriceCurrency;
                     this.PriceDescription = result.PriceDescription;
-                    this.PriceCommaDeLimited = this.Price % 1 == 0 ? this.Price.ToCommaDelimited(",") : this._PriceShortFormat.ToCommaDelimited(",");
+                    this.PriceCommaDeLimited = this.Price.ToCommaDelimited(",");
                     this.PriceCommaDeLimitedDescription = this.Price > 0 ?
-                                                                this.Price % 1 == 0 ?
                                                                 $"{this.PriceCommaDeLimited} {this.CurrencyDescription}" :
-                                                                $"{this.PriceCommaDeLimited} {this.PriceCurrency}" :
                                                                 DisplayNames.Free;
                 }
             }
@@ -167,17 +165,38 @@ namespace AuxiliaryLibraries
         /// <param name="metricSystem"></param>
         protected override void CalculateDecimals(decimal price, int power, int decimalPower, ref decimal priceShortFormat, ref string priceCurrency, ref string priceDescriptyion, bool metricSystem)
         {
-            double remained = Convert.ToDouble(price.ToString().Replace("0", string.Empty).Replace(".", string.Empty));
-            priceCurrency = GetPriceCurrency(power, metricSystem);
-            var result = Calculate((decimal)remained);
+            var numList = Convert.ToDecimal(price).ToString().Split('.');
 
-            priceDescriptyion = $"{result.PriceDescription.Replace(CurrencyDescription, string.Empty).Trim()} {priceCurrency} {this.CurrencyDescription}";
+            #region Decimal Side of Price
+            decimal decimalNumber = numList.Count() > 1 ? Convert.ToDecimal(numList.Last()) : 0;  // The Right Side => after .
+            var priceDecimalCurrency = decimalNumber > 0 ? GetPriceCurrency(decimalPower, metricSystem) : string.Empty;
+            var decimalResult = decimalNumber > 0 ? Calculate(decimalNumber) : null;
+            var tempThis = decimalResult != null ? (AuxiliaryDecimalPriceModel)this.Clone() : null;
+            #endregion
+
+            #region Integer Side of Price
+            decimal integerNumber = numList.Count() > 0 ? Convert.ToDecimal(numList.First()) : 0; // The Left Side => before .
+            var priceIntegerCurrency = integerNumber > 0 ? GetPriceCurrency(power, metricSystem) : string.Empty;
+            var integerResult = integerNumber > 0 ? Calculate(integerNumber) : null;
+            #endregion
+
+            priceCurrency = GetPriceCurrency(integerNumber > 0 ? power : decimalPower, metricSystem);
+            if (integerResult != null)
+            {
+                priceDescriptyion = $"{integerResult.PriceDescription}";
+            }
+            if (tempThis != null)
+            {
+                if (integerResult != null)
+                    priceDescriptyion += $" و ";
+                priceDescriptyion += $"{tempThis.PriceDescription.Replace(CurrencyDescription, string.Empty).Trim()} {priceDecimalCurrency} {this.CurrencyDescription}";
+            }
 
             //this.Price = price, //Don't Set It
             this.PriceCurrency = $"{priceCurrency} {this.CurrencyDescription}".Replace("  ", " ").Trim();
-            this.PriceShortFormat = result.PriceShortFormat;
-            this.PriceDescription = priceDescriptyion;
-            this._PriceShortFormat = (long)remained;
+            this.PriceShortFormat = integerResult != null ? integerResult.PriceShortFormat : tempThis.PriceShortFormat;
+            this.PriceDescription = priceDescriptyion.Replace("  ", " ").Trim();
+            this._PriceShortFormat = (long)integerNumber;
         }
 
         /// <summary>

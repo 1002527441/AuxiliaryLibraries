@@ -37,54 +37,7 @@ namespace AuxiliaryLibraries
                    { "بایت", "کیلوبایت", "مگابایت", "گیگابایت", "ترابایت", "پتابایت", "اگزابایت", "زتابایت", "یوتابایت" };
         #endregion
 
-        /// <summary>
-        /// ToPrettySize helps you to get size of files as a pereety format
-        /// 1) 512 MG
-        /// 2) 512 مگابایت
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="decimalPlaces"></param>
-        /// <param name="toPersian"></param>
-        /// <returns></returns>
-        public static string ToPrettySize(this Int64 value, int decimalPlaces = 1, bool toPersian = true)
-        {
-            if (decimalPlaces < 0) { throw new ArgumentOutOfRangeException("decimalPlaces"); }
-            if (value < 0) { return "-" + ToPrettySize(-value); }
-            if (value == 0) { return toPersian ? string.Format("{0:n" + decimalPlaces + "} بایت", 0) : string.Format("{0:n" + decimalPlaces + "} bytes", 0); }
-
-            // mag is 0 for bytes, 1 for KB, 2, for MB, etc.
-            int mag = (int)Math.Log(value, 1024);
-
-            // 1L << (mag * 10) == 2 ^ (10 * mag) 
-            // [i.e. the number of bytes in the unit corresponding to mag]
-            decimal adjustedSize = (decimal)value / (1L << (mag * 10));
-
-            // make adjustment when the value is large enough that
-            // it would round up to 1000 or more
-            if (Math.Round(adjustedSize, decimalPlaces) >= 1000)
-            {
-                mag += 1;
-                adjustedSize /= 1024;
-            }
-            var msg = toPersian ? PersianSizeSuffixes[mag] : SizeSuffixes[mag];
-            return string.Format("{0:n" + decimalPlaces + "} {1}",
-                adjustedSize,
-                msg);
-        }
-
-        /// <summary>
-        /// Conpare first and last is Equal or not
-        /// https://stackoverflow.com/questions/6371150/comparing-two-strings-ignoring-case-in-c-sharp
-        /// </summary>
-        /// <param name="first"></param>
-        /// <param name="last"></param>
-        /// <param name="stringComparison"></param>
-        /// <returns></returns>
-        public static bool Equals(this string first, string last, StringComparison stringComparison = StringComparison.OrdinalIgnoreCase)
-        {
-            return string.Equals(first, last, stringComparison);
-        }
-
+        #region Convert Letters To Letters
         /// <summary>
         /// If the term be English, it will return True
         /// </summary>
@@ -101,35 +54,6 @@ namespace AuxiliaryLibraries
             }
             return true;
 
-        }
-
-        /// <summary>
-        /// Take chunk of text about 'length' characters
-        /// </summary>
-        /// <param name="text">Considered word</param>
-        /// <param name="length">Considered length</param>
-        /// <returns>string</returns>
-        public static string TakeChunk(this string text, int length)
-        {
-            if (text == null || text.Length <= length)
-                return text;
-            var index = text.Substring(0, length).LastIndexOfAny(new[] { '\n', ' ' });
-            return string.Format("{0}...", text.Substring(0, index + 1));
-        }
-
-        /// <summary>
-        /// Fill replacementDic inside template, this function is used especially for creating email template 
-        /// </summary>
-        /// <param name="template">Email template, etc</param>
-        /// <param name="replacementDic">Informations</param>
-        /// <returns>string</returns>
-        public static string FillTemplate(this string template, Dictionary<string, string> replacementDic)
-        {
-            foreach (var item in replacementDic)
-            {
-                template = template.Replace(item.Key.ToUpper(), item.Value);
-            }
-            return template;
         }
 
         /// <summary>
@@ -269,6 +193,228 @@ namespace AuxiliaryLibraries
         }
 
         /// <summary>
+        /// Replace Arabic characters to Persian
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static string ToPersianLetters(this string name)
+        {
+            if (string.IsNullOrEmpty(name)) return string.Empty;
+
+            string strName = name.Replace("ي", "ی").Replace("ك", "ک").Replace("ة", "ه").Replace("ئ", "ئ").Replace("ه", "ه");
+            strName = ToPersianNumbers(strName);
+
+            strName = strName.Trim();
+
+            //strName = String.Join(" ", strName.Split(new char[] { ' ' },
+            //StringSplitOptions.RemoveEmptyEntries));
+
+            return strName;
+        }
+
+        /// <summary>
+        /// Convert Number To Persian Letters
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static string ToPersianLetters(this int number)
+        {
+            return ((long)number).ToPersianLetters();
+        }
+
+        /// <summary>
+        /// Convert Number To Persian Letters
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static string ToPersianLetters(this long number)
+        {
+            var _price = string.Empty;
+            long hundreds = number >= 100 ? number / 100 : 0, tens = 0, units = 0;
+
+            #region tens
+            if (hundreds > 0)
+                tens = (number % 100) >= 10 ? (number % 100) / 10 : 0;
+            else
+                tens = number >= 10 ? number / 10 : 0;
+            #endregion
+
+            #region units
+            if (hundreds > 0)
+            {
+                if (tens > 0)
+                    units = ((number % 100) % 10);
+                else
+                    units = (number % 100);
+            }
+            else
+            {
+                if (tens > 0)
+                    units = (number % 10);
+                else
+                    units = number;
+            }
+            #endregion
+
+            var lst = new List<string>();
+            lst.Add(GetLetter(hundreds, NumberType.hundreds));
+            if (tens == 1 && units > 0)
+                lst.Add(GetLetter(Convert.ToInt32($"{tens}{units}"), NumberType.tens));
+            else
+            {
+                lst.Add(GetLetter(tens, NumberType.tens));
+                lst.Add(GetLetter(units, NumberType.units));
+            }
+
+            return string.Join(" و ", lst.Where(s => !string.IsNullOrEmpty(s)).ToList());
+        }
+
+        private static string GetLetter(long number, NumberType numberType)
+        {
+            switch (number)
+            {
+                case 19:
+                    return DisplayNames.Number_Nineteen;
+                case 18:
+                    return DisplayNames.Number_Eighteen;
+                case 17:
+                    return DisplayNames.Number_Seventeen;
+                case 16:
+                    return DisplayNames.Number_Sixteen;
+                case 15:
+                    return DisplayNames.Number_Fifteen;
+                case 14:
+                    return DisplayNames.Number_Fourteen;
+                case 13:
+                    return DisplayNames.Number_Thirteen;
+                case 12:
+                    return DisplayNames.Number_Twelve;
+                case 11:
+                    return DisplayNames.Number_Eleven;
+                case 9:
+                    {
+                        switch (numberType)
+                        {
+                            case NumberType.hundreds:
+                                return DisplayNames.Number_NineHundred;
+                            case NumberType.tens:
+                                return DisplayNames.Number_Ninety;
+                            case NumberType.units:
+                                return DisplayNames.Number_Nine;
+                        }
+                    }
+                    break;
+                case 8:
+                    {
+                        switch (numberType)
+                        {
+                            case NumberType.hundreds:
+                                return DisplayNames.Number_EightHundred;
+                            case NumberType.tens:
+                                return DisplayNames.Number_Eighty;
+                            case NumberType.units:
+                                return DisplayNames.Number_Eight;
+                        }
+                    }
+                    break;
+                case 7:
+                    {
+                        switch (numberType)
+                        {
+                            case NumberType.hundreds:
+                                return DisplayNames.Number_SevenHundred;
+                            case NumberType.tens:
+                                return DisplayNames.Number_Seventeen;
+                            case NumberType.units:
+                                return DisplayNames.Number_Seven;
+                        }
+                    }
+                    break;
+                case 6:
+                    {
+                        switch (numberType)
+                        {
+                            case NumberType.hundreds:
+                                return DisplayNames.Number_SixHundred;
+                            case NumberType.tens:
+                                return DisplayNames.Number_Sixty;
+                            case NumberType.units:
+                                return DisplayNames.Number_Six;
+                        }
+                    }
+                    break;
+                case 5:
+                    {
+                        switch (numberType)
+                        {
+                            case NumberType.hundreds:
+                                return DisplayNames.Number_FiveHundred;
+                            case NumberType.tens:
+                                return DisplayNames.Number_Fifty;
+                            case NumberType.units:
+                                return DisplayNames.Number_Five;
+                        }
+                    }
+                    break;
+                case 4:
+                    {
+                        switch (numberType)
+                        {
+                            case NumberType.hundreds:
+                                return DisplayNames.Number_FourHundred;
+                            case NumberType.tens:
+                                return DisplayNames.Number_Fourty;
+                            case NumberType.units:
+                                return DisplayNames.Number_Four;
+                        }
+                    }
+                    break;
+                case 3:
+                    {
+                        switch (numberType)
+                        {
+                            case NumberType.hundreds:
+                                return DisplayNames.Number_ThreeHundred;
+                            case NumberType.tens:
+                                return DisplayNames.Number_Thirty;
+                            case NumberType.units:
+                                return DisplayNames.Number_Three;
+                        }
+                    }
+                    break;
+                case 2:
+                    {
+                        switch (numberType)
+                        {
+                            case NumberType.hundreds:
+                                return DisplayNames.Number_TwoHundred;
+                            case NumberType.tens:
+                                return DisplayNames.Number_Twenty;
+                            case NumberType.units:
+                                return DisplayNames.Number_Two;
+                        }
+                    }
+                    break;
+                case 1:
+                    {
+                        switch (numberType)
+                        {
+                            case NumberType.hundreds:
+                                return DisplayNames.Number_OneHundred;
+                            case NumberType.tens:
+                                return DisplayNames.Number_Ten;
+                            case NumberType.units:
+                                return DisplayNames.Number_One;
+                        }
+                    }
+                    break;
+            }
+            return string.Empty;
+        }
+        #endregion
+
+        #region User Identity Information
+        /// <summary>
         /// Normalize mobile number as Iranian mobile number (989*********).
         /// You can pass '+98', '98' or '0' on 'startWith'. Def
         /// If phone number is not valid, it will return number itself.
@@ -352,7 +498,9 @@ namespace AuxiliaryLibraries
                 return false;
             return AuxiliaryRegexPatterns.PhoneNumber.IsMatch(number);
         }
+        #endregion
 
+        #region Hash AND Encryption
         /// <summary>
         /// Convert 'input' to MD5
         /// </summary>
@@ -427,17 +575,6 @@ namespace AuxiliaryLibraries
         }
 
         /// <summary>
-        /// If yor number is less than 10, it will put a zero before it.
-        /// For example if the number is 1, it will return "01", ...
-        /// </summary>
-        /// <param name="number"></param>
-        /// <returns></returns>
-        public static string ToTowDigits(this int number)
-        {
-            return number < 10 ? $"0{number}" : number.ToString();
-        }
-
-        /// <summary>
         /// Verift the password with hash
         /// Be careful to pass password as first parameter and hash as the second.
         /// type contains the encryption type, and the default value is SHA1
@@ -485,6 +622,127 @@ namespace AuxiliaryLibraries
             return string.Empty;
         }
 
+        /// <summary>
+        /// Get Random Password
+        /// </summary>
+        /// <param name="len"></param>
+        /// <param name="isNumberic"></param>
+        /// <returns></returns>
+        public static string GetRandomPassword(int len = 6, bool isNumberic = false)
+        {
+            if (isNumberic)
+            {
+                Random generator = new Random();
+                return generator.Next(0, 999999).ToString("D6");
+            }
+            return Guid.NewGuid().ToString().Replace("-", "").Substring(0, len);
+        }
+
+        /// <summary>
+        /// Encript term as SHA1
+        /// </summary>
+        /// <param name="term"></param>
+        /// <returns></returns>
+        public static string EncriptSHA1(this string term)
+        {
+            StringBuilder Encript = new StringBuilder();
+            SHA1 sha1 = SHA1CryptoServiceProvider.Create();
+            byte[] hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(term));
+            foreach (byte n in hash) Encript.Append(Convert.ToInt32(n + 256).ToString("x2"));
+            return Encript.ToString();
+        }
+
+        /// <summary>
+        /// Encript term as SHA1
+        /// </summary>
+        /// <param name="term"></param>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
+        public static string EncriptSHA1(this string term, Encoding encoding)
+        {
+            StringBuilder Encript = new StringBuilder();
+            SHA1 sha1 = SHA1CryptoServiceProvider.Create();
+            byte[] hash = sha1.ComputeHash(encoding.GetBytes(term));
+            foreach (byte n in hash) Encript.Append(Convert.ToInt32(n + 256).ToString("x2"));
+            return Encript.ToString();
+        }
+
+        /// <summary>
+        /// Encode plainText to Base64String
+        /// </summary>
+        /// <param name="plainText"></param>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
+        public static string Base64Encode(this string plainText, Encoding encoding)
+        {
+            try
+            {
+                var plainTextBytes = encoding.GetBytes(plainText);
+                return System.Convert.ToBase64String(plainTextBytes);
+            }
+            catch (Exception e)
+            {
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Decode base64EncodedData from Base64String
+        /// </summary>
+        /// <param name="base64EncodedData"></param>
+        /// <returns></returns>
+        public static string Base64Decode(this string base64EncodedData)
+        {
+            try
+            {
+                var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+                return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+            }
+            catch (Exception e)
+            {
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Encode plainText to ASCII
+        /// </summary>
+        /// <param name="plainText"></param>
+        /// <returns></returns>
+        public static string AsciiEncode(this string plainText)
+        {
+            try
+            {
+                var plainTextBytes = Encoding.ASCII.GetBytes(plainText);
+                return string.Join(";", plainTextBytes);
+            }
+            catch (Exception e)
+            {
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Decode asciiEncodedData from ASCII
+        /// </summary>
+        /// <param name="asciiEncodedData"></param>
+        /// <returns></returns>
+        public static string AsciiDecode(this string asciiEncodedData)
+        {
+            try
+            {
+                var list = asciiEncodedData.Split(';').ToList();
+                var array = list.Select(x => Convert.ToByte(x)).ToArray();
+                return Encoding.ASCII.GetString(array);
+            }
+            catch (Exception e)
+            {
+                return string.Empty;
+            }
+        }
+        #endregion
+
+        #region Comma Delimited
         /// <summary>
         /// Convert price to string and Seperate it by separator
         /// </summary>
@@ -574,6 +832,7 @@ namespace AuxiliaryLibraries
                 return decimal.Parse(number).ToString("N0", numberFormatInfo);
             }
         }
+        #endregion
 
         #region Money And Currency
         /// <summary>
@@ -810,20 +1069,57 @@ namespace AuxiliaryLibraries
             new AuxiliaryDecimalPriceModel(price, Currency.Toman, Currency.EUR, metricSystem);
         #endregion
 
+        #region DateTime
         /// <summary>
-        /// This function extracts from the text just digits.
-        /// If you pass text something like that = "salam 123 o4k5", it will return just 12345 as int
+        /// Convert DateTime to TimeStamp
+        /// Unix time is a system for describing a point in time. It is the number of seconds that have elapsed since the Unix epoch, that is the time 00:00:00 UTC on 1 January 1970, minus leap seconds.
         /// </summary>
-        /// <param name="text"></param>
+        /// <param name="dateTime"></param>
         /// <returns></returns>
-        public static int ToInt32(this string text)
+        public static long ToUnixTimestamp(this DateTime dateTime)
         {
-            var digitContent = string.Join("", text.ToCharArray().Where(Char.IsDigit));
-            int result = 0;
-            if (int.TryParse(digitContent, out result))
-                return result;
-            return -1;
+            var epoch = dateTime - new DateTime(1970, 1, 1, 0, 0, 0);
+            return (long)epoch.TotalSeconds;
         }
+
+        /// <summary>
+        /// Convert date to solr date format
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public static string SolrDate(this DateTime date)
+        {
+            return string.Format("{0}-{1}-{2}T{3}:{4}:{5}.{6}Z", date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second, date.Millisecond);
+        }
+
+        /// <summary>
+        /// Convert TimeStamp to DateTime
+        /// </summary>
+        /// <param name="timeStamp"></param>
+        /// <param name="dateTimeKind"></param>
+        /// <returns></returns>
+        public static DateTime FromTimeStampToDateTime(this long timeStamp, DateTimeKind dateTimeKind = DateTimeKind.Local)
+        {
+            // Unix timestamp is seconds past epoch
+            DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, dateTimeKind);
+            dtDateTime = dtDateTime.AddSeconds(timeStamp).ToLocalTime();
+            return dtDateTime;
+        }
+
+        /// <summary>
+        /// Convert datetime to mobile datetime format
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public static string ToMobileDateTime(this DateTime dateTime) => dateTime.ToDateTimeFormat("yyyy-MM-dd'T'HH:mm:sszzz");
+
+        /// <summary>
+        /// Convert DateTime to any other format
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <param name="format"></param>
+        /// <returns></returns>
+        public static string ToDateTimeFormat(this DateTime dateTime, string format = "yyyyMMddHHmmssffff") => dateTime.ToString(format);
 
         /// <summary>
         /// Normalize Persian Date
@@ -856,6 +1152,111 @@ namespace AuxiliaryLibraries
             }
             return result;
         }
+        #endregion
+
+        #region Utilities
+        /// <summary>
+        /// ToPrettySize helps you to get size of files as a pereety format
+        /// 1) 512 MG
+        /// 2) 512 مگابایت
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="decimalPlaces"></param>
+        /// <param name="toPersian"></param>
+        /// <returns></returns>
+        public static string ToPrettySize(this Int64 value, int decimalPlaces = 1, bool toPersian = true)
+        {
+            if (decimalPlaces < 0) { throw new ArgumentOutOfRangeException("decimalPlaces"); }
+            if (value < 0) { return "-" + ToPrettySize(-value); }
+            if (value == 0) { return toPersian ? string.Format("{0:n" + decimalPlaces + "} بایت", 0) : string.Format("{0:n" + decimalPlaces + "} bytes", 0); }
+
+            // mag is 0 for bytes, 1 for KB, 2, for MB, etc.
+            int mag = (int)Math.Log(value, 1024);
+
+            // 1L << (mag * 10) == 2 ^ (10 * mag) 
+            // [i.e. the number of bytes in the unit corresponding to mag]
+            decimal adjustedSize = (decimal)value / (1L << (mag * 10));
+
+            // make adjustment when the value is large enough that
+            // it would round up to 1000 or more
+            if (Math.Round(adjustedSize, decimalPlaces) >= 1000)
+            {
+                mag += 1;
+                adjustedSize /= 1024;
+            }
+            var msg = toPersian ? PersianSizeSuffixes[mag] : SizeSuffixes[mag];
+            return string.Format("{0:n" + decimalPlaces + "} {1}",
+                adjustedSize,
+                msg);
+        }
+
+        /// <summary>
+        /// Conpare first and last is Equal or not
+        /// https://stackoverflow.com/questions/6371150/comparing-two-strings-ignoring-case-in-c-sharp
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="last"></param>
+        /// <param name="stringComparison"></param>
+        /// <returns></returns>
+        public static bool Equals(this string first, string last, StringComparison stringComparison = StringComparison.OrdinalIgnoreCase)
+        {
+            return string.Equals(first, last, stringComparison);
+        }
+
+        /// <summary>
+        /// Take chunk of text about 'length' characters
+        /// </summary>
+        /// <param name="text">Considered word</param>
+        /// <param name="length">Considered length</param>
+        /// <returns>string</returns>
+        public static string TakeChunk(this string text, int length)
+        {
+            if (text == null || text.Length <= length)
+                return text;
+            var index = text.Substring(0, length).LastIndexOfAny(new[] { '\n', ' ' });
+            return string.Format("{0}...", text.Substring(0, index + 1));
+        }
+
+        /// <summary>
+        /// Fill replacementDic inside template, this function is used especially for creating email template 
+        /// </summary>
+        /// <param name="template">Email template, etc</param>
+        /// <param name="replacementDic">Informations</param>
+        /// <returns>string</returns>
+        public static string FillTemplate(this string template, Dictionary<string, string> replacementDic)
+        {
+            foreach (var item in replacementDic)
+            {
+                template = template.Replace(item.Key.ToUpper(), item.Value);
+            }
+            return template;
+        }
+
+        /// <summary>
+        /// This function extracts from the text just digits.
+        /// If you pass text something like that = "salam 123 o4k5", it will return just 12345 as int
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static int ToInt32(this string text)
+        {
+            var digitContent = string.Join("", text.ToCharArray().Where(Char.IsDigit));
+            int result = 0;
+            if (int.TryParse(digitContent, out result))
+                return result;
+            return -1;
+        }
+
+        /// <summary>
+        /// If yor number is less than 10, it will put a zero before it.
+        /// For example if the number is 1, it will return "01", ...
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static string ToTowDigits(this int number)
+        {
+            return number < 10 ? $"0{number}" : number.ToString();
+        }
 
         /// <summary>
         /// Reverse the term
@@ -875,13 +1276,13 @@ namespace AuxiliaryLibraries
         /// <param name="fileName"></param>
         /// <param name="format"></param>
         /// <param name="basePath"></param>
-        /// <param name="nameOfFile"></param>
+        /// <param name="name"></param>
         /// <returns></returns>
-        public static string AnalyseFileName(this string fileName, out string format, out string basePath, out string nameOfFile)
+        public static string AnalyseFileName(this string fileName, out string format, out string basePath, out string name)
         {
             format = fileName.Substring(fileName.LastIndexOf('.') + 1);
             basePath = fileName.Substring(0, fileName.LastIndexOf('\\'));
-            nameOfFile = fileName.Substring(fileName.LastIndexOf('\\') + 1);
+            name = fileName.Substring(fileName.LastIndexOf('\\') + 1);
             string mimeType = "";
             switch (format)
             {
@@ -930,65 +1331,6 @@ namespace AuxiliaryLibraries
         }
 
         /// <summary>
-        /// Replace Arabic characters to Persian
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public static string ReplaceArabicChar(this string name)
-        {
-            if (string.IsNullOrEmpty(name)) return string.Empty;
-
-            string strName = name.Replace("ي", "ی").Replace("ك", "ک").Replace("ة", "ه").Replace("ئ", "ئ").Replace("ه", "ه");
-            strName = ToPersianNumbers(strName);
-
-            strName = strName.Trim();
-
-            //strName = String.Join(" ", strName.Split(new char[] { ' ' },
-            //StringSplitOptions.RemoveEmptyEntries));
-
-            return strName;
-        }
-
-        /// <summary>
-        /// Encript term as SHA1
-        /// </summary>
-        /// <param name="term"></param>
-        /// <returns></returns>
-        public static string EncriptSHA1(this string term)
-        {
-            StringBuilder Encript = new StringBuilder();
-            SHA1 sha1 = SHA1CryptoServiceProvider.Create();
-            byte[] hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(term));
-            foreach (byte n in hash) Encript.Append(Convert.ToInt32(n + 256).ToString("x2"));
-            return Encript.ToString();
-        }
-
-        /// <summary>
-        /// Encript term as SHA1
-        /// </summary>
-        /// <param name="term"></param>
-        /// <param name="encoding"></param>
-        /// <returns></returns>
-        public static string EncriptSHA1(this string term, Encoding encoding)
-        {
-            StringBuilder Encript = new StringBuilder();
-            SHA1 sha1 = SHA1CryptoServiceProvider.Create();
-            byte[] hash = sha1.ComputeHash(encoding.GetBytes(term));
-            foreach (byte n in hash) Encript.Append(Convert.ToInt32(n + 256).ToString("x2"));
-            return Encript.ToString();
-        }
-
-        /// <summary>
-        /// Convert date to solr date format
-        /// </summary>
-        /// <param name="date"></param>
-        /// <returns></returns>
-        public static string SolrDate(this DateTime date)
-        {
-            return string.Format("{0}-{1}-{2}T{3}:{4}:{5}.{6}Z", date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second, date.Millisecond);
-        }
-
-        /// <summary>
         /// Retuen current what percent maximum as double
         /// </summary>
         /// <param name="current"></param>
@@ -1014,12 +1356,12 @@ namespace AuxiliaryLibraries
         /// delimiter can be any character
         /// </summary>
         /// <param name="term"></param>
-        /// <param name="delimiter"></param>
+        /// <param name="separator"></param>
         /// <returns></returns>
-        public static List<long> ToListLong(this string term, char delimiter = ',')
+        public static List<long> ToListLong(this string term, char separator = ',')
         {
             var result = new List<long>();
-            var strList = term.Split(delimiter).ToList();
+            var strList = term.Split(separator).ToList();
             foreach (var item in strList)
             {
                 long element = 0;
@@ -1035,12 +1377,12 @@ namespace AuxiliaryLibraries
         /// delimiter can be any character
         /// </summary>
         /// <param name="term"></param>
-        /// <param name="delimiter"></param>
+        /// <param name="separator"></param>
         /// <returns></returns>
-        public static List<int> ToListInt(this string term, char delimiter = ',')
+        public static List<int> ToListInt(this string term, char separator = ',')
         {
             var result = new List<int>();
-            var strList = term.Split(delimiter).ToList();
+            var strList = term.Split(separator).ToList();
             foreach (var item in strList)
             {
                 int element = 0;
@@ -1052,90 +1394,16 @@ namespace AuxiliaryLibraries
         }
 
         /// <summary>
-        /// Encode plainText to Base64String
-        /// </summary>
-        /// <param name="plainText"></param>
-        /// <param name="encoding"></param>
-        /// <returns></returns>
-        public static string Base64Encode(this string plainText, Encoding encoding)
-        {
-            try
-            {
-                var plainTextBytes = encoding.GetBytes(plainText);
-                return System.Convert.ToBase64String(plainTextBytes);
-            }
-            catch (Exception e)
-            {
-                return string.Empty;
-            }
-        }
-
-        /// <summary>
-        /// Decode base64EncodedData from Base64String
-        /// </summary>
-        /// <param name="base64EncodedData"></param>
-        /// <returns></returns>
-        public static string Base64Decode(this string base64EncodedData)
-        {
-            try
-            {
-                var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
-                return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
-            }
-            catch (Exception e)
-            {
-                return string.Empty;
-            }
-        }
-
-        /// <summary>
-        /// Encode plainText to ASCII
-        /// </summary>
-        /// <param name="plainText"></param>
-        /// <returns></returns>
-        public static string AsciiEncode(this string plainText)
-        {
-            try
-            {
-                var plainTextBytes = Encoding.ASCII.GetBytes(plainText);
-                return string.Join(";", plainTextBytes);
-            }
-            catch (Exception e)
-            {
-                return string.Empty;
-            }
-        }
-
-        /// <summary>
-        /// Decode asciiEncodedData from ASCII
-        /// </summary>
-        /// <param name="asciiEncodedData"></param>
-        /// <returns></returns>
-        public static string AsciiDecode(this string asciiEncodedData)
-        {
-            try
-            {
-                var list = asciiEncodedData.Split(';').ToList();
-                var array = list.Select(x => Convert.ToByte(x)).ToArray();
-                return Encoding.ASCII.GetString(array);
-            }
-            catch (Exception e)
-            {
-                return string.Empty;
-            }
-        }
-
-        /// <summary>
         /// Convert object to boolean
         /// </summary>
         /// <param name="o"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static bool ToBooleanOrDefault(this object o, bool defaultValue = false)
+        public static bool ToBooleanOrDefault(this string term, bool defaultValue = false)
         {
-            if (o == null)
+            if (string.IsNullOrEmpty(term))
                 return defaultValue;
-            string value = o.ToString().ToLower();
+            string value = term.ToLower();
             switch (value)
             {
                 case "yes":
@@ -1149,268 +1417,12 @@ namespace AuxiliaryLibraries
                     return false;
                 default:
                     bool b;
-                    if (bool.TryParse(o.ToString(), out b))
+                    if (bool.TryParse(term, out b))
                         return b;
                     break;
             }
             return defaultValue;
         }
-
-        /// <summary>
-        /// Convert DateTime to TimeStamp
-        /// Unix time is a system for describing a point in time. It is the number of seconds that have elapsed since the Unix epoch, that is the time 00:00:00 UTC on 1 January 1970, minus leap seconds.
-        /// </summary>
-        /// <param name="dateTime"></param>
-        /// <returns></returns>
-        public static long ToUnixTimestamp(this DateTime dateTime)
-        {
-            var epoch = dateTime - new DateTime(1970, 1, 1, 0, 0, 0);
-            return (long)epoch.TotalSeconds;
-        }
-
-        /// <summary>
-        /// Convert TimeStamp to DateTime
-        /// </summary>
-        /// <param name="timeStamp"></param>
-        /// <param name="dateTimeKind"></param>
-        /// <returns></returns>
-        public static DateTime FromTimeStampToDateTime(this long timeStamp, DateTimeKind dateTimeKind = DateTimeKind.Local)
-        {
-            // Unix timestamp is seconds past epoch
-            DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, dateTimeKind);
-            dtDateTime = dtDateTime.AddSeconds(timeStamp).ToLocalTime();
-            return dtDateTime;
-        }
-
-        /// <summary>
-        /// Convert datetime to mobile datetime format
-        /// </summary>
-        /// <param name="dateTime"></param>
-        /// <returns></returns>
-        public static string ToMobileDateTime(this DateTime dateTime) => dateTime.ToDateTimeFormat("yyyy-MM-dd'T'HH:mm:sszzz");
-
-        /// <summary>
-        /// Convert DateTime to any other format
-        /// </summary>
-        /// <param name="dateTime"></param>
-        /// <param name="format"></param>
-        /// <returns></returns>
-        public static string ToDateTimeFormat(this DateTime dateTime, string format = "yyyyMMddHHmmssffff") => dateTime.ToString(format);
-
-        /// <summary>
-        /// Get Random Password
-        /// </summary>
-        /// <param name="len"></param>
-        /// <param name="isNumberic"></param>
-        /// <returns></returns>
-        public static string GetRandomPassword(int len = 6, bool isNumberic = false)
-        {
-            if (isNumberic)
-            {
-                Random generator = new Random();
-                return generator.Next(0, 999999).ToString("D6");
-            }
-            return Guid.NewGuid().ToString().Replace("-", "").Substring(0, len);
-        }
-
-        /// <summary>
-        /// Convert Number To Persian Letters
-        /// </summary>
-        /// <param name="number"></param>
-        /// <returns></returns>
-        public static string ToPersianLetters(this int number)
-        {
-            return ((long)number).ToPersianLetters();
-        }
-
-        /// <summary>
-        /// Convert Number To Persian Letters
-        /// </summary>
-        /// <param name="number"></param>
-        /// <returns></returns>
-        public static string ToPersianLetters(this long number)
-        {
-            var _price = string.Empty;
-            long hundreds = number >= 100 ? number / 100 : 0, tens = 0, units = 0;
-
-            #region tens
-            if (hundreds > 0)
-                tens = (number % 100) >= 10 ? (number % 100) / 10 : 0;
-            else
-                tens = number >= 10 ? number / 10 : 0;
-            #endregion
-
-            #region units
-            if (hundreds > 0)
-            {
-                if (tens > 0)
-                    units = ((number % 100) % 10);
-                else
-                    units = (number % 100);
-            }
-            else
-            {
-                if (tens > 0)
-                    units = (number % 10);
-                else
-                    units = number;
-            }
-            #endregion
-
-            var lst = new List<string>();
-            lst.Add(GetLetter(hundreds, NumberType.hundreds));
-            if (tens == 1 && units > 0)
-                lst.Add(GetLetter(Convert.ToInt32($"{tens}{units}"), NumberType.tens));
-            else
-            {
-                lst.Add(GetLetter(tens, NumberType.tens));
-                lst.Add(GetLetter(units, NumberType.units));
-            }
-
-            return string.Join(" و ", lst.Where(s => !string.IsNullOrEmpty(s)).ToList());
-        }
-
-        private static string GetLetter(long number, NumberType numberType)
-        {
-            switch (number)
-            {
-                case 19:
-                    return DisplayNames.Number_Nineteen;
-                case 18:
-                    return DisplayNames.Number_Eighteen;
-                case 17:
-                    return DisplayNames.Number_Seventeen;
-                case 16:
-                    return DisplayNames.Number_Sixteen;
-                case 15:
-                    return DisplayNames.Number_Fifteen;
-                case 14:
-                    return DisplayNames.Number_Fourteen;
-                case 13:
-                    return DisplayNames.Number_Thirteen;
-                case 12:
-                    return DisplayNames.Number_Twelve;
-                case 11:
-                    return DisplayNames.Number_Eleven;
-                case 9:
-                    {
-                        switch (numberType)
-                        {
-                            case NumberType.hundreds:
-                                return DisplayNames.Number_NineHundred;
-                            case NumberType.tens:
-                                return DisplayNames.Number_Ninety;
-                            case NumberType.units:
-                                return DisplayNames.Number_Nine;
-                        }
-                    }
-                    break;
-                case 8:
-                    {
-                        switch (numberType)
-                        {
-                            case NumberType.hundreds:
-                                return DisplayNames.Number_EightHundred;
-                            case NumberType.tens:
-                                return DisplayNames.Number_Eighty;
-                            case NumberType.units:
-                                return DisplayNames.Number_Eight;
-                        }
-                    }
-                    break;
-                case 7:
-                    {
-                        switch (numberType)
-                        {
-                            case NumberType.hundreds:
-                                return DisplayNames.Number_SevenHundred;
-                            case NumberType.tens:
-                                return DisplayNames.Number_Seventeen;
-                            case NumberType.units:
-                                return DisplayNames.Number_Seven;
-                        }
-                    }
-                    break;
-                case 6:
-                    {
-                        switch (numberType)
-                        {
-                            case NumberType.hundreds:
-                                return DisplayNames.Number_SixHundred;
-                            case NumberType.tens:
-                                return DisplayNames.Number_Sixty;
-                            case NumberType.units:
-                                return DisplayNames.Number_Six;
-                        }
-                    }
-                    break;
-                case 5:
-                    {
-                        switch (numberType)
-                        {
-                            case NumberType.hundreds:
-                                return DisplayNames.Number_FiveHundred;
-                            case NumberType.tens:
-                                return DisplayNames.Number_Fifty;
-                            case NumberType.units:
-                                return DisplayNames.Number_Five;
-                        }
-                    }
-                    break;
-                case 4:
-                    {
-                        switch (numberType)
-                        {
-                            case NumberType.hundreds:
-                                return DisplayNames.Number_FourHundred;
-                            case NumberType.tens:
-                                return DisplayNames.Number_Fourty;
-                            case NumberType.units:
-                                return DisplayNames.Number_Four;
-                        }
-                    }
-                    break;
-                case 3:
-                    {
-                        switch (numberType)
-                        {
-                            case NumberType.hundreds:
-                                return DisplayNames.Number_ThreeHundred;
-                            case NumberType.tens:
-                                return DisplayNames.Number_Thirty;
-                            case NumberType.units:
-                                return DisplayNames.Number_Three;
-                        }
-                    }
-                    break;
-                case 2:
-                    {
-                        switch (numberType)
-                        {
-                            case NumberType.hundreds:
-                                return DisplayNames.Number_TwoHundred;
-                            case NumberType.tens:
-                                return DisplayNames.Number_Twenty;
-                            case NumberType.units:
-                                return DisplayNames.Number_Two;
-                        }
-                    }
-                    break;
-                case 1:
-                    {
-                        switch (numberType)
-                        {
-                            case NumberType.hundreds:
-                                return DisplayNames.Number_OneHundred;
-                            case NumberType.tens:
-                                return DisplayNames.Number_Ten;
-                            case NumberType.units:
-                                return DisplayNames.Number_One;
-                        }
-                    }
-                    break;
-            }
-            return string.Empty;
-        }
+        #endregion
     }
 }

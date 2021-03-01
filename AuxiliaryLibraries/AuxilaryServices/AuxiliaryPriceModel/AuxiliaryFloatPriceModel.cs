@@ -19,39 +19,23 @@ namespace AuxiliaryLibraries
             get => _price;
             set
             {
+                #region Check If Convertable To Deciaml Or Not
+                try
+                { Convert.ToDecimal(value); }
+                catch (Exception ex)
+                {
+                    ex.ToString(); value = 0;
+                }
+                #endregion
+                var decimalResult = new AuxiliaryDecimalPriceModel(Convert.ToDecimal(value), _sourceCurrency, _destinationCurrency, MetricSystem);
                 _realPrice = value;
-
-                if (_realPrice > 0)
-                {
-                    if (_sourceCurrency != _destinationCurrency)
-                    {
-                        if (_sourceCurrency == Currency.IRR && _destinationCurrency == Currency.Toman)
-                            _price = _realPrice / 10;
-                        else if (_sourceCurrency == Currency.Toman && _destinationCurrency == Currency.IRR)
-                            _price = _realPrice * 10;
-                        else
-                            _price = _realPrice;
-                    }
-                    else
-                        _price = _realPrice;
-                }
-                else
-                    _price = 0;
-
-                this.CurrencyDescription = GetCurrencyDescription(_destinationCurrency);
-                if (_realPrice >= 0)
-                {
-                    var result = Calculate(_price, MetricSystem);
-                    this.PriceShortFormat = result.PriceShortFormat;
-                    this.PriceCurrency = result.PriceCurrency;
-                    this.PriceDescription = result.PriceDescription;
-                    this.PriceCommaDeLimited = this.Price % 1 == 0 ? this.Price.ToCommaDelimited(",") : this._PriceShortFormat.ToCommaDelimited(",");
-                    this.PriceCommaDeLimitedDescription = this.Price > 0 ?
-                                                                this.Price % 1 == 0 ?
-                                                                $"{this.PriceCommaDeLimited} {this.CurrencyDescription}" :
-                                                                $"{this.PriceCommaDeLimited} {this.PriceCurrency}" :
-                                                                DisplayNames.Free;
-                }
+                _price = (float)decimalResult.Price;
+                this.CurrencyDescription = decimalResult.CurrencyDescription;
+                this.PriceShortFormat = decimalResult.PriceShortFormat;
+                this.PriceCurrency = decimalResult.PriceCurrency;
+                this.PriceDescription = decimalResult.PriceDescription;
+                this.PriceCommaDeLimited = decimalResult.PriceCommaDeLimited;
+                this.PriceCommaDeLimitedDescription = decimalResult.PriceCommaDeLimitedDescription;
             }
         }
 
@@ -64,138 +48,10 @@ namespace AuxiliaryLibraries
         /// <param name="metricSystem">If you need to receive the price as Mili, Micro, Nano, and ... set it as true</param>
         public AuxiliaryFloatPriceModel(float price, Currency priceBaseCurrency = Currency.IRR, Currency priceTargetCurrency = Currency.Toman, bool metricSystem = false)
         {
-            try
-            {
-                this._sourceCurrency = priceBaseCurrency;
-                this._destinationCurrency = priceTargetCurrency;
-                this.MetricSystem = metricSystem;
-                this.Price = price;
-            }
-            catch (Exception ex)
-            {
-                ex.ToString();
-                Price = 0;
-            }
+            this._sourceCurrency = priceBaseCurrency;
+            this._destinationCurrency = priceTargetCurrency;
+            this.MetricSystem = metricSystem;
+            this.Price = price;
         }
-
-        #region Protected Functions
-        /// <summary>
-        /// The main Function
-        /// Convert price either Toman or Rial to other formats of Iranian currency
-        /// </summary>
-        /// <param name="price"></param>
-        /// <param name="metricSystem">If you need to receive the price as Mili, Micro, Nano, and ... set it as true</param>
-        /// <returns></returns>
-        protected override AuxiliaryBasicPriceModel<float> Calculate(float price, bool metricSystem = false)
-        {
-            //Price must pass as Toman
-            string priceDescriptyion = string.Empty, priceCurrency = this.CurrencyDescription;
-            float priceShortFormat = 0;
-            if (price <= 0)
-            {
-                //this.Price = 0, //Don't Set it
-                this.PriceCurrency = priceCurrency;
-                this.PriceShortFormat = 0;
-                this.PriceDescription = DisplayNames.Free;
-                return this;
-            }
-            priceShortFormat = price;
-
-            foreach (var power in powers)
-            {
-                if (price >= (float)Convert.ToDouble(Math.Pow(10, power)))
-                {
-                    if (price % 1 == 0)
-                    {
-                        CalculateIntegers(price, power, ref priceShortFormat, ref priceCurrency, ref priceDescriptyion, metricSystem);
-                        return this;
-                    }
-                    else
-                    {
-                        var count = BitConverter.GetBytes(decimal.GetBits((decimal)price)[3])[2] * -1;
-                        var _power = powers.Any(x => x == count) ? count : power;
-                        CalculateDecimals(price, power, _power, ref priceShortFormat, ref priceCurrency, ref priceDescriptyion, metricSystem);
-                        return this;
-                    }
-                }
-            }
-
-            //this.Price = price, //Don't Set It
-            this.PriceCurrency = priceCurrency;
-            this.PriceShortFormat = (long)price;
-            this.PriceDescription = $"{((long)price).ToPersianLetters()} {priceCurrency}";
-            return this;
-        }
-
-        /// <summary>
-        /// Calculate Integers
-        /// </summary>
-        /// <param name="price"></param>
-        /// <param name="power"></param>
-        /// <param name="priceShortFormat"></param>
-        /// <param name="priceCurrency"></param>
-        /// <param name="priceDescriptyion"></param>
-        /// <param name="metricSystem"></param>
-        protected override void CalculateIntegers(float price, int power, ref float priceShortFormat, ref string priceCurrency, ref string priceDescriptyion, bool metricSystem)
-        {
-            double powerd = Math.Pow(10, power);
-            var remained = price % (float)powerd;
-            priceShortFormat = price / (float)powerd;
-            priceCurrency = GetPriceCurrency(power, metricSystem);
-            if (remained > 0)
-            {
-                var result = Calculate(remained);
-                priceDescriptyion = $"{((long)priceShortFormat).ToPersianLetters()} {priceCurrency} و {result.PriceDescription}";
-            }
-            else
-                priceDescriptyion = $"{((long)priceShortFormat).ToPersianLetters()} {priceCurrency} {this.CurrencyDescription}";
-            priceShortFormat = (float)Convert.ToDouble(Round(price, powerd, power));
-            //this.Price = price, //Don't Set It
-            this.PriceCurrency = $"{priceCurrency} {this.CurrencyDescription}";
-            this.PriceShortFormat = (long)priceShortFormat;
-            this.PriceDescription = priceDescriptyion;
-        }
-
-        /// <summary>
-        /// Calculate Decimals
-        /// </summary>
-        /// <param name="price"></param>
-        /// <param name="power"></param>
-        /// <param name="priceShortFormat"></param>
-        /// <param name="priceCurrency"></param>
-        /// <param name="priceDescriptyion"></param>
-        /// <param name="metricSystem"></param>
-        protected override void CalculateDecimals(float price, int power, int decimalPower, ref float priceShortFormat, ref string priceCurrency, ref string priceDescriptyion, bool metricSystem)
-        {
-            double remained = Convert.ToDouble(price.ToString().Replace("0", string.Empty).Replace(".", string.Empty));
-            priceCurrency = GetPriceCurrency(power, metricSystem);
-            var result = Calculate((float)remained);
-
-            priceDescriptyion = $"{result.PriceDescription.Replace(CurrencyDescription, string.Empty).Trim()} {priceCurrency} {this.CurrencyDescription}";
-
-            //this.Price = price, //Don't Set It
-            this.PriceCurrency = $"{priceCurrency} {this.CurrencyDescription}".Replace("  ", " ").Trim();
-            this.PriceShortFormat = result.PriceShortFormat;
-            this.PriceDescription = priceDescriptyion;
-            this._PriceShortFormat = (long)remained;
-        }
-
-        /// <summary>
-        /// Round
-        /// </summary>
-        /// <param name="price"></param>
-        /// <param name="powerd"></param>
-        /// <param name="power"></param>
-        /// <returns></returns>
-        protected override float Round(float price, double powerd, int power)
-        {
-            var number = Math.Ceiling(Math.Round(price, 0, MidpointRounding.AwayFromZero));
-            var remained = (decimal)number % (decimal)powerd;
-            var rounded = (decimal)number / (decimal)powerd;
-            if (Convert.ToDouble(remained.ToString().ToCharArray(0, 1).FirstOrDefault().ToString()) > 5)
-                rounded++;
-            return (float)rounded;
-        }
-        #endregion
     }
 }
