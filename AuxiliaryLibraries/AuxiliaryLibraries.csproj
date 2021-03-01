@@ -62,6 +62,7 @@
     <Compile Include="AuxilaryServices\AuxiliaryPriceModel\AuxiliaryLongPriceModel.cs" />
     <Compile Include="AuxilaryServices\AuxiliaryPriceModel\AuxiliaryDecimalPriceModel.cs" />
     <Compile Include="AuxilaryServices\AuxiliaryPriceModel\AuxiliaryDoublePriceModel.cs" />
+    <Compile Include="AuxilaryServices\AuxiliaryObjectCopier.cs" />
     <Compile Include="Enums\Currency.cs" />
     <Compile Include="Enums\AuxiliaryBasicPriceModel.NumberType.cs" />
     <Compile Include="AuxilaryServices\AuxiliaryPriceModel\AuxiliaryPriceModel.cs" />
@@ -119,6 +120,7 @@
     <None Include="Versioning\AuxiliaryLibraries.1.1.9.nupkg" />
     <None Include="Versioning\AuxiliaryLibraries.1.2.0.nupkg" />
     <None Include="Versioning\AuxiliaryLibraries.1.2.1.nupkg" />
+    <None Include="Versioning\AuxiliaryLibraries.1.2.2.nupkg" />
     <None Include="Versioning\AuxiliaryLibraries.psd" />
   </ItemGroup>
   <ItemGroup>
