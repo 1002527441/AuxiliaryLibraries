@@ -34,23 +34,33 @@ namespace AuxiliaryLibraries.AuxilaryServices
         /// Check the user request sent from mobile or not
         /// </summary>
         /// <returns></returns>
-        public static bool IsRequestMobile()
+        public static bool IsMobileRequest()
         {
             System.Diagnostics.Debug.Assert(HttpContext.Current != null);
             var result = false;
             var doubleCheck = HttpContext.Current.Request.Browser.IsMobileDevice;
             if (HttpContext.Current != null && HttpContext.Current.Request != null && HttpContext.Current.Request.ServerVariables["HTTP_USER_AGENT"] != null)
             {
-                var u = HttpContext.Current.Request.ServerVariables["HTTP_USER_AGENT"].ToString();
-
-                if (u.Length < 4)
-                    result = false;
-
-                if (AuxiliaryRegexPatterns.MobileRequestCheck.IsMatch(u) || AuxiliaryRegexPatterns.MobileVersionRequestCheck.IsMatch(u.Substring(0, 4)) || AuxiliaryRegexPatterns.MobileRequest.IsMatch(u))
-                    result = true;
+                var httpUserAgent = HttpContext.Current.Request.ServerVariables["HTTP_USER_AGENT"].ToString();
+                result = httpUserAgent.IsMobileRequest();
             }
 
             return result || doubleCheck;
+        }
+
+        /// <summary>
+        /// Check the user request sent from mobile or not
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsMobileRequest(this string httpUserAgent)
+        {
+            if (httpUserAgent.Length < 4)
+                return false;
+
+            if (AuxiliaryRegexPatterns.MobileRequestCheck.IsMatch(httpUserAgent) || AuxiliaryRegexPatterns.MobileVersionRequestCheck.IsMatch(httpUserAgent.Substring(0, 4)) || AuxiliaryRegexPatterns.MobileRequest.IsMatch(httpUserAgent))
+                return true;
+
+            return false;
         }
     }
 }
