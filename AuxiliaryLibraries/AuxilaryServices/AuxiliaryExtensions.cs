@@ -525,6 +525,7 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="input">Everything</param>
         /// <returns>string</returns>
+        /// <returns>string</returns>
         public static string GetMd5(this string input)
         {
             using (var md5Hash = MD5.Create())
