@@ -90,7 +90,7 @@ namespace AuxiliaryLibraries
         /// <param name="number">Numbers as string</param>
         /// <param name="isMoney">Is numbers money</param>
         /// <returns>string</returns>
-        public static string ToPersianNumber(int number, bool isMoney)
+        public static string ToPersianNumber(this int number, bool isMoney)
         {
             if (System.Threading.Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "en".ToLower())
                 return Convert.ToString(number);
@@ -269,7 +269,7 @@ namespace AuxiliaryLibraries
             return string.Join(" و ", lst.Where(s => !string.IsNullOrEmpty(s)).ToList());
         }
 
-        private static string GetLetter(long number, NumberType numberType)
+        private static string GetLetter(this long number, NumberType numberType)
         {
             switch (number)
             {
@@ -498,6 +498,25 @@ namespace AuxiliaryLibraries
                 return false;
             return AuxiliaryRegexPatterns.PhoneNumber.IsMatch(number);
         }
+
+        /// <summary>
+        /// Validate sheba number 
+        /// </summary>
+        /// <param name="sheba">should contain IR</param>
+        public static bool IsShebaValid(this string sheba)
+        {
+            sheba = sheba.ToUpper();
+            var firstFourCharacter = sheba.Substring(0, 4);
+            var withOutFirstFourCharacter = sheba.Substring(4);
+            firstFourCharacter = firstFourCharacter.Replace("I", "18").Replace("R", "27");
+
+            var finalNumber = withOutFirstFourCharacter + firstFourCharacter;
+            var newNumber = decimal.Parse(finalNumber);
+            var leftOver = newNumber % 97;
+            return leftOver == 1;
+        }
+
+        // https://iica.ir/useful-articles/2621-9502089
         #endregion
 
         #region Hash AND Encryption
@@ -506,7 +525,7 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="input">Everything</param>
         /// <returns>string</returns>
-        public static string GetMd5(string input)
+        public static string GetMd5(this string input)
         {
             using (var md5Hash = MD5.Create())
             {
@@ -537,7 +556,7 @@ namespace AuxiliaryLibraries
             return sb.ToString();
         }
 
-        private static string GetMd5Hash(MD5 md5Hash, string input)
+        private static string GetMd5Hash(this MD5 md5Hash, string input)
         {
 
             // Convert the input string to a byte array and compute the hash. 
@@ -565,7 +584,7 @@ namespace AuxiliaryLibraries
         /// <param name="input">input</param>
         /// <param name="hash">hash</param>
         /// <returns></returns>
-        public static bool VerifyMd5Hash(MD5 md5Hash, string input, string hash)
+        public static bool VerifyMd5Hash(this MD5 md5Hash, string input, string hash)
         {
             // Hash the input. 
             string hashOfInput = GetMd5Hash(md5Hash, input);
@@ -1218,6 +1237,21 @@ namespace AuxiliaryLibraries
         }
 
         /// <summary>
+        /// Splitting a string into chunks of a certain size
+        /// </summary>
+        /// <param name="text">Considered word</param>
+        /// <param name="chunkSize">Considered length</param>
+        /// <returns>string</returns>
+        //https://stackoverflow.com/questions/1450774/splitting-a-string-into-chunks-of-a-certain-size
+        public static List<string> Split(this string text, int chunkSize)
+        {
+            if (text == null || text.Length <= chunkSize)
+                return new List<string>() { text };
+            return Enumerable.Range(0, text.Length / chunkSize)
+                    .Select(i => text.Substring(i * chunkSize, chunkSize)).ToList();
+        }
+
+        /// <summary>
         /// Fill replacementDic inside template, this function is used especially for creating email template 
         /// </summary>
         /// <param name="template">Email template, etc</param>
@@ -1396,7 +1430,7 @@ namespace AuxiliaryLibraries
         /// <summary>
         /// Convert object to boolean
         /// </summary>
-        /// <param name="o"></param>
+        /// <param name="term"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
         public static bool ToBooleanOrDefault(this string term, bool defaultValue = false)

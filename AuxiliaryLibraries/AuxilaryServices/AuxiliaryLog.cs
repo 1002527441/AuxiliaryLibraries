@@ -35,7 +35,7 @@ namespace AuxiliaryLibraries
         {
             try
             {
-                if (string.IsNullOrEmpty(DefaultLogPath) || string.IsNullOrWhiteSpace(DefaultLogPath))
+                if (string.IsNullOrEmpty(path))
                     path = DefaultLogPath;
                 using (System.IO.StreamWriter SW = System.IO.File.AppendText(path))
                 {
@@ -56,7 +56,7 @@ namespace AuxiliaryLibraries
         /// <param name="path"></param>
         public static void LogToNewFile(this string text, string path = "")
         {
-            if (string.IsNullOrEmpty(DefaultLogPath) || string.IsNullOrWhiteSpace(DefaultLogPath))
+            if (string.IsNullOrEmpty(path))
                 path = DefaultLogPath;
             try
             {
