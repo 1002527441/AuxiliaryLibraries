@@ -599,7 +599,7 @@ Decrypt your data, , config (Sign, PrivateKey, PublicKey) of decryption is insid
 <br/>
 => Parameters : System.Net.Http.HttpRequestMessage Request
 <br/>
-=> Return: System.Collections.Generic.List<object>
+=> Return: System.Collections.Generic.List < object >
 
 Fetch Requests (HttpRequestMessage) as List of object
 
@@ -612,8 +612,8 @@ Fetch Requests (HttpRequestMessage) as List of object
 
 Check the user request sent from mobile or not
 
-<br/>
-## AuxiliaryObjectCopier
+
+## Auxiliary Object Copier
 <br/>
 * Clone()
 <br/>
@@ -662,7 +662,7 @@ Send your request with WebClient
 <br/>
 * Compress()
 <br/>
-=> Parameters : IEnumerable<string> fileNames, string destinationFileName
+=> Parameters : IEnumerable< string > fileNames, string destinationFileName
 <br/>
 => Return: void
 
