@@ -51,22 +51,25 @@ This is a good helper, and saves lots of time, especially for Iranian programmer
 => Parameters : DateTime dateTime, bool isUtc = false, bool toPersian = true
 <br/>
 => Return: string
+
 ```CS
 var persianDate = DateTime.Now.ToPrettyDate();
 ```
-//persianDate : "امروز ساعت 10:57"
+persianDate : "امروز ساعت 10:57"
 
-// set isUtc as true
+ set isUtc as true
+ 
 ```CS
 var persianDate2 = DateTime.UtcNow.ToPrettyDate(true);
 ```
-//persianDate2 : "امروز ساعت 10:57"
 
-// set toPersian as false will return datetime in english
+persianDate2 : "امروز ساعت 10:57"
+
+ set toPersian as false will return datetime in english
 ```CS
 var persianDate3 = DateTime.UtcNow.ToPrettyDate(toPersian:false);
 ```
-//persianDate3 : "Today at 10:57"
+persianDate3 : "Today at 10:57"
 <br/>
 * ToPrettyTime()
 <br/>
@@ -76,19 +79,19 @@ var persianDate3 = DateTime.UtcNow.ToPrettyDate(toPersian:false);
 ```CS
 var persianDate = DateTime.Now.AddMinutes(-10).ToPrettyTime();
 ```
-//persianDate : "10 دقیقه پیش"
+persianDate : "10 دقیقه پیش"
 
-// set isUtc as true
+ set isUtc as true
 ```CS
 var persianDate = DateTime.UtcNow.AddDays(-15).ToPrettyTime(true);
 ```
-//persianDate2 : "2 هفته پیش"
+persianDate2 : "2 هفته پیش"
 
-// set toPersian as false will return datetime in english
+ set toPersian as false will return datetime in english
 ```CS
 var persianDate3 = DateTime.UtcNow.AddMonths(-3).ToPrettyTime(toPersian:false);
 ```
-//persianDate3 : "3 months ago"
+persianDate3 : "3 months ago"
 <br/>
 * ToPrettyDateTime()
 <br/>
@@ -98,14 +101,14 @@ var persianDate3 = DateTime.UtcNow.AddMonths(-3).ToPrettyTime(toPersian:false);
 ```CS
 var persianDate = DateTime.Now.AddMinutes(-10).ToPrettyDateTime();
 ```
-//persianDate : "هجدهم آذر ماه 1395 ساعت 14:30"
+persianDate : "هجدهم آذر ماه 1395 ساعت 14:30"
 
-// set isUtc as true
-// set toPersian as false will return datetime in english
+ set isUtc as true
+ set toPersian as false will return datetime in english
 ```CS
 var persianDate2 = DateTime.UtcNow.AddDays(-15).ToPrettyDateTime(isUtc:true, toPersian:false);
 ```
-//persianDate2 : "Ninth of December 2016 at 14:30"
+persianDate2 : "Ninth of December 2016 at 14:30"
 <br/>
 
 * ToPrettyDay()
@@ -116,22 +119,22 @@ var persianDate2 = DateTime.UtcNow.AddDays(-15).ToPrettyDateTime(isUtc:true, toP
 ```CS
 var persianDate1 = DateTime.Now.ToPrettyDay();
 ```
-//persianDate1 : "امروز"
+persianDate1 : "امروز"
 
 ```CS
 var persianDate2 = DateTime.Now.AddMinutes(-1).ToPrettyDay();
 ```
-//persianDate2 : "دیروز"
+persianDate2 : "دیروز"
 
 ```CS
 var persianDate3 = DateTime.Now.AddMinutes(1).ToPrettyDay();
 ```
-//persianDate3 : "فردا"
+persianDate3 : "فردا"
 
 ```CS
 var persianDate4 = DateTime.Now.AddMinutes(-35).ToPrettyDay();
 ```
-//persianDate4 : "5 هفته پیش"
+persianDate4 : "5 هفته پیش"
 <br/>
 * ToPrettyDayOfWeek()
 <br/>
@@ -141,22 +144,22 @@ var persianDate4 = DateTime.Now.AddMinutes(-35).ToPrettyDay();
 ```CS
 var persianDate1 = DateTime.Now.ToPrettyDayOfWeek();
 ```
-//persianDate1 : "امروز"
+persianDate1 : "امروز"
 
 ```CS
 var persianDate2 = DateTime.Now.AddMinutes(-1).ToPrettyDayOfWeek();
 ```
-//persianDate2 : "دیروز"
+persianDate2 : "دیروز"
 
 ```CS
 var persianDate3 = DateTime.Now.AddMinutes(+10).ToPrettyDayOfWeek();
 ```
-//persianDate3 : "جمعه"
+persianDate3 : "جمعه"
 
 ```CS
 var persianDate4 = DateTime.Now.AddMinutes(-5).ToPrettyDayOfWeek();
 ```
-//persianDate4 : "شنبه"
+persianDate4 : "شنبه"
 
 <br/>
 * ToPersianDateTime()
@@ -167,23 +170,23 @@ var persianDate4 = DateTime.Now.AddMinutes(-5).ToPrettyDayOfWeek();
 ```CS
 var persianDate = DateTime.Now.ToPersianDateTime();
 ```
-//persianDate : "1395/9/30 ساعت 10:57"
+persianDate : "1395/9/30 ساعت 10:57"
 
 ```CS
 var persianDate2 = DateTime.Now.ToPersianDateTime(false, "-");
 ```
-//persianDate2 : "1395-9-30 ساعت 10:57"
+persianDate2 : "1395-9-30 ساعت 10:57"
 <br/>
 UTC:
 ```CS
 var persianDate = DateTime.UtcNow.ToPersianDateTime(true);
 ```
-//persianDate : "1395/9/30 ساعت 10:57"
+persianDate : "1395/9/30 ساعت 10:57"
 
 ```CS
 var persianDate2 = DateTime.UtcNow.ToPersianDateTime(true, "-");
 ```
-//persianDate2 : "1395-9-30 ساعت 10:57"
+persianDate2 : "1395-9-30 ساعت 10:57"
 <br/>
 * ToPersianDate()
 <br/>
@@ -193,23 +196,23 @@ var persianDate2 = DateTime.UtcNow.ToPersianDateTime(true, "-");
 ```CS
 var persianDate = DateTime.Now.ToPersianDate();
 ```
-//persianDate : "1395/09/30"
+persianDate : "1395/09/30"
 
 ```CS
 var persianDate2 = DateTime.Now.ToPersianDate(false, "-");
 ```
-//persianDate2 : "1395-9-30"
+persianDate2 : "1395-9-30"
 <br/>
 UTC:
 ```CS
 var persianDate = DateTime.UtcNow.ToPersianDate(true);
 ```
-//persianDate : "1395/09/30"
+persianDate : "1395/09/30"
 
 ```CS
 var persianDate2 = DateTime.UtcNow.ToPersianDate(true, "-");
 ```
-//persianDate2 : "1395-9-30"
+persianDate2 : "1395-9-30"
 <br/>
 
 * ToPersianFullDateTime()
@@ -220,37 +223,37 @@ var persianDate2 = DateTime.UtcNow.ToPersianDate(true, "-");
 ```CS
 var persianDate = DateTime.Now.ToPersianFullDateTime();
 ```
-//persianDate : "1395/9/30 10:57:23:547"
+persianDate : "1395/9/30 10:57:23:547"
 
 ```CS
 var persianDate2 = DateTime.Now.ToPersianFullDateTime(false, "-");
 ```
-//persianDate2 : "1395-9-30 10:57:23:547"
+persianDate2 : "1395-9-30 10:57:23:547"
 <br/>
 UTC:
 ```CS
 var persianDate = DateTime.UtcNow.ToPersianFullDateTime(true);
 ```
-//persianDate : "1395/09/30 10:57:23:547"
+persianDate : "1395/09/30 10:57:23:547"
 
 ```CS
 var persianDate2 = DateTime.UtcNow.ToPersianFullDateTime(true, "-");
 ```
-//persianDate2 : "1395-9-30 10:57:23:547"
+persianDate2 : "1395-9-30 10:57:23:547"
 <br/>
 
 * BeginDate()
 ```CS
 var midnight = DateTime.Now.BeginDate();
 ```
-// midnight : 12/20/2016 00:00:00
+ midnight : 12/20/2016 00:00:00
 <br/>
 
 * EndDate()
 ```CS
 var tommorowMidnight = DateTime.Now.EndDate();
 ```
-//12/20/2016 23:59:59
+12/20/2016 23:59:59
 <br/>
 
 * ConvertFromUTC()
@@ -261,7 +264,7 @@ var tommorowMidnight = DateTime.Now.EndDate();
 ```CS
 var date = DateTime.UtcNow.ConvertFromUTC(TimeZoneInfo.FindSystemTimeZoneById(AuxiliaryCalendar.IranianTimeZone));
 ```
-//date : "2016/9/30 10:57:23:547"
+date : "2016/9/30 10:57:23:547"
 <br/>
 
 * DayOfWeek()
@@ -272,17 +275,17 @@ var date = DateTime.UtcNow.ConvertFromUTC(TimeZoneInfo.FindSystemTimeZoneById(Au
 ```CS
 var persianDate = DateTime.Now.DayOfWeek();
 ```
-//persianDate : " چهارشنبه"
+persianDate : " چهارشنبه"
 
 ```CS
 var persianDate2 = DateTime.Now.DayOfWeek(toPersian:false);
 ```
-//persianDate2 : "Wednesday"
+persianDate2 : "Wednesday"
 
 ```CS
 var persianDate3 = DateTime.Now.DayOfWeek(dayNumber:true);
 ```
-//persianDate3 : "4 شنبه"
+persianDate3 : "4 شنبه"
 <br/>
 
 * DayOfMonth()
@@ -293,7 +296,7 @@ var persianDate3 = DateTime.Now.DayOfWeek(dayNumber:true);
 ```CS
 var persianDate = AuxiliaryCalendar.DayOfMonth(20);
 ```
-//persianDate : " بیستم"
+persianDate : " بیستم"
 
 
 * Month()
@@ -304,7 +307,7 @@ var persianDate = AuxiliaryCalendar.DayOfMonth(20);
 ```CS
 var persianDate = AuxiliaryCalendar.Month(9);
 ```
-//persianDate : " آذر"
+persianDate : " آذر"
 
 
 * GetFirstDayOfThisMonth()
@@ -317,13 +320,13 @@ Get the first day of current persian month
 ```CS
 var date = AuxiliaryCalendar.GetFirstDayOfThisMonth();
 ```
-//date : "2016-06-18"
+date : "2016-06-18"
 
 Get the first day of current miladi month
 ```CS
 var date = AuxiliaryCalendar.GetFirstDayOfThisMonth(isPersian:false);
 ```
-//date : "2016-06-01"
+date : "2016-06-01"
 <br/>
 
 * GetFirstDayOfThisWeek()
@@ -336,13 +339,13 @@ Get the first day of current persian week
 ```CS
 var date = AuxiliaryCalendar.GetFirstDayOfThisWeek();
 ```
-//date : "2016-06-20"
+date : "2016-06-20"
 
 Get the first day of current miladi week
 ```CS
 var date = AuxiliaryCalendar.GetFirstDayOfThisWeek(isPersian:false);
 ```
-//date : "2016-06-22"
+date : "2016-06-22"
 <br/>
 * GetNextNearestWeekday()
 <br/>
@@ -354,7 +357,7 @@ Get Next Nearest day of Week, For example, get next nearest Sunday from Now
 ```CS
 var date = DateTime.Now.GetNextNearestWeekday(DayOfWeek.Sunday);
 ```
-//date : "2016-06-29"
+date : "2016-06-29"
 <br/>
 * GetFirstDayOfLastXDay()
 <br/>
