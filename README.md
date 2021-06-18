@@ -490,12 +490,13 @@ Download a file
 <br/>
 => Return: bool
 
-Undrasting this file is image or not
+Understing this file is image or not
 
-<br/>
+
 ## Auxiliary Encription
-<br/>
-## RC4
+
+
+### RC4
 <br/>
 * Encrypt()
 <br/>
@@ -533,8 +534,9 @@ Decrypt your data with key and encoding
 
 Decrypt your data with key
 
-<br/>
-## AES
+
+
+### AES
 <br/>
 * EncryptFile()
 <br/>
@@ -572,8 +574,8 @@ Decrypt your file, , config of decryption is inside the constructor
 
 Decrypt your data with key
 
-<br/>
-## RSA
+
+### RSA
 <br/>
 * Encrypt()
 <br/>
