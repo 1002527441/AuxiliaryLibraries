@@ -55,10 +55,11 @@ This is a good helper, and saves lots of time, especially for Iranian programmer
 ```CS
 var persianDate = DateTime.Now.ToPrettyDate();
 ```
+
 persianDate : "امروز ساعت 10:57"
 
  set isUtc as true
- 
+
 ```CS
 var persianDate2 = DateTime.UtcNow.ToPrettyDate(true);
 ```
@@ -66,9 +67,11 @@ var persianDate2 = DateTime.UtcNow.ToPrettyDate(true);
 persianDate2 : "امروز ساعت 10:57"
 
  set toPersian as false will return datetime in english
+
 ```CS
 var persianDate3 = DateTime.UtcNow.ToPrettyDate(toPersian:false);
 ```
+
 persianDate3 : "Today at 10:57"
 <br/>
 * ToPrettyTime()
@@ -76,21 +79,27 @@ persianDate3 : "Today at 10:57"
 => Parameters : DateTime dateTime, bool isUtc = false, bool toPersian = true
 <br/>
 => Return: string
+
 ```CS
 var persianDate = DateTime.Now.AddMinutes(-10).ToPrettyTime();
 ```
+
 persianDate : "10 دقیقه پیش"
 
  set isUtc as true
+
 ```CS
 var persianDate = DateTime.UtcNow.AddDays(-15).ToPrettyTime(true);
 ```
+
 persianDate2 : "2 هفته پیش"
 
  set toPersian as false will return datetime in english
+
 ```CS
 var persianDate3 = DateTime.UtcNow.AddMonths(-3).ToPrettyTime(toPersian:false);
 ```
+
 persianDate3 : "3 months ago"
 <br/>
 * ToPrettyDateTime()
@@ -98,16 +107,20 @@ persianDate3 : "3 months ago"
 => Parameters : DateTime dateTime, bool isUtc = false, bool toPersian = true
 <br/>
 => Return: string
+
 ```CS
 var persianDate = DateTime.Now.AddMinutes(-10).ToPrettyDateTime();
 ```
+
 persianDate : "هجدهم آذر ماه 1395 ساعت 14:30"
 
  set isUtc as true
  set toPersian as false will return datetime in english
+
 ```CS
 var persianDate2 = DateTime.UtcNow.AddDays(-15).ToPrettyDateTime(isUtc:true, toPersian:false);
 ```
+
 persianDate2 : "Ninth of December 2016 at 14:30"
 <br/>
 
@@ -116,24 +129,29 @@ persianDate2 : "Ninth of December 2016 at 14:30"
 => Parameters : DateTime dateTime, bool isUtc = false, bool toPersian = true
 <br/>
 => Return: string
+
 ```CS
 var persianDate1 = DateTime.Now.ToPrettyDay();
 ```
+
 persianDate1 : "امروز"
 
 ```CS
 var persianDate2 = DateTime.Now.AddMinutes(-1).ToPrettyDay();
 ```
+
 persianDate2 : "دیروز"
 
 ```CS
 var persianDate3 = DateTime.Now.AddMinutes(1).ToPrettyDay();
 ```
+
 persianDate3 : "فردا"
 
 ```CS
 var persianDate4 = DateTime.Now.AddMinutes(-35).ToPrettyDay();
 ```
+
 persianDate4 : "5 هفته پیش"
 <br/>
 * ToPrettyDayOfWeek()
@@ -141,24 +159,29 @@ persianDate4 : "5 هفته پیش"
 => Parameters : DateTime dateTime, bool isUtc = false, bool toPersian = true, bool dayNumber = false
 <br/>
 => Return: string
+
 ```CS
 var persianDate1 = DateTime.Now.ToPrettyDayOfWeek();
 ```
+
 persianDate1 : "امروز"
 
 ```CS
 var persianDate2 = DateTime.Now.AddMinutes(-1).ToPrettyDayOfWeek();
 ```
+
 persianDate2 : "دیروز"
 
 ```CS
 var persianDate3 = DateTime.Now.AddMinutes(+10).ToPrettyDayOfWeek();
 ```
+
 persianDate3 : "جمعه"
 
 ```CS
 var persianDate4 = DateTime.Now.AddMinutes(-5).ToPrettyDayOfWeek();
 ```
+
 persianDate4 : "شنبه"
 
 <br/>
@@ -167,25 +190,31 @@ persianDate4 : "شنبه"
 => Parameters : DateTime dateTime, bool isUtc = false, string delimiter = "/"
 <br/>
 => Return: string
+
 ```CS
 var persianDate = DateTime.Now.ToPersianDateTime();
 ```
+
 persianDate : "1395/9/30 ساعت 10:57"
 
 ```CS
 var persianDate2 = DateTime.Now.ToPersianDateTime(false, "-");
 ```
+
 persianDate2 : "1395-9-30 ساعت 10:57"
 <br/>
 UTC:
+
 ```CS
 var persianDate = DateTime.UtcNow.ToPersianDateTime(true);
 ```
+
 persianDate : "1395/9/30 ساعت 10:57"
 
 ```CS
 var persianDate2 = DateTime.UtcNow.ToPersianDateTime(true, "-");
 ```
+
 persianDate2 : "1395-9-30 ساعت 10:57"
 <br/>
 * ToPersianDate()
@@ -193,25 +222,31 @@ persianDate2 : "1395-9-30 ساعت 10:57"
 => Parameters : DateTime dateTime, bool isUtc = false, string delimiter = "/"
 <br/>
 => Return: string
+
 ```CS
 var persianDate = DateTime.Now.ToPersianDate();
 ```
+
 persianDate : "1395/09/30"
 
 ```CS
 var persianDate2 = DateTime.Now.ToPersianDate(false, "-");
 ```
+
 persianDate2 : "1395-9-30"
 <br/>
 UTC:
+
 ```CS
 var persianDate = DateTime.UtcNow.ToPersianDate(true);
 ```
+
 persianDate : "1395/09/30"
 
 ```CS
 var persianDate2 = DateTime.UtcNow.ToPersianDate(true, "-");
 ```
+
 persianDate2 : "1395-9-30"
 <br/>
 
@@ -220,39 +255,49 @@ persianDate2 : "1395-9-30"
 => Parameters : DateTime dateTime, bool isUtc = false, string delimiter = "/"
 <br/>
 => Return: string
+
 ```CS
 var persianDate = DateTime.Now.ToPersianFullDateTime();
 ```
+
 persianDate : "1395/9/30 10:57:23:547"
 
 ```CS
 var persianDate2 = DateTime.Now.ToPersianFullDateTime(false, "-");
 ```
+
 persianDate2 : "1395-9-30 10:57:23:547"
 <br/>
 UTC:
+
 ```CS
 var persianDate = DateTime.UtcNow.ToPersianFullDateTime(true);
 ```
+
 persianDate : "1395/09/30 10:57:23:547"
 
 ```CS
 var persianDate2 = DateTime.UtcNow.ToPersianFullDateTime(true, "-");
 ```
+
 persianDate2 : "1395-9-30 10:57:23:547"
 <br/>
 
 * BeginDate()
+
 ```CS
 var midnight = DateTime.Now.BeginDate();
 ```
- midnight : 12/20/2016 00:00:00
+
+midnight : 12/20/2016 00:00:00
 <br/>
 
 * EndDate()
+
 ```CS
 var tommorowMidnight = DateTime.Now.EndDate();
 ```
+
 12/20/2016 23:59:59
 <br/>
 
@@ -261,9 +306,11 @@ var tommorowMidnight = DateTime.Now.EndDate();
 => Parameters : DateTime dateTime, TimeZoneInfo destinationTimeZone
 <br/>
 => Return: DateTime
+
 ```CS
 var date = DateTime.UtcNow.ConvertFromUTC(TimeZoneInfo.FindSystemTimeZoneById(AuxiliaryCalendar.IranianTimeZone));
 ```
+
 date : "2016/9/30 10:57:23:547"
 <br/>
 
@@ -272,19 +319,23 @@ date : "2016/9/30 10:57:23:547"
 => Parameters : DateTime dateTime, bool toPersian = true, bool dayNumber = false
 <br/>
 => Return: string
+
 ```CS
 var persianDate = DateTime.Now.DayOfWeek();
 ```
+
 persianDate : " چهارشنبه"
 
 ```CS
 var persianDate2 = DateTime.Now.DayOfWeek(toPersian:false);
 ```
+
 persianDate2 : "Wednesday"
 
 ```CS
 var persianDate3 = DateTime.Now.DayOfWeek(dayNumber:true);
 ```
+
 persianDate3 : "4 شنبه"
 <br/>
 
@@ -293,22 +344,28 @@ persianDate3 : "4 شنبه"
 => Parameters : int day, bool isPersian
 <br/>
 => Return: string
+
 ```CS
 var persianDate = AuxiliaryCalendar.DayOfMonth(20);
 ```
+
 persianDate : " بیستم"
 
+<br/>
 
 * Month()
 <br/>
 => Parameters : int day, bool isPersian
 <br/>
 => Return: string
+
 ```CS
 var persianDate = AuxiliaryCalendar.Month(9);
 ```
+
 persianDate : " آذر"
 
+<br/>
 
 * GetFirstDayOfThisMonth()
 <br/>
@@ -317,15 +374,19 @@ persianDate : " آذر"
 => Return: DateTime
 
 Get the first day of current persian month
+
 ```CS
 var date = AuxiliaryCalendar.GetFirstDayOfThisMonth();
 ```
+
 date : "2016-06-18"
 
 Get the first day of current miladi month
+
 ```CS
 var date = AuxiliaryCalendar.GetFirstDayOfThisMonth(isPersian:false);
 ```
+
 date : "2016-06-01"
 <br/>
 
@@ -336,15 +397,19 @@ date : "2016-06-01"
 => Return: DateTime
 
 Get the first day of current persian week
+
 ```CS
 var date = AuxiliaryCalendar.GetFirstDayOfThisWeek();
 ```
+
 date : "2016-06-20"
 
 Get the first day of current miladi week
+
 ```CS
 var date = AuxiliaryCalendar.GetFirstDayOfThisWeek(isPersian:false);
 ```
+
 date : "2016-06-22"
 <br/>
 * GetNextNearestWeekday()
@@ -354,9 +419,11 @@ date : "2016-06-22"
 => Return: DateTime
 
 Get Next Nearest day of Week, For example, get next nearest Sunday from Now
+
 ```CS
 var date = DateTime.Now.GetNextNearestWeekday(DayOfWeek.Sunday);
 ```
+
 date : "2016-06-29"
 <br/>
 * GetFirstDayOfLastXDay()
@@ -382,48 +449,48 @@ Be careful xDay Must be less than 30
 => Parameters : string path
 <br/>
 => Return: bool
-```
-Create a folder if it doesn't exist
-```
 
+Create a folder if it doesn't exist
+
+<br/>
 * CopyFolder()
 <br/>
 => Parameters : string sourcePath, string destinationPath
 <br/>
 => Return: bool
-```
+
 Copy a folder with all of its dub directories and files
-```
 
 
+<br/>
 * CopyFile()
 <br/>
 => Parameters : string sourcePath, string destinationPath
 <br/>
 => Return: bool
-```
-Copy a file
-```
 
+Copy a file
+
+<br/>
 * Download()
 <br/>
 => Parameters : string url, string destination
 <br/>
 => Return: bool
-```
+
 Download a file
-```
 
 
+<br/>
 * IsImage()
 <br/>
 => Parameters : string contentType
 <br/>
 => Return: bool
-```
-Undrasting this file is image or not
-```
 
+Undrasting this file is image or not
+
+<br/>
 ## Auxiliary Encription
 ## RC4
 * Encrypt()
@@ -431,203 +498,206 @@ Undrasting this file is image or not
 => Parameters : string key, string data, Encoding encoding, bool skipZero = false
 <br/>
 => Return: string
-```
-Encrypt your data with key and encoding
-```
 
+Encrypt your data with key and encoding
+
+<br/>
 * Encrypt()
 <br/>
 => Parameters : string key, string data
 <br/>
 => Return: string
-```
+
 Encrypt your data with key
-```
 
 
+<br/>
 * Decrypt()
 <br/>
 => Parameters : string key, string data, Encoding encoding, bool skipZero = false
 <br/>
 => Return: string
-```
-Decrypt your data with key and encoding
-```
 
+Decrypt your data with key and encoding
+
+<br/>
 * Decrypt()
 <br/>
 => Parameters : string key, string data
 <br/>
 => Return: string
-```
+
 Decrypt your data with key
-```
+
+<br/>
 ## AES
 * EncryptFile()
 <br/>
 => Parameters : string inputFile, string outputFile
 <br/>
 => Return: string
-```
-Encrypt your file, config of encyption is inside the constructor
-```
 
+Encrypt your file, config of encyption is inside the constructor
+
+<br/>
 * Encrypt()
 <br/>
 => Parameters : string strtoencrypt
 <br/>
 => Return: byte[]
-```
+
 Encrypt your data with key
-```
 
 
+<br/>
 * DecryptFile()
 <br/>
 => Parameters : string inputFile, string outputFile
 <br/>
 => Return: string
-```
-Decrypt your file, , config of decryption is inside the constructor
-```
 
+Decrypt your file, , config of decryption is inside the constructor
+
+<br/>
 * Decrypt()
 <br/>
 => Parameters : string strtoencrypt
 <br/>
 => Return: string
-```
-Decrypt your data with key
-```
 
+Decrypt your data with key
+
+<br/>
 ## RSA
 * Encrypt()
 <br/>
 => Parameters : string plainText
 <br/>
 => Return: string
-```
-Encrypt your data, config (Sign, PrivateKey, PublicKey) of encyption is inside the constructor
-```
 
+Encrypt your data, config (Sign, PrivateKey, PublicKey) of encyption is inside the constructor
+
+<br/>
 * Decrypt()
 <br/>
 => Parameters : string inputFile, string outputFile
 <br/>
 => Return: string
-```
-Decrypt your data, , config (Sign, PrivateKey, PublicKey) of decryption is inside the constructor
-```
 
+Decrypt your data, , config (Sign, PrivateKey, PublicKey) of decryption is inside the constructor
+
+<br/>
 ## Auxiliary Http
 * Read()
 <br/>
 => Parameters : System.Net.Http.HttpRequestMessage Request
 <br/>
 => Return: System.Collections.Generic.List<object>
-```
+
 Fetch Requests (HttpRequestMessage) as List of object
-```
- 
+
+<br/>
 * IsMobileRequest()
 <br/>
 => Parameters : NONE
 <br/>
 => Return: bool
-```
-Check the user request sent from mobile or not
-```
 
+Check the user request sent from mobile or not
+
+<br/>
 ## AuxiliaryObjectCopier
 * Clone()
 <br/>
 => Parameters : T source
 <br/>
 => Return: T
-```
+
 Perform a deep copy of the object via serialization.
+Be careful, The type must be serializable.
+
+```CS
 var person = new Person();
 var clonedPerson = person.Clone();
-Be careful, The type must be serializable
 ```
- 
+<br/>
 ## Auxiliary RestApi
 * Send()
 <br/>
 => Parameters : string baseUrl, string functionName, Method method, IDictionary<string, string> headers, IDictionary<string, object> parametersBody, string userName, string password
 <br/>
 => Return: IRestResponse
-```
-Send your request with RestSharp
-```
 
+Send your request with RestSharp
+
+<br/>
 * Send()
 <br/>
 => Parameters : string baseUrl, string functionName, Method method, IDictionary<string, string> headers, object body, string userName, string password
 <br/>
 => Return: IRestResponse
-```
-Send your request with RestSharp
-```
 
+Send your request with RestSharp
+
+<br/>
 * Send()
 <br/>
 => Parameters : string url, IDictionary<string, string> headers, IDictionary<string, object> parametersBody, string method = "GET", bool contentLength = true
 <br/>
 => Return: string
-```
-Send your request with WebClient
-```
 
+Send your request with WebClient
+
+<br/>
 ## AuxiliaryZip
 * Compress()
 <br/>
 => Parameters : IEnumerable<string> fileNames, string destinationFileName
 <br/>
 => Return: void
-```
+
 Create a ZIP file of the files provided.
-```
-  
+
+<br/>
 * Compress()
 <br/>
 => Parameters : string directoryPath
 <br/>
 => Return: void
-```
+
 Compress entire folder by passing directory Path
-```
-  
+
+<br/>
 * Decompress()
 <br/>
 => Parameters : string path, bool pathIsDirectory = false
 <br/>
 => Return: void
-```
+
 Decompress *.zip file, if pathIsDirectory pass as false. (One Zip file)
 Decompress every *.zip files inside filder by passing directory Path, if pathIsDirectory pass as true. (Multiple Zip files)
-```
-  
 
+  
+<br/>
 * Decompress()
 <br/>
 => Parameters : System.IO.FileInfo fileToDecompress, string newFileName = null
 <br/>
 => Return: void
-```
+
 Decompress *.zip file by passing FileInfo
 If you pass newFileName, the zip file extracted on this path,
 otherwise it (if you pass newFileName as null, default value) the zip file extracted on the parent folder
-```
 
+<br/>
 ## Auxiliary IpAddress
 * IsInRange()
 <br/>
 => Parameters : IPAddress ip, IPAddress lowerRange, IPAddress upperRange
 <br/>
 => Return: bool
-```
+
 Return true, if ip is in the range of lowerRange and upperRange
-```
-  
+
+<br/>
 ## Auxiliary StringExtensions
