@@ -46,6 +46,7 @@
 This library helps you to get rid of some repetitive code blocks about date-times, IP, Rest, JSON, encryption, files, directories, queue, zip, objects, and string extensions.
 This is a good helper, and saves lots of time, especially for Iranian programmers.
 ## Auxiliary Calendar
+<br/>
 * ToPrettyDate()
 <br/>
 => Parameters : DateTime dateTime, bool isUtc = false, bool toPersian = true
@@ -444,6 +445,7 @@ Be careful xDay Must be less than 30
 <br/>
 
 ## Auxiliary DirectoryFileHelper
+<br/>
 * CreateFolderIfNeeded()
 <br/>
 => Parameters : string path
@@ -492,7 +494,9 @@ Undrasting this file is image or not
 
 <br/>
 ## Auxiliary Encription
+<br/>
 ## RC4
+<br/>
 * Encrypt()
 <br/>
 => Parameters : string key, string data, Encoding encoding, bool skipZero = false
@@ -531,6 +535,7 @@ Decrypt your data with key
 
 <br/>
 ## AES
+<br/>
 * EncryptFile()
 <br/>
 => Parameters : string inputFile, string outputFile
@@ -569,6 +574,7 @@ Decrypt your data with key
 
 <br/>
 ## RSA
+<br/>
 * Encrypt()
 <br/>
 => Parameters : string plainText
@@ -588,6 +594,7 @@ Decrypt your data, , config (Sign, PrivateKey, PublicKey) of decryption is insid
 
 <br/>
 ## Auxiliary Http
+<br/>
 * Read()
 <br/>
 => Parameters : System.Net.Http.HttpRequestMessage Request
@@ -607,6 +614,7 @@ Check the user request sent from mobile or not
 
 <br/>
 ## AuxiliaryObjectCopier
+<br/>
 * Clone()
 <br/>
 => Parameters : T source
@@ -622,6 +630,7 @@ var clonedPerson = person.Clone();
 ```
 <br/>
 ## Auxiliary RestApi
+<br/>
 * Send()
 <br/>
 => Parameters : string baseUrl, string functionName, Method method, IDictionary<string, string> headers, IDictionary<string, object> parametersBody, string userName, string password
@@ -650,6 +659,7 @@ Send your request with WebClient
 
 <br/>
 ## AuxiliaryZip
+<br/>
 * Compress()
 <br/>
 => Parameters : IEnumerable<string> fileNames, string destinationFileName
@@ -691,6 +701,7 @@ otherwise it (if you pass newFileName as null, default value) the zip file extra
 
 <br/>
 ## Auxiliary IpAddress
+<br/>
 * IsInRange()
 <br/>
 => Parameters : IPAddress ip, IPAddress lowerRange, IPAddress upperRange
@@ -701,3 +712,4 @@ Return true, if ip is in the range of lowerRange and upperRange
 
 <br/>
 ## Auxiliary StringExtensions
+<br/>
