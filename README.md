@@ -26,7 +26,7 @@
     <li><a href="#auxiliary-calendar">Auxiliary Calendar</a></li>
     <li><a href="#auxiliary-directoryfilehelper">Auxiliary DirectoryFileHelper</a></li>
     <li>
-      <a href="#auxiliary-encription">Roadmap</a>
+      <a href="#auxiliary-encription">Auxiliary Encryption</a>
       <ul>
         <li><a href="#rc4">RC4</a></li>
         <li><a href="#aes">AES</a></li>
@@ -51,19 +51,19 @@ This is a good helper, and saves lots of time, especially for Iranian programmer
 => Parameters : DateTime dateTime, bool isUtc = false, bool toPersian = true
 <br/>
 => Return: string
-```
+```CS
 var persianDate = DateTime.Now.ToPrettyDate();
 ```
 //persianDate : "امروز ساعت 10:57"
 
 // set isUtc as true
-```
+```CS
 var persianDate2 = DateTime.UtcNow.ToPrettyDate(true);
 ```
 //persianDate2 : "امروز ساعت 10:57"
 
 // set toPersian as false will return datetime in english
-```
+```CS
 var persianDate3 = DateTime.UtcNow.ToPrettyDate(toPersian:false);
 ```
 //persianDate3 : "Today at 10:57"
