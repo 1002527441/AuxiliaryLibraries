@@ -226,9 +226,11 @@ var date = DateTime.Now.GetNextNearestWeekday(DayOfWeek.Sunday);
 * -> Parameters : int xDay, bool isPersian = true
 * -> Return: DateTime
 ```
-Get First Day Of Last X-Day, For example, get next nearest Sunday from Now
-var date = AuxiliaryCalendar.GetFirstDayOfLastXDay(15);
-//date : "2016-06-29"
+Get First Day Of Last X-Day
+It will give you first nearest xDay from begining of month.
+xDay = 7, Today = 23 => it will return : 21
+xDay = 15, Today = 23 => it will return : 15
+Be careful xDay Must be less than 30
 ```
 
 ## RestApi
@@ -237,6 +239,115 @@ var date = AuxiliaryCalendar.GetFirstDayOfLastXDay(15);
 
 ## IpAddress
 
-## FileHelpers
+## DirectoryFileHelper
+* CreateFolderIfNeeded()
+* -> Parameters : string path
+* -> Return: bool
+```
+Create a folder if it doesn't exist
+```
+
+* CopyFolder()
+* -> Parameters : string sourcePath, string destinationPath
+* -> Return: bool
+```
+Copy a folder with all of its dub directories and files
+```
+
+
+* CopyFile()
+* -> Parameters : string sourcePath, string destinationPath
+* -> Return: bool
+```
+Copy a file
+```
+
+* Download()
+* -> Parameters : string url, string destination
+* -> Return: bool
+```
+Download a file
+```
+
+
+* IsImage()
+* -> Parameters : string contentType
+* -> Return: bool
+```
+Undrasting this file is image or not
+```
 
 ## Encription
+## RC4
+* Encrypt()
+* -> Parameters : string key, string data, Encoding encoding, bool skipZero = false
+* -> Return: string
+```
+Encrypt your data with key and encoding
+```
+
+* Encrypt()
+* -> Parameters : string key, string data
+* -> Return: string
+```
+Encrypt your data with key
+```
+
+
+* Decrypt()
+* -> Parameters : string key, string data, Encoding encoding, bool skipZero = false
+* -> Return: string
+```
+Decrypt your data with key and encoding
+```
+
+* Decrypt()
+* -> Parameters : string key, string data
+* -> Return: string
+```
+Decrypt your data with key
+```
+## AES
+* EncryptFile()
+* -> Parameters : string inputFile, string outputFile
+* -> Return: string
+```
+Encrypt your file, config of encyption is inside the constructor
+```
+
+* Encrypt()
+* -> Parameters : string strtoencrypt
+* -> Return: byte[]
+```
+Encrypt your data with key
+```
+
+
+* DecryptFile()
+* -> Parameters : string inputFile, string outputFile
+* -> Return: string
+```
+Decrypt your file, , config of decryption is inside the constructor
+```
+
+* Decrypt()
+* -> Parameters : string strtoencrypt
+* -> Return: string
+```
+Decrypt your data with key
+```
+
+## RSA
+* Encrypt()
+* -> Parameters : string plainText
+* -> Return: string
+```
+Encrypt your data, config (Sign, PrivateKey, PublicKey) of encyption is inside the constructor
+```
+
+* Decrypt()
+* -> Parameters : string inputFile, string outputFile
+* -> Return: string
+```
+Decrypt your data, , config (Sign, PrivateKey, PublicKey) of decryption is inside the constructor
+```
