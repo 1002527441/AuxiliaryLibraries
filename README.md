@@ -594,7 +594,8 @@ Encrypt your data, config (Sign, PrivateKey, PublicKey) of encyption is inside t
 
 Decrypt your data, , config (Sign, PrivateKey, PublicKey) of decryption is inside the constructor
 
-<br/>
+
+
 ## Auxiliary Http
 <br/>
 * Read()
@@ -630,7 +631,9 @@ Be careful, The type must be serializable.
 var person = new Person();
 var clonedPerson = person.Clone();
 ```
-<br/>
+
+
+
 ## Auxiliary RestApi
 <br/>
 * Send()
@@ -659,7 +662,9 @@ Send your request with RestSharp
 
 Send your request with WebClient
 
-<br/>
+
+
+
 ## AuxiliaryZip
 <br/>
 * Compress()
@@ -701,7 +706,9 @@ Decompress *.zip file by passing FileInfo
 If you pass newFileName, the zip file extracted on this path,
 otherwise it (if you pass newFileName as null, default value) the zip file extracted on the parent folder
 
-<br/>
+
+
+
 ## Auxiliary IpAddress
 <br/>
 * IsInRange()
@@ -712,6 +719,8 @@ otherwise it (if you pass newFileName as null, default value) the zip file extra
 
 Return true, if ip is in the range of lowerRange and upperRange
 
-<br/>
+
+
+
 ## Auxiliary StringExtensions
 <br/>
