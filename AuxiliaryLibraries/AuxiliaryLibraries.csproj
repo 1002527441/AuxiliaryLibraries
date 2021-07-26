@@ -121,6 +121,9 @@
     <None Include="Versioning\AuxiliaryLibraries.1.2.0.nupkg" />
     <None Include="Versioning\AuxiliaryLibraries.1.2.1.nupkg" />
     <None Include="Versioning\AuxiliaryLibraries.1.2.2.nupkg" />
+    <None Include="Versioning\AuxiliaryLibraries.1.2.3.nupkg" />
+    <None Include="Versioning\AuxiliaryLibraries.1.2.4.nupkg" />
+    <None Include="Versioning\AuxiliaryLibraries.1.2.5.nupkg" />
     <None Include="Versioning\AuxiliaryLibraries.psd" />
   </ItemGroup>
   <ItemGroup>

@@ -324,7 +324,7 @@ namespace AuxiliaryLibraries
                             case NumberType.hundreds:
                                 return DisplayNames.Number_SevenHundred;
                             case NumberType.tens:
-                                return DisplayNames.Number_Seventeen;
+                                return DisplayNames.Number_Seventy;
                             case NumberType.units:
                                 return DisplayNames.Number_Seven;
                         }
@@ -861,10 +861,10 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="baseCurrency">The currency of price parameter</param>
-        /// <param name="targetCurrency">The currency of result</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryIntPriceModel ToMoney(this int price, Currency baseCurrency = Currency.IRR) =>
-            new AuxiliaryIntPriceModel(price, baseCurrency, Currency.Toman);
+        public static AuxiliaryIntPriceModel ToMoney(this int price, Currency baseCurrency = Currency.IRR, bool setZeroAsFree = true) =>
+            new AuxiliaryIntPriceModel(price, baseCurrency, Currency.Toman, setZeroAsFree: setZeroAsFree);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -872,10 +872,10 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="baseCurrency">The currency of price parameter</param>
-        /// <param name="targetCurrency">The currency of result</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryIntPriceModel ToToman(this int price, Currency baseCurrency = Currency.IRR) =>
-            new AuxiliaryIntPriceModel(price, baseCurrency, Currency.Toman);
+        public static AuxiliaryIntPriceModel ToToman(this int price, Currency baseCurrency = Currency.IRR, bool setZeroAsFree = true) =>
+            new AuxiliaryIntPriceModel(price, baseCurrency, Currency.Toman, setZeroAsFree: setZeroAsFree);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -883,10 +883,10 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="baseCurrency">The currency of price parameter</param>
-        /// <param name="targetCurrency">The currency of result</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryLongPriceModel ToToman(this long price, Currency baseCurrency = Currency.IRR) =>
-            new AuxiliaryLongPriceModel(price, baseCurrency, Currency.Toman);
+        public static AuxiliaryLongPriceModel ToToman(this long price, Currency baseCurrency = Currency.IRR, bool setZeroAsFree = true) =>
+            new AuxiliaryLongPriceModel(price, baseCurrency, Currency.Toman, setZeroAsFree: setZeroAsFree);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -894,9 +894,10 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="baseCurrency">The currency of price parameter</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryFloatPriceModel ToToman(this float price, Currency baseCurrency = Currency.IRR) =>
-            new AuxiliaryFloatPriceModel(price, baseCurrency, Currency.Toman);
+        public static AuxiliaryFloatPriceModel ToToman(this float price, Currency baseCurrency = Currency.IRR, bool setZeroAsFree = true) =>
+            new AuxiliaryFloatPriceModel(price, baseCurrency, Currency.Toman, setZeroAsFree: setZeroAsFree);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -904,9 +905,10 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="baseCurrency">The currency of price parameter</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryDoublePriceModel ToToman(this double price, Currency baseCurrency = Currency.IRR) =>
-            new AuxiliaryDoublePriceModel(price, baseCurrency, Currency.Toman);
+        public static AuxiliaryDoublePriceModel ToToman(this double price, Currency baseCurrency = Currency.IRR, bool setZeroAsFree = true) =>
+            new AuxiliaryDoublePriceModel(price, baseCurrency, Currency.Toman, setZeroAsFree: setZeroAsFree);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -914,9 +916,10 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="baseCurrency">The currency of price parameter</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryDecimalPriceModel ToToman(this decimal price, Currency baseCurrency = Currency.IRR) =>
-            new AuxiliaryDecimalPriceModel(price, baseCurrency, Currency.Toman);
+        public static AuxiliaryDecimalPriceModel ToToman(this decimal price, Currency baseCurrency = Currency.IRR, bool setZeroAsFree = true) =>
+            new AuxiliaryDecimalPriceModel(price, baseCurrency, Currency.Toman, setZeroAsFree: setZeroAsFree);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -924,9 +927,10 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="baseCurrency">The currency of price parameter</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryIntPriceModel ToRial(this int price, Currency baseCurrency = Currency.IRR) =>
-            new AuxiliaryIntPriceModel(price, baseCurrency, Currency.Toman);
+        public static AuxiliaryIntPriceModel ToRial(this int price, Currency baseCurrency = Currency.IRR, bool setZeroAsFree = true) =>
+            new AuxiliaryIntPriceModel(price, baseCurrency, Currency.Toman, setZeroAsFree: setZeroAsFree);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -934,9 +938,10 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="baseCurrency">The currency of price parameter</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryLongPriceModel ToRial(this long price, Currency baseCurrency = Currency.IRR) =>
-            new AuxiliaryLongPriceModel(price, baseCurrency, Currency.IRR);
+        public static AuxiliaryLongPriceModel ToRial(this long price, Currency baseCurrency = Currency.IRR, bool setZeroAsFree = true) =>
+            new AuxiliaryLongPriceModel(price, baseCurrency, Currency.IRR, setZeroAsFree: setZeroAsFree);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -944,9 +949,10 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="baseCurrency">The currency of price parameter</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryFloatPriceModel ToRial(this float price, Currency baseCurrency = Currency.IRR) =>
-            new AuxiliaryFloatPriceModel(price, baseCurrency, Currency.IRR);
+        public static AuxiliaryFloatPriceModel ToRial(this float price, Currency baseCurrency = Currency.IRR, bool setZeroAsFree = true) =>
+            new AuxiliaryFloatPriceModel(price, baseCurrency, Currency.IRR, setZeroAsFree: setZeroAsFree);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -954,9 +960,10 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="baseCurrency">The currency of price parameter</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryDoublePriceModel ToRial(this double price, Currency baseCurrency = Currency.IRR) =>
-            new AuxiliaryDoublePriceModel(price, baseCurrency, Currency.IRR);
+        public static AuxiliaryDoublePriceModel ToRial(this double price, Currency baseCurrency = Currency.IRR, bool setZeroAsFree = true) =>
+            new AuxiliaryDoublePriceModel(price, baseCurrency, Currency.IRR, setZeroAsFree: setZeroAsFree);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -964,9 +971,10 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="baseCurrency">The currency of price parameter</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryDecimalPriceModel ToRial(this decimal price, Currency baseCurrency = Currency.IRR) =>
-            new AuxiliaryDecimalPriceModel(price, baseCurrency, Currency.IRR);
+        public static AuxiliaryDecimalPriceModel ToRial(this decimal price, Currency baseCurrency = Currency.IRR, bool setZeroAsFree = true) =>
+            new AuxiliaryDecimalPriceModel(price, baseCurrency, Currency.IRR, setZeroAsFree: setZeroAsFree);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -974,9 +982,10 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="metricSystem">The currency of price parameter</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryFloatPriceModel ToBTC(this float price, bool metricSystem = true) =>
-            new AuxiliaryFloatPriceModel(price, Currency.Toman, Currency.BTC, metricSystem);
+        public static AuxiliaryFloatPriceModel ToBTC(this float price, bool metricSystem = true, bool setZeroAsFree = true) =>
+            new AuxiliaryFloatPriceModel(price, Currency.Toman, Currency.BTC, metricSystem, setZeroAsFree);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -984,9 +993,10 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="metricSystem">The currency of price parameter</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryFloatPriceModel ToUSD(this float price, bool metricSystem = false) =>
-            new AuxiliaryFloatPriceModel(price, Currency.Toman, Currency.USD, metricSystem);
+        public static AuxiliaryFloatPriceModel ToUSD(this float price, bool metricSystem = false, bool setZeroAsFree = true) =>
+            new AuxiliaryFloatPriceModel(price, Currency.Toman, Currency.USD, metricSystem, setZeroAsFree);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -994,9 +1004,10 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="metricSystem">The currency of price parameter</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryFloatPriceModel ToUSDT(this float price, bool metricSystem = false) =>
-            new AuxiliaryFloatPriceModel(price, Currency.Toman, Currency.USD, metricSystem);
+        public static AuxiliaryFloatPriceModel ToUSDT(this float price, bool metricSystem = false, bool setZeroAsFree = true) =>
+            new AuxiliaryFloatPriceModel(price, Currency.Toman, Currency.USDT, metricSystem, setZeroAsFree);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -1004,9 +1015,10 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="metricSystem">The currency of price parameter</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryFloatPriceModel ToGBP(this float price, bool metricSystem = false) =>
-            new AuxiliaryFloatPriceModel(price, Currency.Toman, Currency.GBP, metricSystem);
+        public static AuxiliaryFloatPriceModel ToGBP(this float price, bool metricSystem = false, bool setZeroAsFree = true) =>
+            new AuxiliaryFloatPriceModel(price, Currency.Toman, Currency.GBP, metricSystem, setZeroAsFree);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -1014,9 +1026,10 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="metricSystem">The currency of price parameter</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryFloatPriceModel ToEUR(this float price, bool metricSystem = false) =>
-            new AuxiliaryFloatPriceModel(price, Currency.Toman, Currency.EUR, metricSystem);
+        public static AuxiliaryFloatPriceModel ToEUR(this float price, bool metricSystem = false, bool setZeroAsFree = true) =>
+            new AuxiliaryFloatPriceModel(price, Currency.Toman, Currency.EUR, metricSystem, setZeroAsFree);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -1024,9 +1037,10 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="metricSystem">The currency of price parameter</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryDoublePriceModel ToBTC(this double price, bool metricSystem = true) =>
-            new AuxiliaryDoublePriceModel(price, Currency.Toman, Currency.BTC, metricSystem);
+        public static AuxiliaryDoublePriceModel ToBTC(this double price, bool metricSystem = true, bool setZeroAsFree = true) =>
+            new AuxiliaryDoublePriceModel(price, Currency.Toman, Currency.BTC, metricSystem, setZeroAsFree);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -1034,9 +1048,10 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="metricSystem">The currency of price parameter</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryDoublePriceModel ToUSD(this double price, bool metricSystem = false) =>
-            new AuxiliaryDoublePriceModel(price, Currency.Toman, Currency.USD, metricSystem);
+        public static AuxiliaryDoublePriceModel ToUSD(this double price, bool metricSystem = false, bool setZeroAsFree = true) =>
+            new AuxiliaryDoublePriceModel(price, Currency.Toman, Currency.USD, metricSystem, setZeroAsFree);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -1044,9 +1059,10 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="metricSystem">The currency of price parameter</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryDoublePriceModel ToGBP(this double price, bool metricSystem = false) =>
-            new AuxiliaryDoublePriceModel(price, Currency.Toman, Currency.GBP, metricSystem);
+        public static AuxiliaryDoublePriceModel ToUSDT(this double price, bool metricSystem = false, bool setZeroAsFree = true) =>
+            new AuxiliaryDoublePriceModel(price, Currency.Toman, Currency.USDT, metricSystem, setZeroAsFree);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -1054,9 +1070,10 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="metricSystem">The currency of price parameter</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryDoublePriceModel ToEUR(this double price, bool metricSystem = false) =>
-            new AuxiliaryDoublePriceModel(price, Currency.Toman, Currency.EUR, metricSystem);
+        public static AuxiliaryDoublePriceModel ToGBP(this double price, bool metricSystem = false, bool setZeroAsFree = true) =>
+            new AuxiliaryDoublePriceModel(price, Currency.Toman, Currency.GBP, metricSystem, setZeroAsFree);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -1064,9 +1081,10 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="metricSystem">The currency of price parameter</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryDecimalPriceModel ToBTC(this decimal price, bool metricSystem = true) =>
-            new AuxiliaryDecimalPriceModel(price, Currency.Toman, Currency.BTC, metricSystem);
+        public static AuxiliaryDoublePriceModel ToEUR(this double price, bool metricSystem = false, bool setZeroAsFree = true) =>
+            new AuxiliaryDoublePriceModel(price, Currency.Toman, Currency.EUR, metricSystem, setZeroAsFree);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -1074,9 +1092,10 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="metricSystem">The currency of price parameter</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryDecimalPriceModel ToUSD(this decimal price, bool metricSystem = false) =>
-            new AuxiliaryDecimalPriceModel(price, Currency.Toman, Currency.USD, metricSystem);
+        public static AuxiliaryDecimalPriceModel ToBTC(this decimal price, bool metricSystem = true, bool setZeroAsFree = true) =>
+            new AuxiliaryDecimalPriceModel(price, Currency.Toman, Currency.BTC, metricSystem, setZeroAsFree);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -1084,9 +1103,10 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="metricSystem">The currency of price parameter</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryDecimalPriceModel ToGBP(this decimal price, bool metricSystem = false) =>
-            new AuxiliaryDecimalPriceModel(price, Currency.Toman, Currency.GBP, metricSystem);
+        public static AuxiliaryDecimalPriceModel ToUSD(this decimal price, bool metricSystem = false, bool setZeroAsFree = true) =>
+            new AuxiliaryDecimalPriceModel(price, Currency.Toman, Currency.USD, metricSystem, setZeroAsFree);
 
         /// <summary>
         ///  Convert price to AuxiliaryPriceModel
@@ -1094,9 +1114,32 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="price">The price you need to convert</param>
         /// <param name="metricSystem">The currency of price parameter</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
         /// <returns></returns>
-        public static AuxiliaryDecimalPriceModel ToEUR(this decimal price, bool metricSystem = false) =>
-            new AuxiliaryDecimalPriceModel(price, Currency.Toman, Currency.EUR, metricSystem);
+        public static AuxiliaryDecimalPriceModel ToUSDT(this decimal price, bool metricSystem = false, bool setZeroAsFree = true) =>
+            new AuxiliaryDecimalPriceModel(price, Currency.Toman, Currency.USDT, metricSystem, setZeroAsFree);
+
+        /// <summary>
+        ///  Convert price to AuxiliaryPriceModel
+        ///  AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+        /// </summary>
+        /// <param name="price">The price you need to convert</param>
+        /// <param name="metricSystem">The currency of price parameter</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+        /// <returns></returns>
+        public static AuxiliaryDecimalPriceModel ToGBP(this decimal price, bool metricSystem = false, bool setZeroAsFree = true) =>
+            new AuxiliaryDecimalPriceModel(price, Currency.Toman, Currency.GBP, metricSystem, setZeroAsFree);
+
+        /// <summary>
+        ///  Convert price to AuxiliaryPriceModel
+        ///  AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+        /// </summary>
+        /// <param name="price">The price you need to convert</param>
+        /// <param name="metricSystem">The currency of price parameter</param>
+        /// <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+        /// <returns></returns>
+        public static AuxiliaryDecimalPriceModel ToEUR(this decimal price, bool metricSystem = false, bool setZeroAsFree = true) =>
+            new AuxiliaryDecimalPriceModel(price, Currency.Toman, Currency.EUR, metricSystem, setZeroAsFree);
         #endregion
 
         #region DateTime

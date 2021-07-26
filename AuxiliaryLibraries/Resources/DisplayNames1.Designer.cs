@@ -1744,6 +1744,15 @@ namespace AuxiliaryLibraries.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to تتر.
+        /// </summary>
+        internal static string USDT {
+            get {
+                return ResourceManager.GetString("USDT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wednesday.
         /// </summary>
         internal static string Wednesday {
@@ -1812,6 +1821,15 @@ namespace AuxiliaryLibraries.Resources {
         internal static string YesterdayPersian {
             get {
                 return ResourceManager.GetString("YesterdayPersian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to صفر.
+        /// </summary>
+        internal static string Zero {
+            get {
+                return ResourceManager.GetString("Zero", resourceCulture);
             }
         }
     }

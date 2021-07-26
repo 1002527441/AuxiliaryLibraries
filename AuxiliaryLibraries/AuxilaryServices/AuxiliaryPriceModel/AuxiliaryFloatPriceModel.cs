@@ -27,7 +27,7 @@ namespace AuxiliaryLibraries
                     ex.ToString(); value = 0;
                 }
                 #endregion
-                var decimalResult = new AuxiliaryDecimalPriceModel(Convert.ToDecimal(value), _sourceCurrency, _destinationCurrency, MetricSystem);
+                var decimalResult = new AuxiliaryDecimalPriceModel(Convert.ToDecimal(value), _sourceCurrency, _destinationCurrency, MetricSystem, SetZeroAsFree);
                 _realPrice = value;
                 _price = (float)decimalResult.Price;
                 this.CurrencyDescription = decimalResult.CurrencyDescription;
@@ -46,11 +46,13 @@ namespace AuxiliaryLibraries
         /// <param name="priceBaseCurrency">If the price value which you passed is Rial set it "Rial", otherwise pass it as "Toman"</param>
         /// <param name="priceTargetCurrency">If you need to receive the price as Toman set it "Toman", otherwise pass it as "Rial"</param>
         /// <param name="metricSystem">If you need to receive the price as Mili, Micro, Nano, and ... set it as true</param>
-        public AuxiliaryFloatPriceModel(float price, Currency priceBaseCurrency = Currency.IRR, Currency priceTargetCurrency = Currency.Toman, bool metricSystem = false)
+        public AuxiliaryFloatPriceModel(float price, Currency priceBaseCurrency = Currency.IRR, Currency priceTargetCurrency = Currency.Toman, bool metricSystem = false, bool setZeroAsFree = true)
         {
             this._sourceCurrency = priceBaseCurrency;
             this._destinationCurrency = priceTargetCurrency;
             this.MetricSystem = metricSystem;
+            this.SetZeroAsFree = setZeroAsFree;
+            //This one would be the Last one
             this.Price = price;
         }
     }

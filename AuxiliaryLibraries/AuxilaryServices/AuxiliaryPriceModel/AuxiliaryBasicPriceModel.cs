@@ -72,6 +72,10 @@ namespace AuxiliaryLibraries
         /// Metric System
         /// </summary>
         public bool MetricSystem { get; set; }
+        /// <summary>
+        /// Set Zero As Free
+        /// </summary>
+        public bool SetZeroAsFree { get; set; }
 
         /// <summary>
         /// Change Toman To Rial or vice versa
@@ -164,6 +168,11 @@ namespace AuxiliaryLibraries
             };
         }
 
+        protected virtual string DetermineZeroOrFree()
+        {
+            return SetZeroAsFree ? DisplayNames.Free : $"{DisplayNames.Zero} {PriceCurrency}";
+        }
+
         /// <summary>
         /// Get Currency Description
         /// </summary>
@@ -179,6 +188,7 @@ namespace AuxiliaryLibraries
                 Currency.EUR => DisplayNames.EUR,
                 Currency.GBP => DisplayNames.GBP,
                 Currency.USD => DisplayNames.USD,
+                Currency.USDT => DisplayNames.USDT,
                 _ => DisplayNames.Rial
             };
         }

@@ -770,4 +770,10 @@
   <data name="Number_Zetta" xml:space="preserve">
     <value>زتا</value>
   </data>
+  <data name="USDT" xml:space="preserve">
+    <value>تتر</value>
+  </data>
+  <data name="Zero" xml:space="preserve">
+    <value>صفر</value>
+  </data>
 </root>

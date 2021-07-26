@@ -11,7 +11,7 @@ namespace TestUnits
         [TestMethod]
         public void ToPrettyDate()
         {
-            var persian_date1 = new DateTime(2019,01,07).ToPrettyDate();
+            var persian_date1 = new DateTime(2019, 01, 07).ToPrettyDate();
             var persian_today = DateTime.Now.ToPrettyDate();
             var persian_yesterday = DateTime.Now.AddDays(-1).ToPrettyDate();
             var persian_date = DateTime.Now.AddDays(-10).ToPrettyDate();
@@ -191,7 +191,9 @@ namespace TestUnits
             var result1 = _price.ToToman(Currency.Toman).PriceCommaDeLimited.ToPersianNumber();
             var result2 = Convert.ToInt64(_price).ToToman(Currency.Toman).PriceCommaDeLimited.ToPersianNumber();
             var price1 = new AuxiliaryIntPriceModel(_price, Currency.IRR, Currency.IRR);
+            var price1_1 = new AuxiliaryIntPriceModel(0, Currency.IRR, Currency.IRR, setZeroAsFree: true);
             var price2 = new AuxiliaryIntPriceModel(_price, Currency.IRR, Currency.Toman);
+            var price2_1 = new AuxiliaryIntPriceModel(0, Currency.IRR, Currency.Toman, setZeroAsFree: false);
             var price3 = new AuxiliaryIntPriceModel(_price, Currency.Toman, Currency.Toman);
             var price4 = new AuxiliaryIntPriceModel(_price, Currency.Toman, Currency.IRR);
             var price5 = new AuxiliaryIntPriceModel(_price, Currency.Toman, Currency.BTC);
@@ -207,14 +209,18 @@ namespace TestUnits
             var price15 = new AuxiliaryDoublePriceModel(0.0012141611, Currency.Toman, Currency.BTC, true);
             var price15_1 = new AuxiliaryDoublePriceModel(56825, Currency.USD, Currency.USD);
             var price16 = new AuxiliaryDoublePriceModel(56825.23, Currency.USD, Currency.USD);
-            var price17 = Convert.ToDouble("0.0012141611141611").ToBTC();
-            var price17_1 = Convert.ToDecimal("47372.74").ToUSD();
-            var price17_2 = Convert.ToDouble("47372.74").ToUSD();
-            var price17_3 = ((float)47372.74).ToUSD();
-            var price18 = Convert.ToDouble("0.00003899999999999999929396754527743951257434673607349395751953125").ToBTC();
-            var price19 = double.MaxValue.ToBTC();
-            var price19_1 = float.MaxValue.ToBTC();
-            var price20 = Convert.ToDecimal("0.0000389999999999999992939675452774395125743467360734939575195312500003899999999999999929396754527743951257434673607349395751953125").ToBTC();
+            var price17 = new AuxiliaryDoublePriceModel(56825.23, Currency.USDT, Currency.USDT);
+            var price18 = Convert.ToDouble("0.0012141611141611").ToBTC();
+            var price18_1 = Convert.ToDecimal("47372.74").ToUSD();
+            var price18_2 = Convert.ToDouble("47372.74").ToUSD();
+            var price18_3 = ((float)47372.74).ToUSD();
+            var price18_4 = ((float)0).ToUSD(setZeroAsFree: false);
+            var price19 = Convert.ToDouble("0.00003899999999999999929396754527743951257434673607349395751953125").ToBTC();
+            var price20 = double.MaxValue.ToBTC();
+            var price20_1 = float.MaxValue.ToBTC();
+            var price21 = Convert.ToDecimal("0.0000389999999999999992939675452774395125743467360734939575195312500003899999999999999929396754527743951257434673607349395751953125").ToBTC();
+            var price22 = Convert.ToDouble(4.06372).ToUSDT();
+            var price23 = Convert.ToDouble(4.06317).ToBTC();
             Assert.IsTrue(true);
         }
 
