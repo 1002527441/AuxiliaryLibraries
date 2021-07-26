@@ -995,6 +995,16 @@ namespace AuxiliaryLibraries
         /// <param name="price">The price you need to convert</param>
         /// <param name="metricSystem">The currency of price parameter</param>
         /// <returns></returns>
+        public static AuxiliaryFloatPriceModel ToUSDT(this float price, bool metricSystem = false) =>
+            new AuxiliaryFloatPriceModel(price, Currency.Toman, Currency.USD, metricSystem);
+
+        /// <summary>
+        ///  Convert price to AuxiliaryPriceModel
+        ///  AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+        /// </summary>
+        /// <param name="price">The price you need to convert</param>
+        /// <param name="metricSystem">The currency of price parameter</param>
+        /// <returns></returns>
         public static AuxiliaryFloatPriceModel ToGBP(this float price, bool metricSystem = false) =>
             new AuxiliaryFloatPriceModel(price, Currency.Toman, Currency.GBP, metricSystem);
 

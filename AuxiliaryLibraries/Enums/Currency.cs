@@ -1,7 +1,7 @@
 ﻿namespace AuxiliaryLibraries
 {
     /// <summary>
-    /// Persian Currency
+    /// Currencies
     /// </summary>
     public enum Currency
     {
@@ -29,6 +29,9 @@
         /// Bitcoin
         /// </summary>
         BTC = 6,
-
+        /// <summary>
+        /// Tether
+        /// </summary>
+        USDT = 7,
     }
 }
