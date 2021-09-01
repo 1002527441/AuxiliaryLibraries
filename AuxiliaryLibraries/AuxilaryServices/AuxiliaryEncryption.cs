@@ -319,12 +319,7 @@ namespace AuxiliaryLibraries
             /// <param name="passphrase"></param>
             public AES(string passphrase)
             {
-                encoding = Encoding.UTF8;
-                paddingMode = PaddingMode.PKCS7;
-                cipherMode = CipherMode.CBC;
-                keySize = 256;
-                blockSize = 128;
-                encryptionMode = EncryptionMode.FileStream;
+                Initialize(passphrase, Encoding.UTF8);
             }
 
             /// <summary>
@@ -339,6 +334,14 @@ namespace AuxiliaryLibraries
             /// <param name="_encryptionMode"></param>
             public AES(string passphrase, Encoding _encoding, PaddingMode _paddingMode = PaddingMode.PKCS7, CipherMode _cipherMode = CipherMode.CBC, int _keySize = 256, int _blockSize = 128, EncryptionMode _encryptionMode = EncryptionMode.FileStream)
             {
+                Initialize(passphrase, _encoding, _paddingMode, _cipherMode, _keySize, _blockSize, _encryptionMode);
+            }
+
+            private void Initialize(string passphrase, Encoding _encoding, PaddingMode _paddingMode = PaddingMode.PKCS7, CipherMode _cipherMode = CipherMode.CBC, int _keySize = 256, int _blockSize = 128, EncryptionMode _encryptionMode = EncryptionMode.FileStream)
+            {
+                if (passphrase.Length < 16)
+                    throw new Exception("The minimum Length for passphrase is 16, but it is recommended to be more than 32 characters");
+
                 encoding = _encoding;
                 paddingMode = _paddingMode;
                 cipherMode = _cipherMode;
@@ -488,14 +491,45 @@ namespace AuxiliaryLibraries
             }
 
             /// <summary>
-            /// Encrypt
+            /// Encrypt a plain Text to an Encrypted Text
             /// </summary>
-            /// <param name="strtoencrypt"></param>
+            /// <param name="plainText"></param>
             /// <returns></returns>
-            public byte[] Encrypt(string strtoencrypt)
+            public string Encrypt(string plainText)
             {
-                var bytesToEncrypt = encoding.GetBytes(strtoencrypt);
+                byte[] encrypted = EncryptToByteArray(plainText);
+                return Convert.ToBase64String(encrypted);
+            }
+
+            /// <summary>
+            /// Encrypt plain Text to an Encrypted Byte Array
+            /// </summary>
+            /// <param name="plainText"></param>
+            /// <returns></returns>
+            public byte[] EncryptToBytes(string plainText)
+            {
+                var bytesToEncrypt = encoding.GetBytes(plainText);
                 return Encrypt(bytesToEncrypt);
+            }
+
+            private byte[] EncryptToByteArray(string plainText)
+            {
+                byte[] encrypted;
+                // Create the streams used for encryption. 
+                using (MemoryStream msEncrypt = new MemoryStream())
+                {
+                    using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
+                        {
+                            //Write all data to the stream.
+                            swEncrypt.Write(plainText);
+                        }
+                        encrypted = msEncrypt.ToArray();
+                    }
+                }
+                // Return the encrypted bytes from the memory stream. 
+                return encrypted;
             }
 
             /// <summary>
@@ -630,25 +664,25 @@ namespace AuxiliaryLibraries
             }
 
             /// <summary>
-            /// DecryptFromBase64
-            /// </summary>
-            /// <param name="encryptedBase64"></param>
-            /// <returns></returns>
-            public string DecryptFromBase64(string encryptedBase64)
-            {
-                return Decrypt(Convert.FromBase64String(encryptedBase64));
-            }
-
-            /// <summary>
-            /// Decrypt
+            /// Decrypt 
             /// </summary>
             /// <param name="strtoencrypt"></param>
             /// <returns></returns>
             public string Decrypt(string strtoencrypt)
             {
-                var bytesToEncrypt = encoding.GetBytes(strtoencrypt);
-                return Decrypt(bytesToEncrypt);
+                return Decrypt(Convert.FromBase64String(strtoencrypt));
             }
+
+            ///// <summary>
+            ///// Decrypt
+            ///// </summary>
+            ///// <param name="strtoencrypt"></param>
+            ///// <returns></returns>
+            //public string Decrypt(string strtoencrypt)
+            //{
+            //    var bytesToEncrypt = encoding.GetBytes(strtoencrypt);
+            //    return Decrypt(bytesToEncrypt);
+            //}
 
             /// <summary>
             /// Decrypt
@@ -660,7 +694,6 @@ namespace AuxiliaryLibraries
                 byte[] newClearData = decryptor.TransformFinalBlock(encryptedData, 0, encryptedData.Length);
                 return encoding.GetString(newClearData);
             }
-
             #endregion
 
             /// <summary>
@@ -886,7 +919,7 @@ namespace AuxiliaryLibraries
             }
 
             /// <summary>
-            /// Sign
+            /// Sign the data using the Smart Card CryptoGraphic Provider.
             /// </summary>
             /// <param name="content"></param>
             /// <param name="privateKey"></param>
@@ -897,6 +930,19 @@ namespace AuxiliaryLibraries
                 CSP.FromXmlString(privateKey);
                 var sign = CSP.SignData(byteContent, new SHA256CryptoServiceProvider());
                 return Convert.ToBase64String(sign);
+            }
+
+            /// <summary>
+            /// Verify the data using the Smart Card CryptoGraphic Provider.
+            /// </summary>
+            /// <param name="content"></param>
+            /// <param name="sign"></param>
+            /// <returns></returns>
+            public bool Verify(string content, string sign)
+            {
+                var byteContent = Encoding.UTF8.GetBytes(content);
+                var sig = Convert.FromBase64String(sign);
+                return CSP.VerifyData(byteContent, new SHA256CryptoServiceProvider(), sig);
             }
 
             //public static string RsaCrypto(string plainTextData)
