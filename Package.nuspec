@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>AuxiliaryLibraries</id>
-    <version>1.2.5</version>
+    <version>1.2.6</version>
 	<title>Auxiliary libraries</title>
     <authors>AmiN Zamani</authors>
     <owners>AmiN Zamani</owners>
@@ -11,7 +11,7 @@
     <iconUrl>http://hoodadtech.com/images/AuxiliaryLibraries_Logo.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>AuxiliaryLibraries is a library which allows you to have some useful tools, especially for Iranian. The tools are: Accessory to Persian calendar, extensions (lots of useful string, int, log, datetime, and ... extensions ), encryption (There are three different algorithms which are RC4, AES and RSA.), ip, log, rest api tools, Zip, and PriceModel for .Net. You can easily use it.</description>
-    <releaseNotes>Update StringExtensions to Extensions and add some useful function to it. Beside we add Zip and PriceModel to the library.</releaseNotes>
+    <releaseNotes>Update AES and RSA Encryptions.</releaseNotes>
 	<summary>AuxiliaryLibraries is a library which allows you to have some useful tools, especially for Iranian. These tools are: Accessory to Persian calendar (Convert Persian date to Georgian and vice versa with pretty formats), extensions (lots of useful string, int, log, datetime, and ... extensions ), encryption (There are three different algorithms which are RC4, AES and RSA.), ip, log, rest api tools, Zip, PriceModel, Queue structure, and Directory and File helper.</summary>
 	<language>en-US</language>
     <copyright>Copyright 2020, All rights reserved.</copyright>
