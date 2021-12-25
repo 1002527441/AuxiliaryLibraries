@@ -33,6 +33,9 @@
     <DocumentationFile>bin\Release\AuxiliaryLibraries.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>..\packages\Portable.BouncyCastle.1.9.0\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
       <Private>True</Private>
@@ -54,6 +57,7 @@
   <ItemGroup>
     <Compile Include="AuxilaryServices\AuxiliaryCalendar.cs" />
     <Compile Include="AuxilaryServices\AuxiliaryDirectoryFileHelper.cs" />
+    <Compile Include="AuxilaryServices\AuxiliaryEnumExtension.cs" />
     <Compile Include="AuxilaryServices\AuxiliaryEncryption.cs" />
     <Compile Include="AuxilaryServices\AuxiliaryHttp.cs" />
     <Compile Include="AuxilaryServices\AuxiliaryPriceModel\AuxiliaryBasicPriceModel.cs" />
@@ -69,6 +73,7 @@
     <Compile Include="AuxilaryServices\AuxiliaryZip.cs" />
     <Compile Include="Enums\EncryptType.cs" />
     <Compile Include="Enums\PersianDayOfWeek.cs" />
+    <Compile Include="Enums\RSAEncryptionKeys.cs" />
     <Compile Include="Extentions\RegexPatterns.cs" />
     <Compile Include="AuxilaryServices\AuxiliaryIpAddress.cs" />
     <Compile Include="AuxilaryServices\AuxiliaryLog.cs" />

@@ -176,8 +176,8 @@ namespace XUnitTest.Core
         public void RSAEncrypttion()
         {
             var rsa = new AuxiliaryEncryption.RSA(2048);
-            rsa.SavePrivateKey(@"X:\Fahime\Archive\Sadad\PrivateKey.xml");
-            rsa.SavePublicKey(@"X:\Fahime\Archive\Sadad\PublicKey.xml");
+            rsa.SavePrivateKeyToXmlFile(@"X:\Fahime\Archive\Sadad\PrivateKey.xml");
+            rsa.SavePublicKeyToXmlFile(@"X:\Fahime\Archive\Sadad\PublicKey.xml");
         }
 
         [Fact]

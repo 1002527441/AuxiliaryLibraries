@@ -1,7 +1,14 @@
-﻿using System;
+﻿using AuxiliaryLibraries.Enums;
+using Org.BouncyCastle.Crypto;
+using Org.BouncyCastle.Crypto.Parameters;
+using Org.BouncyCastle.OpenSsl;
+using Org.BouncyCastle.Security;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml.Serialization;
 
@@ -715,6 +722,7 @@ namespace AuxiliaryLibraries
         public class RSA
         {
             #region RSA
+            private const string pemMimeType = "application/x-x509-ca-cert", xmlMimeType = "application/xml";
             private static UnicodeEncoding ByteConverter = new UnicodeEncoding();
             private static RSACryptoServiceProvider CSP;
             private RSAParameters _privateKey;
@@ -722,122 +730,90 @@ namespace AuxiliaryLibraries
             private Encoding _encoding = Encoding.Unicode;
 
             /// <summary>
-            /// 
+            /// Initializes a new instance of the System.Security.Cryptography.RSACryptoServiceProvider class with
+            /// the specified key size,
+            /// the specified parameters,
+            /// and the specified rsaEncryptionKeys.
             /// </summary>
-            public RSA()
+            public RSA(int dwKeySize = 0, CspParameters parameters = null)
             {
-                CSP = new RSACryptoServiceProvider();
+                CSP = parameters != null && dwKeySize > 0 ? new RSACryptoServiceProvider(dwKeySize, parameters) :
+                                  parameters != null && dwKeySize <= 0 ? new RSACryptoServiceProvider(parameters) :
+                                  parameters is null && dwKeySize > 0 ? new RSACryptoServiceProvider(dwKeySize) : new RSACryptoServiceProvider();
                 _privateKey = CSP.ExportParameters(true);
                 _publicKey = CSP.ExportParameters(false);
-            }
+                //switch (rsaEncryptionKeys)
+                //{
+                //    case RSAEncryptionKeys.XML:
+                //    default:
+                //        {
+                //            CSP = parameters != null && dwKeySize > 0 ? new RSACryptoServiceProvider(dwKeySize, parameters) :
+                //                  parameters != null && dwKeySize <= 0 ? new RSACryptoServiceProvider(parameters) :
+                //                  parameters is null && dwKeySize > 0 ? new RSACryptoServiceProvider(dwKeySize) : new RSACryptoServiceProvider();
+                //            _privateKey = CSP.ExportParameters(true);
+                //            _publicKey = CSP.ExportParameters(false);
+                //        }
+                //        break;
+                //    case RSAEncryptionKeys.PEM:
+                //        {
+                //            string public_pem = "D:\\Projects\\Crypt\\ConsoleApplication1\\posvendor.pub.pem";
+                //            string private_pem = "D:\\Projects\\Crypt\\ConsoleApplication1\\posvendor.key.pem";
 
-            /// <summary>
-            /// Summary:
-            ///     Initializes a new instance of the System.Security.Cryptography.RSACryptoServiceProvider
-            ///     class with the specified key size.
-            /// 
-            /// Parameters:
-            ///   dwKeySize:
-            ///     The size of the key to use in bits.
-            /// 
-            /// Exceptions:
-            ///   T:System.Security.Cryptography.CryptographicException:
-            ///     The cryptographic service provider (CSP) cannot be acquired.
-            /// </summary>
-            /// <param name="dwKeySize"></param>
-            public RSA(int dwKeySize)
-            {
-                //lets take a new CSP with a new dwKeySize bit rsa key pair
-                CSP = new RSACryptoServiceProvider(dwKeySize);
-                _privateKey = CSP.ExportParameters(true);
-                _publicKey = CSP.ExportParameters(false);
-            }
+                //            var pub = GetPublicKeyFromPemFile(public_pem);
+                //            var pri = GetPrivateKeyFromPemFile(private_pem);
 
-            /// <summary>
-            /// Summary:
-            ///     Initializes a new instance of the System.Security.Cryptography.RSACryptoServiceProvider
-            ///     class with the specified parameters.
-            /// 
-            /// Parameters:
-            ///   parameters:
-            ///     The parameters to be passed to the cryptographic service provider (CSP).
-            /// 
-            /// Exceptions:
-            ///   T:System.Security.Cryptography.CryptographicException:
-            ///     The CSP cannot be acquired.
-            /// </summary>
-            /// <param name="parameters"></param>
-            public RSA(CspParameters parameters)
-            {
-                //lets take a new CSP with parameters
-                CSP = new RSACryptoServiceProvider(parameters);
-                _privateKey = CSP.ExportParameters(true);
-                _publicKey = CSP.ExportParameters(false);
-            }
-
-            /// <summary>
-            /// Summary:
-            ///     Initializes a new instance of the System.Security.Cryptography.RSACryptoServiceProvider
-            ///     class with the specified key size and parameters.
-            /// 
-            /// Parameters:
-            ///   dwKeySize:
-            ///     The size of the key to use in bits.
-            /// 
-            ///   parameters:
-            ///     The parameters to be passed to the cryptographic service provider (CSP).
-            /// 
-            /// Exceptions:
-            ///   T:System.Security.Cryptography.CryptographicException:
-            ///     The CSP cannot be acquired.-or- The key cannot be created.
-            /// </summary>
-            /// <param name="dwKeySize"></param>
-            /// <param name="parameters"></param>
-            public RSA(int dwKeySize, CspParameters parameters)
-            {
-                //lets take a new CSP with a new dwKeySize bit rsa key pair and parameters
-                CSP = new RSACryptoServiceProvider(dwKeySize, parameters);
-                _privateKey = CSP.ExportParameters(true);
-                _publicKey = CSP.ExportParameters(false);
-            }
-
-            /// <summary>
-            /// converting the public key into a string representation
-            /// </summary>
-            /// <returns>string</returns>
-            public string PublicKey()
-            {
-                var sw = new StringWriter();
-                var xs = new XmlSerializer(typeof(RSAParameters));
-                xs.Serialize(sw, _publicKey);
-                return sw.ToString();
+                //            _privateKey = pri.ExportParameters(true);
+                //            _publicKey = pub.ExportParameters(false);
+                //        }
+                //        break;
+                //}
             }
 
             /// <summary>
             /// coverting a string representation into the public key (converting it back)
             /// </summary>
             /// <returns>void</returns>
-            public void PublicKey(string publicKeyString)
+            public void SetPublicKey(string publicKeyPath)
             {
-                //get a stream from the string
-                var sr = new StringReader(publicKeyString);
-                //we need a deserializer
-                var xs = new XmlSerializer(typeof(RSAParameters));
-                //get the object back from the stream
-                _publicKey = (RSAParameters)xs.Deserialize(sr);
+                var rsaEncryptionKeys = ValidateFile(publicKeyPath);
+                switch (rsaEncryptionKeys)
+                {
+                    case RSAEncryptionKeys.XML:
+                    default:
+                        {
+                            var publicKeyString = File.ReadAllText(publicKeyPath);
+                            //get a stream from the string
+                            var sr = new StringReader(publicKeyString);
+                            //we need a deserializer
+                            var xs = new XmlSerializer(typeof(RSAParameters));
+                            //get the object back from the stream
+                            _publicKey = (RSAParameters)xs.Deserialize(sr);
+                        }
+                        break;
+                    case RSAEncryptionKeys.PEM:
+                        {
+                            var pub = GetPublicKeyFromPemFile(publicKeyPath);
+                            _publicKey = pub.ExportParameters(false);
+                        }
+                        break;
+                }
             }
 
             /// <summary>
+            /// Converting the public key into a string representation
             /// Save the public key to a file.
             /// It is better to pass the path as a XML file.
             /// </summary>
             /// <param name="path"></param>
             /// <returns></returns>
-            public bool SavePublicKey(string path)
+            public bool SavePublicKeyToXmlFile(string path)
             {
                 try
                 {
-                    File.WriteAllText(path, PublicKey());
+                    var sw = new StringWriter();
+                    var xs = new XmlSerializer(typeof(RSAParameters));
+                    xs.Serialize(sw, _publicKey);
+                    File.WriteAllText(path, sw.ToString());
                     return true;
                 }
                 catch (Exception ex)
@@ -847,46 +823,179 @@ namespace AuxiliaryLibraries
             }
 
             /// <summary>
-            /// converting the private key into a string representation
+            /// Converting the public key into a string representation
+            /// Save the public key to a file.
+            /// It is better to pass the path as a PEM file.
+            /// https://stackoverflow.com/questions/28406888/c-sharp-rsa-public-key-output-not-correct/28407693#28407693
             /// </summary>
-            /// <returns>string</returns>
-            public string PrivateKey()
+            /// <param name="path"></param>
+            /// <returns></returns>
+            public bool SavePublicKeyToPemFile(string path)
             {
-                var sw = new StringWriter();
-                var xs = new XmlSerializer(typeof(RSAParameters));
-                xs.Serialize(sw, _privateKey);
-                return sw.ToString();
+                try
+                {
+                    using (TextWriter outputStream = new StreamWriter(path))
+                    {
+                        using (var stream = new MemoryStream())
+                        {
+                            var writer = new BinaryWriter(stream);
+                            writer.Write((byte)0x30); // SEQUENCE
+                            using (var innerStream = new MemoryStream())
+                            {
+                                var innerWriter = new BinaryWriter(innerStream);
+                                innerWriter.Write((byte)0x30); // SEQUENCE
+                                EncodeLength(innerWriter, 13);
+                                innerWriter.Write((byte)0x06); // OBJECT IDENTIFIER
+                                var rsaEncryptionOid = new byte[] { 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01, 0x01 };
+                                EncodeLength(innerWriter, rsaEncryptionOid.Length);
+                                innerWriter.Write(rsaEncryptionOid);
+                                innerWriter.Write((byte)0x05); // NULL
+                                EncodeLength(innerWriter, 0);
+                                innerWriter.Write((byte)0x03); // BIT STRING
+                                using (var bitStringStream = new MemoryStream())
+                                {
+                                    var bitStringWriter = new BinaryWriter(bitStringStream);
+                                    bitStringWriter.Write((byte)0x00); // # of unused bits
+                                    bitStringWriter.Write((byte)0x30); // SEQUENCE
+                                    using (var paramsStream = new MemoryStream())
+                                    {
+                                        var paramsWriter = new BinaryWriter(paramsStream);
+                                        EncodeIntegerBigEndian(paramsWriter, _publicKey.Modulus); // Modulus
+                                        EncodeIntegerBigEndian(paramsWriter, _publicKey.Exponent); // Exponent
+                                        var paramsLength = (int)paramsStream.Length;
+                                        EncodeLength(bitStringWriter, paramsLength);
+                                        bitStringWriter.Write(paramsStream.GetBuffer(), 0, paramsLength);
+                                    }
+                                    var bitStringLength = (int)bitStringStream.Length;
+                                    EncodeLength(innerWriter, bitStringLength);
+                                    innerWriter.Write(bitStringStream.GetBuffer(), 0, bitStringLength);
+                                }
+                                var length = (int)innerStream.Length;
+                                EncodeLength(writer, length);
+                                writer.Write(innerStream.GetBuffer(), 0, length);
+                            }
+
+                            var base64 = Convert.ToBase64String(stream.GetBuffer(), 0, (int)stream.Length).ToCharArray();
+                            outputStream.WriteLine("-----BEGIN PUBLIC KEY-----");
+                            for (var i = 0; i < base64.Length; i += 64)
+                            {
+                                outputStream.WriteLine(base64, i, Math.Min(64, base64.Length - i));
+                            }
+                            outputStream.WriteLine("-----END PUBLIC KEY-----");
+                        }
+                    }
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    ex.ToString();
+                    return false;
+                }
             }
 
             /// <summary>
             /// coverting a string representation into the private key (converting it back)
             /// </summary>
             /// <returns>void</returns>
-            public void PrivateKey(string privateKeyString)
+            public void SetPrivateKey(string privateKeyPath)
             {
-                //get a stream from the string
-                var sr = new StringReader(privateKeyString);
-                //we need a deserializer
-                var xs = new XmlSerializer(typeof(RSAParameters));
-                //get the object back from the stream
-                _privateKey = (RSAParameters)xs.Deserialize(sr);
+                var rsaEncryptionKeys = ValidateFile(privateKeyPath);
+                switch (rsaEncryptionKeys)
+                {
+                    case RSAEncryptionKeys.XML:
+                    default:
+                        {
+                            //get a stream from the string
+                            var sr = new StringReader(privateKeyPath);
+                            //we need a deserializer
+                            var xs = new XmlSerializer(typeof(RSAParameters));
+                            //get the object back from the stream
+                            _privateKey = (RSAParameters)xs.Deserialize(sr);
+                        }
+                        break;
+                    case RSAEncryptionKeys.PEM:
+                        {
+                            var pri = GetPrivateKeyFromPemFile(privateKeyPath);
+                            _privateKey = pri.ExportParameters(true);
+                        }
+                        break;
+                }
             }
 
             /// <summary>
+            /// Converting the private key into a string representation
             /// Save the private key to a file.
             /// It is better to pass the path as a XML file.
             /// </summary>
             /// <param name="path"></param>
             /// <returns></returns>
-            public bool SavePrivateKey(string path)
+            public bool SavePrivateKeyToXmlFile(string path)
             {
                 try
                 {
-                    File.WriteAllText(path, PrivateKey());
+                    var sw = new StringWriter();
+                    var xs = new XmlSerializer(typeof(RSAParameters));
+                    xs.Serialize(sw, _privateKey);
+                    File.WriteAllText(path, sw.ToString());
                     return true;
                 }
                 catch (Exception ex)
                 {
+                    return false;
+                }
+            }
+
+            /// <summary>
+            /// Converting the private key into a string representation
+            /// Save the private key to a file.
+            /// It is better to pass the path as a PEM file.
+            /// https://stackoverflow.com/questions/23734792/c-sharp-export-private-public-rsa-key-from-rsacryptoserviceprovider-to-pem-strin
+            /// </summary>
+            /// <param name="path"></param>
+            /// <returns></returns>
+            public bool SavePrivateKeyToPemFile(string path)
+            {
+                try
+                {
+                    if (CSP.PublicOnly) throw new ArgumentException("CSP does not contain a private key", "csp");
+                    using (TextWriter outputStream = new StreamWriter(path))
+                    {
+                        using (var stream = new MemoryStream())
+                        {
+                            var writer = new BinaryWriter(stream);
+                            writer.Write((byte)0x30); // SEQUENCE
+                            using (var innerStream = new MemoryStream())
+                            {
+                                var innerWriter = new BinaryWriter(innerStream);
+                                EncodeIntegerBigEndian(innerWriter, new byte[] { 0x00 }); // Version
+                                EncodeIntegerBigEndian(innerWriter, _privateKey.Modulus);
+                                EncodeIntegerBigEndian(innerWriter, _privateKey.Exponent);
+                                EncodeIntegerBigEndian(innerWriter, _privateKey.D);
+                                EncodeIntegerBigEndian(innerWriter, _privateKey.P);
+                                EncodeIntegerBigEndian(innerWriter, _privateKey.Q);
+                                EncodeIntegerBigEndian(innerWriter, _privateKey.DP);
+                                EncodeIntegerBigEndian(innerWriter, _privateKey.DQ);
+                                EncodeIntegerBigEndian(innerWriter, _privateKey.InverseQ);
+                                var length = (int)innerStream.Length;
+                                EncodeLength(writer, length);
+                                writer.Write(innerStream.GetBuffer(), 0, length);
+                            }
+
+                            var base64 = Convert.ToBase64String(stream.GetBuffer(), 0, (int)stream.Length).ToCharArray();
+                            outputStream.WriteLine("-----BEGIN RSA PRIVATE KEY-----");
+                            // Output as Base64 with lines chopped at 64 characters
+                            for (var i = 0; i < base64.Length; i += 64)
+                            {
+                                outputStream.WriteLine(base64, i, Math.Min(64, base64.Length - i));
+                            }
+                            outputStream.WriteLine("-----END RSA PRIVATE KEY-----");
+                        }
+                    }
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    ex.ToString();
                     return false;
                 }
             }
@@ -1072,6 +1181,100 @@ namespace AuxiliaryLibraries
             //        return null;
             //    }
             //}
+
+            private void EncodeLength(BinaryWriter stream, int length)
+            {
+                if (length < 0) throw new ArgumentOutOfRangeException("length", "Length must be non-negative");
+                if (length < 0x80)
+                {
+                    // Short form
+                    stream.Write((byte)length);
+                }
+                else
+                {
+                    // Long form
+                    var temp = length;
+                    var bytesRequired = 0;
+                    while (temp > 0)
+                    {
+                        temp >>= 8;
+                        bytesRequired++;
+                    }
+                    stream.Write((byte)(bytesRequired | 0x80));
+                    for (var i = bytesRequired - 1; i >= 0; i--)
+                    {
+                        stream.Write((byte)(length >> (8 * i) & 0xff));
+                    }
+                }
+            }
+
+            private void EncodeIntegerBigEndian(BinaryWriter stream, byte[] value, bool forceUnsigned = true)
+            {
+                stream.Write((byte)0x02); // INTEGER
+                var prefixZeros = 0;
+                for (var i = 0; i < value.Length; i++)
+                {
+                    if (value[i] != 0) break;
+                    prefixZeros++;
+                }
+                if (value.Length - prefixZeros == 0)
+                {
+                    EncodeLength(stream, 1);
+                    stream.Write((byte)0);
+                }
+                else
+                {
+                    if (forceUnsigned && value[prefixZeros] > 0x7f)
+                    {
+                        // Add a prefix zero to force unsigned if the MSB is 1
+                        EncodeLength(stream, value.Length - prefixZeros + 1);
+                        stream.Write((byte)0);
+                    }
+                    else
+                    {
+                        EncodeLength(stream, value.Length - prefixZeros);
+                    }
+                    for (var i = prefixZeros; i < value.Length; i++)
+                    {
+                        stream.Write(value[i]);
+                    }
+                }
+            }
+
+            private static RSAEncryptionKeys ValidateFile(string filePath)
+            {
+                var mimeType = filePath.GetMimeTypeFromFileFormat();
+                if (mimeType.ToLower() != pemMimeType.ToLower() && mimeType.ToLower() != xmlMimeType.ToLower())
+                    throw new Exception($"Fie {mimeType} is not Valid");
+                return mimeType.ToLower() == pemMimeType.ToLower() ? RSAEncryptionKeys.PEM : RSAEncryptionKeys.XML;
+            }
+
+            private RSACryptoServiceProvider GetPrivateKeyFromPemFile(string filePath)
+            {
+                using (TextReader privateKeyTextReader = new StringReader(File.ReadAllText(filePath)))
+                {
+                    AsymmetricCipherKeyPair readKeyPair = (AsymmetricCipherKeyPair)new PemReader(privateKeyTextReader).ReadObject();
+
+                    RSAParameters rsaParams = DotNetUtilities.ToRSAParameters((RsaPrivateCrtKeyParameters)readKeyPair.Private);
+                    RSACryptoServiceProvider csp = new RSACryptoServiceProvider();// cspParams);
+                    csp.ImportParameters(rsaParams);
+                    return csp;
+                }
+            }
+
+            private RSACryptoServiceProvider GetPublicKeyFromPemFile(string filePath)
+            {
+                using (TextReader publicKeyTextReader = new StringReader(File.ReadAllText(filePath)))
+                {
+                    RsaKeyParameters publicKeyParam = (RsaKeyParameters)new PemReader(publicKeyTextReader).ReadObject();
+
+                    RSAParameters rsaParams = DotNetUtilities.ToRSAParameters((RsaKeyParameters)publicKeyParam);
+
+                    RSACryptoServiceProvider csp = new RSACryptoServiceProvider();// cspParams);
+                    csp.ImportParameters(rsaParams);
+                    return csp;
+                }
+            }
             #endregion
         }
     }

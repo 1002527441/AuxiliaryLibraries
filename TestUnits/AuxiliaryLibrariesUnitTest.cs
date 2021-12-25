@@ -178,8 +178,11 @@ namespace TestUnits
         public void RSAEncrypttion()
         {
             var rsa = new AuxiliaryEncryption.RSA(2048);
-            rsa.SavePrivateKey(@"X:\Fahime\Archive\Sadad\PrivateKey.xml");
-            rsa.SavePublicKey(@"X:\Fahime\Archive\Sadad\PublicKey.xml");
+            rsa.SavePrivateKeyToXmlFile(@"D:\My Projects\Hamseda\Hamseda.Service\Model\ThirdPartyModel\AsanPardakht\SignKeys\PrivateKey.xml");
+            rsa.SavePublicKeyToXmlFile(@"D:\My Projects\Hamseda\Hamseda.Service\Model\ThirdPartyModel\AsanPardakht\SignKeys\PublicKey.xml");
+
+            rsa.SavePrivateKeyToPemFile(@"D:\My Projects\Hamseda\Hamseda.Service\Model\ThirdPartyModel\AsanPardakht\SignKeys\PrivateKey.pem");
+            rsa.SavePublicKeyToPemFile(@"D:\My Projects\Hamseda\Hamseda.Service\Model\ThirdPartyModel\AsanPardakht\SignKeys\PublicKey.pem");
         }
 
         [TestMethod]
