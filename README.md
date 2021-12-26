@@ -663,7 +663,7 @@ var decrypted = aes.Decrypt(encrypted);
 
 
 ### RSA
-<br/>
+<br/><br/>
 * Initialize
 <br/>
 RSA Encryption
@@ -682,23 +682,23 @@ XML File
 rsa.SavePrivateKeyToXmlFile(@"C:\PrivateKey.xml");
 rsa.SavePublicKeyToXmlFile(@"C:\PublicKey.xml");
 ```
-<br/>
+<br/><br/>
 PEM File
-<br/>
+<br/><br/>
 ```CS
 rsa.SavePrivateKeyToPemFile(@"C:\PrivateKey.pem");
 rsa.SavePublicKeyToPemFile(@"C:\PublicKey.pem");
 ```
-<br/>
+<br/><br/>
 You can also replace public key and private key by your own public key and private key by using SetPublicKey and SetPrivateKey (pass the path of *.xml or *.pem file)
 <br/>
 XML File
-<br/>
+<br/><br/>
 ```CS
 rsa.SetPublicKey(@"C:\PrivateKey.xml");
 rsa.SetPrivateKey(@"C:\PublicKey.xml");
 ```
-<br/>
+<br/><br/>
 PEM File
 <br/>
 ```CS
@@ -720,7 +720,7 @@ var txt = "Keeping in mind that every every character of that string is 1 byte, 
 var encrypted = rsa.Encrypt(txt);
 ```
 
-<br/>
+<br/><br/>
 * Decrypt()
 <br/>
 Decrypt your data, , config (Sign, PrivateKey, PublicKey) of decryption is inside the constructor
