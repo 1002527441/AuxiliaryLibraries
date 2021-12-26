@@ -40,6 +40,7 @@
       <HintPath>..\packages\RestSharp.106.15.0\lib\net452\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.ServiceModel" />
@@ -54,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\AuxiliaryStringValidatorAttribute.cs" />
     <Compile Include="AuxilaryServices\AuxiliaryCalendar.cs" />
     <Compile Include="AuxilaryServices\AuxiliaryDirectoryFileHelper.cs" />
     <Compile Include="AuxilaryServices\AuxiliaryEnumExtension.cs" />
@@ -73,7 +75,7 @@
     <Compile Include="Enums\EncryptType.cs" />
     <Compile Include="Enums\PersianDayOfWeek.cs" />
     <Compile Include="Enums\RSAEncryptionKeys.cs" />
-    <Compile Include="Extentions\RegexPatterns.cs" />
+    <Compile Include="Extentions\AuxiliaryRegexPatterns.cs" />
     <Compile Include="AuxilaryServices\AuxiliaryIpAddress.cs" />
     <Compile Include="AuxilaryServices\AuxiliaryLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,11 +87,20 @@
     </Compile>
     <Compile Include="AuxilaryServices\AuxiliaryRestApi.cs" />
     <Compile Include="AuxilaryServices\AuxiliaryExtensions.cs" />
+    <Compile Include="Resources\ResponseMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResponseMessages.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\DisplayNames.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>DisplayNames1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ResponseMessages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResponseMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,779 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="day1" xml:space="preserve">
+    <value>First</value>
+    <comment>1st</comment>
+  </data>
+  <data name="day10" xml:space="preserve">
+    <value>Tenth</value>
+    <comment>10th</comment>
+  </data>
+  <data name="day10Persian" xml:space="preserve">
+    <value>دهم</value>
+  </data>
+  <data name="day11" xml:space="preserve">
+    <value>Eleventh</value>
+    <comment>11th</comment>
+  </data>
+  <data name="day11Persian" xml:space="preserve">
+    <value>یازدهم</value>
+  </data>
+  <data name="day12" xml:space="preserve">
+    <value>Twelfth</value>
+    <comment>12th</comment>
+  </data>
+  <data name="day12Persian" xml:space="preserve">
+    <value>دوازدهم</value>
+  </data>
+  <data name="day13" xml:space="preserve">
+    <value>Thirteenth</value>
+    <comment>13th</comment>
+  </data>
+  <data name="day13Persian" xml:space="preserve">
+    <value>سیزدهم</value>
+  </data>
+  <data name="day14" xml:space="preserve">
+    <value>Fourteenth</value>
+    <comment>14th</comment>
+  </data>
+  <data name="day14Persian" xml:space="preserve">
+    <value>چهاردهم</value>
+  </data>
+  <data name="day15" xml:space="preserve">
+    <value>Fifteenth</value>
+    <comment>15th</comment>
+  </data>
+  <data name="day15Persian" xml:space="preserve">
+    <value>پانزدهم</value>
+  </data>
+  <data name="day16" xml:space="preserve">
+    <value>Sixteenth</value>
+    <comment>16th</comment>
+  </data>
+  <data name="day16Persian" xml:space="preserve">
+    <value>شانزدهم</value>
+  </data>
+  <data name="day17" xml:space="preserve">
+    <value>Seventeenth</value>
+    <comment>17th</comment>
+  </data>
+  <data name="day17Persian" xml:space="preserve">
+    <value>هفدهم</value>
+  </data>
+  <data name="day18" xml:space="preserve">
+    <value>Eighteenth</value>
+    <comment>18th</comment>
+  </data>
+  <data name="day18Persian" xml:space="preserve">
+    <value>هجدهم</value>
+  </data>
+  <data name="day19" xml:space="preserve">
+    <value>Nineteenth</value>
+    <comment>19th</comment>
+  </data>
+  <data name="day19Persian" xml:space="preserve">
+    <value>نوزدهم</value>
+  </data>
+  <data name="day1Persian" xml:space="preserve">
+    <value>یکم</value>
+  </data>
+  <data name="day2" xml:space="preserve">
+    <value>Second</value>
+    <comment>2nd</comment>
+  </data>
+  <data name="day20" xml:space="preserve">
+    <value>Twentieth</value>
+    <comment>20th</comment>
+  </data>
+  <data name="day20Persian" xml:space="preserve">
+    <value>بیستم</value>
+  </data>
+  <data name="day21" xml:space="preserve">
+    <value>Twenty-first</value>
+    <comment>21st</comment>
+  </data>
+  <data name="day21Persian" xml:space="preserve">
+    <value>بیست و یکم</value>
+  </data>
+  <data name="day22" xml:space="preserve">
+    <value>Twenty-second</value>
+    <comment>22nd</comment>
+  </data>
+  <data name="day22Persian" xml:space="preserve">
+    <value>بیست و دوم</value>
+  </data>
+  <data name="day23" xml:space="preserve">
+    <value>Twenty-third</value>
+    <comment>23rd</comment>
+  </data>
+  <data name="day23Persian" xml:space="preserve">
+    <value>بیست و سوم</value>
+  </data>
+  <data name="day24" xml:space="preserve">
+    <value>Twenty-fourth</value>
+    <comment>24th</comment>
+  </data>
+  <data name="day24Persian" xml:space="preserve">
+    <value>بیست و چهارم</value>
+  </data>
+  <data name="day25" xml:space="preserve">
+    <value>Twenty-fifth</value>
+    <comment>25th</comment>
+  </data>
+  <data name="day25Persian" xml:space="preserve">
+    <value>بیست و پنجم</value>
+  </data>
+  <data name="day26" xml:space="preserve">
+    <value>Twenty-sixth</value>
+    <comment>26th</comment>
+  </data>
+  <data name="day26Persian" xml:space="preserve">
+    <value>بیست و ششم</value>
+  </data>
+  <data name="day27" xml:space="preserve">
+    <value>Twenty-seventh</value>
+    <comment>27th</comment>
+  </data>
+  <data name="day27Persian" xml:space="preserve">
+    <value>بیست و هفتم</value>
+  </data>
+  <data name="day28" xml:space="preserve">
+    <value>Twenty-eighth</value>
+    <comment>28th</comment>
+  </data>
+  <data name="day28Persian" xml:space="preserve">
+    <value>بیست و هشتم</value>
+  </data>
+  <data name="day29" xml:space="preserve">
+    <value>Twenty-ninth</value>
+    <comment>29th</comment>
+  </data>
+  <data name="day29Persian" xml:space="preserve">
+    <value>بیست و نهم</value>
+  </data>
+  <data name="day2Persian" xml:space="preserve">
+    <value>دوم</value>
+  </data>
+  <data name="day3" xml:space="preserve">
+    <value>Third</value>
+    <comment>3rd</comment>
+  </data>
+  <data name="day30" xml:space="preserve">
+    <value>Thirtieth</value>
+    <comment>30th</comment>
+  </data>
+  <data name="day30Persian" xml:space="preserve">
+    <value>سی ام</value>
+  </data>
+  <data name="day31" xml:space="preserve">
+    <value>Thirty-first</value>
+    <comment>31st</comment>
+  </data>
+  <data name="day31Persian" xml:space="preserve">
+    <value>سی و یکم</value>
+  </data>
+  <data name="day3Persian" xml:space="preserve">
+    <value>سوم</value>
+  </data>
+  <data name="day4" xml:space="preserve">
+    <value>Fourth</value>
+    <comment>4th</comment>
+  </data>
+  <data name="day4Persian" xml:space="preserve">
+    <value>چهارم</value>
+  </data>
+  <data name="day5" xml:space="preserve">
+    <value>Fifth</value>
+    <comment>5th</comment>
+  </data>
+  <data name="day5Persian" xml:space="preserve">
+    <value>پنجم</value>
+  </data>
+  <data name="day6" xml:space="preserve">
+    <value>Sixth</value>
+    <comment>6th</comment>
+  </data>
+  <data name="day6Persian" xml:space="preserve">
+    <value>ششم</value>
+  </data>
+  <data name="day7" xml:space="preserve">
+    <value>Seventh</value>
+    <comment>7th</comment>
+  </data>
+  <data name="day7Persian" xml:space="preserve">
+    <value>هفتم</value>
+  </data>
+  <data name="day8" xml:space="preserve">
+    <value>Eighth</value>
+    <comment>8th</comment>
+  </data>
+  <data name="day8Persian" xml:space="preserve">
+    <value>هشتم</value>
+  </data>
+  <data name="day9" xml:space="preserve">
+    <value>Ninth</value>
+    <comment>9th</comment>
+  </data>
+  <data name="day9Persian" xml:space="preserve">
+    <value>نهم</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Friday</value>
+    <comment>Saturday,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday</comment>
+  </data>
+  <data name="FridayPersian" xml:space="preserve">
+    <value>جمعه</value>
+    <comment>شنبه,یکشنبه,دوشنبه,سه شنبه,چهارشنبه,پنجشنبه,جمعه</comment>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Monday</value>
+    <comment>Saturday,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday</comment>
+  </data>
+  <data name="MondayPersian" xml:space="preserve">
+    <value>دوشنبه</value>
+    <comment>شنبه,یکشنبه,دوشنبه,سه شنبه,چهارشنبه,پنجشنبه,جمعه</comment>
+  </data>
+  <data name="Month1" xml:space="preserve">
+    <value>January</value>
+    <comment>January,February,March,April,May,June,July,August,September,October,November,December</comment>
+  </data>
+  <data name="Month10" xml:space="preserve">
+    <value>October</value>
+    <comment>January,February,March,April,May,June,July,August,September,October,November,December</comment>
+  </data>
+  <data name="Month10Persian" xml:space="preserve">
+    <value>دی</value>
+  </data>
+  <data name="Month11" xml:space="preserve">
+    <value>November</value>
+    <comment>January,February,March,April,May,June,July,August,September,October,November,December</comment>
+  </data>
+  <data name="Month11Persian" xml:space="preserve">
+    <value>بهمن</value>
+  </data>
+  <data name="Month12" xml:space="preserve">
+    <value>December</value>
+    <comment>January,February,March,April,May,June,July,August,September,October,November,December</comment>
+  </data>
+  <data name="Month12Persian" xml:space="preserve">
+    <value>اسفند</value>
+  </data>
+  <data name="Month1Persian" xml:space="preserve">
+    <value>فرودین</value>
+  </data>
+  <data name="Month2" xml:space="preserve">
+    <value>February</value>
+    <comment>January,February,March,April,May,June,July,August,September,October,November,December</comment>
+  </data>
+  <data name="Month2Persian" xml:space="preserve">
+    <value>اردیبهشت</value>
+  </data>
+  <data name="Month3" xml:space="preserve">
+    <value>March</value>
+    <comment>January,February,March,April,May,June,July,August,September,October,November,December</comment>
+  </data>
+  <data name="Month3Persian" xml:space="preserve">
+    <value>خردادد</value>
+  </data>
+  <data name="Month4" xml:space="preserve">
+    <value>April</value>
+    <comment>January,February,March,April,May,June,July,August,September,October,November,December</comment>
+  </data>
+  <data name="Month4Persian" xml:space="preserve">
+    <value>تیر</value>
+  </data>
+  <data name="Month5" xml:space="preserve">
+    <value>May</value>
+    <comment>January,February,March,April,May,June,July,August,September,October,November,December</comment>
+  </data>
+  <data name="Month5Persian" xml:space="preserve">
+    <value>مرداد</value>
+  </data>
+  <data name="Month6" xml:space="preserve">
+    <value>June</value>
+    <comment>January,February,March,April,May,June,July,August,September,October,November,December</comment>
+  </data>
+  <data name="Month6Persian" xml:space="preserve">
+    <value>شهریور</value>
+  </data>
+  <data name="Month7" xml:space="preserve">
+    <value>July</value>
+    <comment>January,February,March,April,May,June,July,August,September,October,November,December</comment>
+  </data>
+  <data name="Month7Persian" xml:space="preserve">
+    <value>مهر</value>
+  </data>
+  <data name="Month8" xml:space="preserve">
+    <value>August</value>
+    <comment>January,February,March,April,May,June,July,August,September,October,November,December</comment>
+  </data>
+  <data name="Month8Persian" xml:space="preserve">
+    <value>آبان</value>
+  </data>
+  <data name="Month9" xml:space="preserve">
+    <value>September</value>
+    <comment>January,February,March,April,May,June,July,August,September,October,November,December</comment>
+  </data>
+  <data name="Month9Persian" xml:space="preserve">
+    <value>آذر</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Saturday</value>
+    <comment>Saturday,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday</comment>
+  </data>
+  <data name="SaturdayPersian" xml:space="preserve">
+    <value>شنبه</value>
+    <comment>شنبه,یکشنبه,دوشنبه,سه شنبه,چهارشنبه,پنجشنبه,جمعه</comment>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Sunday</value>
+    <comment>Saturday,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday</comment>
+  </data>
+  <data name="SundayPersian" xml:space="preserve">
+    <value>یکشنبه</value>
+    <comment>شنبه,یکشنبه,دوشنبه,سه شنبه,چهارشنبه,پنجشنبه,جمعه</comment>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Thursday</value>
+    <comment>Saturday,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday</comment>
+  </data>
+  <data name="ThursdayPersian" xml:space="preserve">
+    <value>پنجشنبه</value>
+    <comment>شنبه,یکشنبه,دوشنبه,سه شنبه,چهارشنبه,پنجشنبه,جمعه</comment>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="TodayPersian" xml:space="preserve">
+    <value>امروز</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Tuesday</value>
+    <comment>Saturday,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday</comment>
+  </data>
+  <data name="TuesdayPersian" xml:space="preserve">
+    <value>سه شنبه</value>
+    <comment>شنبه,یکشنبه,دوشنبه,سه شنبه,چهارشنبه,پنجشنبه,جمعه</comment>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Wednesday</value>
+    <comment>Saturday,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday</comment>
+  </data>
+  <data name="WednesdayPersian" xml:space="preserve">
+    <value>چهارشنبه</value>
+    <comment>شنبه,یکشنبه,دوشنبه,سه شنبه,چهارشنبه,پنجشنبه,جمعه</comment>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Yesterday</value>
+  </data>
+  <data name="YesterdayPersian" xml:space="preserve">
+    <value>دیروز</value>
+  </data>
+  <data name="DayAgo" xml:space="preserve">
+    <value>{0} days ago</value>
+  </data>
+  <data name="DayAgoPersian" xml:space="preserve">
+    <value>{0} روز پیش</value>
+  </data>
+  <data name="HourAgo" xml:space="preserve">
+    <value>{0} hours ago</value>
+  </data>
+  <data name="HourAgoPersian" xml:space="preserve">
+    <value>{0} ساعت پیش</value>
+  </data>
+  <data name="JustRightNow" xml:space="preserve">
+    <value>Just right now</value>
+  </data>
+  <data name="JustRightNowPersian" xml:space="preserve">
+    <value>همین الآن</value>
+  </data>
+  <data name="MinutesAgo" xml:space="preserve">
+    <value>{0} minuts ago</value>
+  </data>
+  <data name="MinutesAgoPersian" xml:space="preserve">
+    <value>{0} دقیقه پیش</value>
+  </data>
+  <data name="MonthAgo" xml:space="preserve">
+    <value>{0} months ago</value>
+  </data>
+  <data name="MonthAgoPersian" xml:space="preserve">
+    <value>{0} ماه پیش</value>
+  </data>
+  <data name="SecondsAgo" xml:space="preserve">
+    <value>{0} seconds ago</value>
+  </data>
+  <data name="SecondsAgoPersian" xml:space="preserve">
+    <value>{0} ثانیه پیش</value>
+  </data>
+  <data name="WeekAgo" xml:space="preserve">
+    <value>{0} weeks ago</value>
+  </data>
+  <data name="WeekAgoPersian" xml:space="preserve">
+    <value>{0} هفته پیش</value>
+  </data>
+  <data name="DayLater" xml:space="preserve">
+    <value>{0} Days Later</value>
+  </data>
+  <data name="DayLaterPersian" xml:space="preserve">
+    <value>{0} روز بعد</value>
+  </data>
+  <data name="MonthLater" xml:space="preserve">
+    <value>{0} Months Later</value>
+  </data>
+  <data name="MonthLaterPersian" xml:space="preserve">
+    <value>{0} ماه بعد</value>
+  </data>
+  <data name="Tomorrow" xml:space="preserve">
+    <value>Tomorrow</value>
+  </data>
+  <data name="TomorrowPersian" xml:space="preserve">
+    <value>فردا</value>
+  </data>
+  <data name="WeekLater" xml:space="preserve">
+    <value>{0} Weeks Later</value>
+  </data>
+  <data name="WeekLaterPersian" xml:space="preserve">
+    <value>{0} هفته بعد</value>
+  </data>
+  <data name="Free" xml:space="preserve">
+    <value>رایگان</value>
+  </data>
+  <data name="Number_Billiard" xml:space="preserve">
+    <value>بیلیارد</value>
+    <comment>پتا</comment>
+  </data>
+  <data name="Number_Billion" xml:space="preserve">
+    <value>بیلیون</value>
+    <comment>ترا</comment>
+  </data>
+  <data name="Number_Eight" xml:space="preserve">
+    <value>هشت</value>
+  </data>
+  <data name="Number_Eighteen" xml:space="preserve">
+    <value>هجده</value>
+  </data>
+  <data name="Number_EightHundred" xml:space="preserve">
+    <value>هشتصد</value>
+  </data>
+  <data name="Number_Eighty" xml:space="preserve">
+    <value>هشتاد</value>
+  </data>
+  <data name="Number_Eleven" xml:space="preserve">
+    <value>یازده</value>
+  </data>
+  <data name="Number_Fifteen" xml:space="preserve">
+    <value>پانزده</value>
+  </data>
+  <data name="Number_Fifty" xml:space="preserve">
+    <value>پنجاه</value>
+  </data>
+  <data name="Number_Five" xml:space="preserve">
+    <value>پنج</value>
+  </data>
+  <data name="Number_FiveHundred" xml:space="preserve">
+    <value>پانصد</value>
+  </data>
+  <data name="Number_Four" xml:space="preserve">
+    <value>چهار</value>
+  </data>
+  <data name="Number_FourHundred" xml:space="preserve">
+    <value>چهارصد</value>
+  </data>
+  <data name="Number_Fourteen" xml:space="preserve">
+    <value>چهارده</value>
+  </data>
+  <data name="Number_Fourty" xml:space="preserve">
+    <value>چهل</value>
+  </data>
+  <data name="Number_Milliard" xml:space="preserve">
+    <value>میلیارد</value>
+    <comment>گیگا</comment>
+  </data>
+  <data name="Number_Million" xml:space="preserve">
+    <value>میلیون</value>
+  </data>
+  <data name="Number_Nine" xml:space="preserve">
+    <value>نه</value>
+  </data>
+  <data name="Number_NineHundred" xml:space="preserve">
+    <value>نهصد</value>
+  </data>
+  <data name="Number_Nineteen" xml:space="preserve">
+    <value>نوزده</value>
+  </data>
+  <data name="Number_Ninety" xml:space="preserve">
+    <value>نود</value>
+  </data>
+  <data name="Number_One" xml:space="preserve">
+    <value>یک</value>
+  </data>
+  <data name="Number_OneHundred" xml:space="preserve">
+    <value>صد</value>
+  </data>
+  <data name="Number_Seven" xml:space="preserve">
+    <value>هفت</value>
+  </data>
+  <data name="Number_SevenHundred" xml:space="preserve">
+    <value>هفتصد</value>
+  </data>
+  <data name="Number_Seventeen" xml:space="preserve">
+    <value>هفده</value>
+  </data>
+  <data name="Number_Seventy" xml:space="preserve">
+    <value>هفتاد</value>
+  </data>
+  <data name="Number_Six" xml:space="preserve">
+    <value>شش</value>
+  </data>
+  <data name="Number_SixHundred" xml:space="preserve">
+    <value>ششصد</value>
+  </data>
+  <data name="Number_Sixteen" xml:space="preserve">
+    <value>شانزده</value>
+  </data>
+  <data name="Number_Sixty" xml:space="preserve">
+    <value>شصت</value>
+  </data>
+  <data name="Number_Ten" xml:space="preserve">
+    <value>ده</value>
+  </data>
+  <data name="Number_Thirteen" xml:space="preserve">
+    <value>سیزده</value>
+  </data>
+  <data name="Number_Thirty" xml:space="preserve">
+    <value>سی</value>
+  </data>
+  <data name="Number_Thousand" xml:space="preserve">
+    <value>هزار</value>
+  </data>
+  <data name="Number_Three" xml:space="preserve">
+    <value>سه</value>
+  </data>
+  <data name="Number_ThreeHundred" xml:space="preserve">
+    <value>سیصد</value>
+  </data>
+  <data name="Number_Trilliard" xml:space="preserve">
+    <value>تریلیارد</value>
+    <comment>زِتا</comment>
+  </data>
+  <data name="Number_Trillion" xml:space="preserve">
+    <value>تریلیون</value>
+    <comment>اگزا</comment>
+  </data>
+  <data name="Number_Twelve" xml:space="preserve">
+    <value>دوازده</value>
+  </data>
+  <data name="Number_Twenty" xml:space="preserve">
+    <value>بیست</value>
+  </data>
+  <data name="Number_Two" xml:space="preserve">
+    <value>دو</value>
+  </data>
+  <data name="Number_TwoHundred" xml:space="preserve">
+    <value>دویست</value>
+  </data>
+  <data name="Toman" xml:space="preserve">
+    <value>تومان</value>
+  </data>
+  <data name="Rial" xml:space="preserve">
+    <value>ريال</value>
+  </data>
+  <data name="BTC" xml:space="preserve">
+    <value>بیت کوین</value>
+  </data>
+  <data name="EUR" xml:space="preserve">
+    <value>یورو</value>
+  </data>
+  <data name="GBP" xml:space="preserve">
+    <value>پوند</value>
+  </data>
+  <data name="USD" xml:space="preserve">
+    <value>دلار</value>
+  </data>
+  <data name="Number_Billiardth" xml:space="preserve">
+    <value>بیلیونم</value>
+    <comment>پیکو</comment>
+  </data>
+  <data name="Number_Billionth" xml:space="preserve">
+    <value>میلیاردم</value>
+    <comment>نانو</comment>
+  </data>
+  <data name="Number_Hunrdredth" xml:space="preserve">
+    <value>صدم</value>
+    <comment>سانتی</comment>
+  </data>
+  <data name="Number_Millionth" xml:space="preserve">
+    <value>میلیونم</value>
+    <comment>میکرو</comment>
+  </data>
+  <data name="Number_Thenth" xml:space="preserve">
+    <value>دهم</value>
+    <comment>دسی</comment>
+  </data>
+  <data name="Number_Thousandth" xml:space="preserve">
+    <value>هزارم</value>
+    <comment>هزارم</comment>
+  </data>
+  <data name="Number_Centi" xml:space="preserve">
+    <value>سانتی</value>
+  </data>
+  <data name="Number_Deci" xml:space="preserve">
+    <value>دسی</value>
+  </data>
+  <data name="Number_Exa" xml:space="preserve">
+    <value>اگزا</value>
+  </data>
+  <data name="Number_Giga" xml:space="preserve">
+    <value>گیگا</value>
+  </data>
+  <data name="Number_Kilo" xml:space="preserve">
+    <value>کیلو</value>
+  </data>
+  <data name="Number_Mega" xml:space="preserve">
+    <value>مگا</value>
+  </data>
+  <data name="Number_Micro" xml:space="preserve">
+    <value>میکرو</value>
+  </data>
+  <data name="Number_Mili" xml:space="preserve">
+    <value>میلی</value>
+  </data>
+  <data name="Number_Nano" xml:space="preserve">
+    <value>نانو</value>
+  </data>
+  <data name="Number_Peta" xml:space="preserve">
+    <value>پتا</value>
+  </data>
+  <data name="Number_Pico" xml:space="preserve">
+    <value>پیکو</value>
+  </data>
+  <data name="Number_Tera" xml:space="preserve">
+    <value>ترا</value>
+  </data>
+  <data name="Number_Zetta" xml:space="preserve">
+    <value>زتا</value>
+  </data>
+  <data name="USDT" xml:space="preserve">
+    <value>تتر</value>
+  </data>
+  <data name="Zero" xml:space="preserve">
+    <value>صفر</value>
+  </data>
+</root>

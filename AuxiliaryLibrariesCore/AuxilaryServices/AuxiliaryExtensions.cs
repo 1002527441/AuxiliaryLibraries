@@ -1,6 +1,7 @@
-﻿using AuxiliaryLibraries.Enums;
-using AuxiliaryLibraries.Extentions;
-using AuxiliaryLibraries.Resources;
+﻿using AuxiliaryLibraries.Core.Enums;
+using AuxiliaryLibraries.Core.Extentions;
+using AuxiliaryLibraries.Core.Enums;
+using AuxiliaryLibraries.Core.Resources;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -8,8 +9,9 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel;
 
-namespace AuxiliaryLibraries
+namespace AuxiliaryLibraries.Core.AuxilaryServices
 {
     /// <summary>
     /// Persian and arabic characters, numbers, currency.
@@ -70,8 +72,8 @@ namespace AuxiliaryLibraries
             char[] _numbers = s.ToCharArray();
             foreach (var item in _numbers)
             {
-                int _number = (int)item;
-                if ((int)_number >= 48 && (int)_number <= 57)
+                int _number = item;
+                if (_number >= 48 && _number <= 57)
                 {
                     _number += 1728;
                     _sb.Append((char)_number);
@@ -103,8 +105,8 @@ namespace AuxiliaryLibraries
             char[] _numbers = s.ToCharArray();
             foreach (var item in _numbers)
             {
-                int _number = (int)item;
-                if ((int)_number >= 48 && (int)_number <= 57)
+                int _number = item;
+                if (_number >= 48 && _number <= 57)
                 {
                     _number += 1728;
                     _sb.Append((char)_number);
@@ -131,8 +133,8 @@ namespace AuxiliaryLibraries
             char[] _numbers = s.ToCharArray();
             foreach (var item in _numbers)
             {
-                int _number = (int)item;
-                if ((int)_number >= 1776 && (int)_number <= 1785)
+                int _number = item;
+                if (_number >= 1776 && _number <= 1785)
                 {
                     _number -= 1728;
                     _sb.Append((char)_number);
@@ -202,7 +204,7 @@ namespace AuxiliaryLibraries
             if (string.IsNullOrEmpty(name)) return string.Empty;
 
             string strName = name.Replace("ي", "ی").Replace("ك", "ک").Replace("ة", "ه").Replace("ئ", "ئ").Replace("ه", "ه");
-            strName = ToPersianNumbers(strName);
+            strName = strName.ToPersianNumbers();
 
             strName = strName.Trim();
 
@@ -234,7 +236,7 @@ namespace AuxiliaryLibraries
 
             #region tens
             if (hundreds > 0)
-                tens = (number % 100) >= 10 ? (number % 100) / 10 : 0;
+                tens = number % 100 >= 10 ? number % 100 / 10 : 0;
             else
                 tens = number >= 10 ? number / 10 : 0;
             #endregion
@@ -243,27 +245,27 @@ namespace AuxiliaryLibraries
             if (hundreds > 0)
             {
                 if (tens > 0)
-                    units = ((number % 100) % 10);
+                    units = number % 100 % 10;
                 else
-                    units = (number % 100);
+                    units = number % 100;
             }
             else
             {
                 if (tens > 0)
-                    units = (number % 10);
+                    units = number % 10;
                 else
                     units = number;
             }
             #endregion
 
             var lst = new List<string>();
-            lst.Add(GetLetter(hundreds, NumberType.hundreds));
+            lst.Add(hundreds.GetLetter(NumberType.hundreds));
             if (tens == 1 && units > 0)
                 lst.Add(GetLetter(Convert.ToInt32($"{tens}{units}"), NumberType.tens));
             else
             {
-                lst.Add(GetLetter(tens, NumberType.tens));
-                lst.Add(GetLetter(units, NumberType.units));
+                lst.Add(tens.GetLetter(NumberType.tens));
+                lst.Add(units.GetLetter(NumberType.units));
             }
 
             return string.Join(" و ", lst.Where(s => !string.IsNullOrEmpty(s)).ToList());
@@ -437,7 +439,7 @@ namespace AuxiliaryLibraries
         /// <returns></returns>
         public static bool ContainsIgnoreCase(this List<string> collection, string value)
         {
-            return collection.Any(firstString => EqualIgnoreCase(firstString, value));
+            return collection.Any(firstString => firstString.EqualIgnoreCase(value));
         }
         #endregion
 
@@ -456,7 +458,7 @@ namespace AuxiliaryLibraries
             if (string.IsNullOrEmpty(number))
                 return number;
 
-            number = ToEnglishNumbers(number).Trim();
+            number = number.ToEnglishNumbers().Trim();
             string Number = string.Empty;
 
             if (!number.IsCellNumberValid())
@@ -488,7 +490,7 @@ namespace AuxiliaryLibraries
                 .Select(x => Convert.ToInt32(nationalId.Substring(x, 1)) * (10 - x))
                 .Sum() % 11;
 
-            return (sum < 2 && check == sum) || (sum >= 2 && check + sum == 11);
+            return sum < 2 && check == sum || sum >= 2 && check + sum == 11;
         }
 
         /// <summary>
@@ -558,7 +560,7 @@ namespace AuxiliaryLibraries
         {
             using (var md5Hash = MD5.Create())
             {
-                var hash = GetMd5Hash(md5Hash, input);
+                var hash = md5Hash.GetMd5Hash(input);
 
                 return hash.ToUpper();
             }
@@ -572,8 +574,8 @@ namespace AuxiliaryLibraries
         public static string CalculateMD5Hash(this string input)
         {
             // step 1, calculate MD5 hash from input
-            MD5 md5 = System.Security.Cryptography.MD5.Create();
-            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+            MD5 md5 = MD5.Create();
+            byte[] inputBytes = Encoding.ASCII.GetBytes(input);
             byte[] hash = md5.ComputeHash(inputBytes);
 
             // step 2, convert byte array to hex string
@@ -616,7 +618,7 @@ namespace AuxiliaryLibraries
         public static bool VerifyMd5Hash(this MD5 md5Hash, string input, string hash)
         {
             // Hash the input. 
-            string hashOfInput = GetMd5Hash(md5Hash, input);
+            string hashOfInput = md5Hash.GetMd5Hash(input);
 
             // Create a StringComparer an compare the hashes.
             return 0 == StringComparer.OrdinalIgnoreCase.Compare(hashOfInput, hash);
@@ -694,7 +696,7 @@ namespace AuxiliaryLibraries
         public static string EncriptSHA1(this string term)
         {
             StringBuilder Encript = new StringBuilder();
-            SHA1 sha1 = SHA1CryptoServiceProvider.Create();
+            SHA1 sha1 = SHA1.Create();
             byte[] hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(term));
             foreach (byte n in hash) Encript.Append(Convert.ToInt32(n + 256).ToString("x2"));
             return Encript.ToString();
@@ -709,7 +711,7 @@ namespace AuxiliaryLibraries
         public static string EncriptSHA1(this string term, Encoding encoding)
         {
             StringBuilder Encript = new StringBuilder();
-            SHA1 sha1 = SHA1CryptoServiceProvider.Create();
+            SHA1 sha1 = SHA1.Create();
             byte[] hash = sha1.ComputeHash(encoding.GetBytes(term));
             foreach (byte n in hash) Encript.Append(Convert.ToInt32(n + 256).ToString("x2"));
             return Encript.ToString();
@@ -726,7 +728,7 @@ namespace AuxiliaryLibraries
             try
             {
                 var plainTextBytes = encoding.GetBytes(plainText);
-                return System.Convert.ToBase64String(plainTextBytes);
+                return Convert.ToBase64String(plainTextBytes);
             }
             catch (Exception e)
             {
@@ -743,8 +745,8 @@ namespace AuxiliaryLibraries
         {
             try
             {
-                var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
-                return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+                var base64EncodedBytes = Convert.FromBase64String(base64EncodedData);
+                return Encoding.UTF8.GetString(base64EncodedBytes);
             }
             catch (Exception e)
             {
@@ -1279,10 +1281,10 @@ namespace AuxiliaryLibraries
         /// <param name="decimalPlaces"></param>
         /// <param name="toPersian"></param>
         /// <returns></returns>
-        public static string ToPrettySize(this Int64 value, int decimalPlaces = 1, bool toPersian = true)
+        public static string ToPrettySize(this long value, int decimalPlaces = 1, bool toPersian = true)
         {
             if (decimalPlaces < 0) { throw new ArgumentOutOfRangeException("decimalPlaces"); }
-            if (value < 0) { return "-" + ToPrettySize(-value); }
+            if (value < 0) { return "-" + (-value).ToPrettySize(); }
             if (value == 0) { return toPersian ? string.Format("{0:n" + decimalPlaces + "} بایت", 0) : string.Format("{0:n" + decimalPlaces + "} bytes", 0); }
 
             // mag is 0 for bytes, 1 for KB, 2, for MB, etc.
@@ -1290,7 +1292,7 @@ namespace AuxiliaryLibraries
 
             // 1L << (mag * 10) == 2 ^ (10 * mag) 
             // [i.e. the number of bytes in the unit corresponding to mag]
-            decimal adjustedSize = (decimal)value / (1L << (mag * 10));
+            decimal adjustedSize = (decimal)value / (1L << mag * 10);
 
             // make adjustment when the value is large enough that
             // it would round up to 1000 or more
@@ -1370,7 +1372,7 @@ namespace AuxiliaryLibraries
         /// <returns></returns>
         public static int ToInt32(this string text)
         {
-            var digitContent = string.Join("", text.ToCharArray().Where(Char.IsDigit));
+            var digitContent = string.Join("", text.ToCharArray().Where(char.IsDigit));
             int result = 0;
             if (int.TryParse(digitContent, out result))
                 return result;
@@ -1468,7 +1470,7 @@ namespace AuxiliaryLibraries
         /// <returns></returns>
         public static double Percent(this long current, long maximum)
         {
-            return Math.Round(((double)current / (double)maximum) * 100, 2);
+            return Math.Round(current / (double)maximum * 100, 2);
         }
 
         /// <summary>

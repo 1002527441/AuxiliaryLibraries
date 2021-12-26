@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <PackageIcon>AuxiliaryLibraries_Logo.png</PackageIcon>
     <Description>AuxiliaryLibraries is a library which allows you to have some useful tools, especially for Iranian. The tools are: Accessory to Persian calendar, extensions (lots of useful string, int, log, datetime, and ... extensions ), encryption (There are three different algorithms which are RC4, AES and RSA.), ip, log, rest api tools, Zip, and PriceModel for .Net. You can easily use it.</Description>
     <PackageReleaseNotes>Update StringExtensions to Extensions and add some useful function to it. Beside we add Zip and PriceModel to the library.</PackageReleaseNotes>
@@ -16,10 +16,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AuxiliaryLibraries\AuxiliaryLibraries.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="..\AuxiliaryLibraries_Logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
@@ -28,6 +24,45 @@
 
   <ItemGroup>
     <Folder Include="Versioning\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NWebsec.AspNetCore.Core" Version="3.0.1" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
+    <PackageReference Include="RestSharp" Version="106.15.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.ServiceModel">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.ServiceModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Web.Extensions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\DisplayNames.Designer.cs">
+      <DependentUpon>DisplayNames.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\ResponseMessages.Designer.cs">
+      <DependentUpon>ResponseMessages.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\DisplayNames.resx">
+      <LastGenOutput>DisplayNames.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ResponseMessages.resx">
+      <LastGenOutput>ResponseMessages.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

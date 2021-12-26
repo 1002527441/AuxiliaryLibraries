@@ -598,7 +598,7 @@ var decrypted = AuxiliaryEncryption.RC4.Decrypt("KEY", encrypted, Encoding.UTF8)
 
 
 ### AES
-<br/>
+<br/><br/>
 * EncryptFile()
 <br/>
 Encrypt your file, config of encyption is inside the constructor
@@ -613,7 +613,7 @@ var aes = new AuxiliaryEncryption.AES(key, System.Text.Encoding.UTF8);
 aes.EncryptFile(@"C:\Test.jpg", @"C:\Test_EncryptFile.jpg");
 ```
 
-<br/>
+<br/><br/>
 * Encrypt()
 <br/>
 Encrypt your data
@@ -629,7 +629,7 @@ var encrypted = aes.Encrypt("Some Text");
 ```
 
 
-<br/>
+<br/><br/>
 * DecryptFile()
 <br/>
 Decrypt your file, , config of decryption is inside the constructor
@@ -645,7 +645,7 @@ aes.EncryptFile(@"C:\Test.jpg", @"C:\Test_EncryptFile.jpg");
 aes.DecryptFile(@"C:\Test_EncryptFile.jpg", @"C:\Test_DecryptFile.jpg");
 ```
 
-<br/>
+<br/><br/>
 * Decrypt()
 <br/>
 Decrypt your data
@@ -682,23 +682,23 @@ XML File
 rsa.SavePrivateKeyToXmlFile(@"C:\PrivateKey.xml");
 rsa.SavePublicKeyToXmlFile(@"C:\PublicKey.xml");
 ```
-<br/><br/>
+<br/>
 PEM File
-<br/><br/>
+<br/>
 ```CS
 rsa.SavePrivateKeyToPemFile(@"C:\PrivateKey.pem");
 rsa.SavePublicKeyToPemFile(@"C:\PublicKey.pem");
 ```
-<br/><br/>
+<br/>
 You can also replace public key and private key by your own public key and private key by using SetPublicKey and SetPrivateKey (pass the path of *.xml or *.pem file)
 <br/>
 XML File
-<br/><br/>
+<br/>
 ```CS
 rsa.SetPublicKey(@"C:\PrivateKey.xml");
 rsa.SetPrivateKey(@"C:\PublicKey.xml");
 ```
-<br/><br/>
+<br/>
 PEM File
 <br/>
 ```CS
@@ -736,7 +736,7 @@ var decrypted = rsa.Decrypt(encrypted);
 
 
 ## Auxiliary Http
-<br/>
+<br/><br/>
 * Read()
 <br/>
 Fetch Requests (HttpRequestMessage) as List of object
@@ -749,7 +749,7 @@ Fetch Requests (HttpRequestMessage) as List of object
 var objectList = Request.Read()
 ```
 
-<br/>
+<br/><br/>
 * IsMobileRequest()
 <br/>
 Check the user request sent from mobile or not
@@ -767,12 +767,12 @@ if(AuxiliaryHttp.IsMobileRequest())
 
 
 ## Auxiliary Object Copier
-<br/>
+<br/><br/>
 * Clone()
+<br/>
 Perform a deep copy of the object via serialization.
 <br/>
 Be careful, The type must be serializable.
-<br/>
 <br/>
 => Parameters : T source
 <br/>
@@ -786,7 +786,7 @@ var clonedPerson = person.Clone();
 
 
 ## Auxiliary RestApi
-<br/>
+<br/><br/>
 * Send()
 <br/>
 Send your request with RestSharp
@@ -807,7 +807,7 @@ string output = AuxiliaryLibraries.AuxiliaryRestApi.Send(url, header, body, "POS
 var responseDTO = JsonConvert.DeserializeObject<ResponseDTO>(output);
 ```
 
-<br/>
+<br/><br/>
 * Send()
 <br/>
 Send your request with RestSharp
@@ -828,7 +828,7 @@ string output = AuxiliaryLibraries.AuxiliaryRestApi.Send(url, header, body, "POS
 var responseDTO = JsonConvert.DeserializeObject<ResponseDTO>(output);
 ```
 
-<br/>
+<br/><br/>
 * Send()
 <br/>
 Send your request with WebClient
@@ -851,7 +851,7 @@ var responseDTO = JsonConvert.DeserializeObject<ResponseDTO>(output);
 
 
 ## AuxiliaryZip
-<br/>
+<br/><br/>
 * Compress()
 <br/>
 Create a ZIP file of the files provided.
@@ -863,7 +863,7 @@ Create a ZIP file of the files provided.
 ```CS
 ```
 
-<br/>
+<br/><br/>
 * Compress()
 Compress entire folder by passing directory Path
 <br/>
@@ -874,7 +874,7 @@ Compress entire folder by passing directory Path
 ```CS
 ```
 
-<br/>
+<br/><br/>
 * Decompress()
 <br/>
 Decompress *.zip file, if pathIsDirectory pass as false. (One Zip file)
@@ -888,7 +888,7 @@ Decompress every *.zip files inside filder by passing directory Path, if pathIsD
 ```CS
 ```
   
-<br/>
+<br/><br/>
 * Decompress()
 <br/>
 Decompress *.zip file by passing FileInfo
@@ -906,7 +906,7 @@ otherwise it (if you pass newFileName as null, default value) the zip file extra
 
 
 ## Auxiliary IpAddress
-<br/>
+<br/><br/>
 * IsInRange()
 <br/>
 Return true, if ip is in the range of lowerRange and upperRange
