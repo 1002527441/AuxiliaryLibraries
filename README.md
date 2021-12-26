@@ -677,25 +677,30 @@ var rsa = new AuxiliaryEncryption.RSA(2048);
 You can use public key and private key and save them as *.xml or *.pem file by using functions :
 <br/>
 XML File
+<br/>
 ```CS
 rsa.SavePrivateKeyToXmlFile(@"C:\PrivateKey.xml");
 rsa.SavePublicKeyToXmlFile(@"C:\PublicKey.xml");
 ```
 <br/>
 PEM File
+<br/>
 ```CS
 rsa.SavePrivateKeyToPemFile(@"C:\PrivateKey.pem");
 rsa.SavePublicKeyToPemFile(@"C:\PublicKey.pem");
 ```
 <br/>
 You can also replace public key and private key by your own public key and private key by using SetPublicKey and SetPrivateKey (pass the path of *.xml or *.pem file)
+<br/>
 XML File
+<br/>
 ```CS
 rsa.SetPublicKey(@"C:\PrivateKey.xml");
 rsa.SetPrivateKey(@"C:\PublicKey.xml");
 ```
 <br/>
 PEM File
+<br/>
 ```CS
 rsa.SetPublicKey(@"C:\PrivateKey.pem");
 rsa.SetPrivateKey(@"C:\PublicKey.pem");
