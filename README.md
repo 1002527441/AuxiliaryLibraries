@@ -674,7 +674,8 @@ By creating an instance, public key and private key automatically will be genera
 var rsa = new AuxiliaryEncryption.RSA(2048);
 ```
 <br/>
-You can use public key and private key and save them as *.xml or *.pem file by using functions SavePublicKeyToXmlFile, SavePublicKeyToPemFile,SavePrivateKeyToXmlFile, and SavePrivateKeyToPemFile
+You can use public key and private key and save them as *.xml or *.pem file by using functions :
+<br/>
 XML File
 ```CS
 rsa.SavePrivateKeyToXmlFile(@"C:\PrivateKey.xml");
