@@ -115,7 +115,7 @@ namespace AuxiliaryLibraries
         {
             var index = filePath.LastIndexOf('.');
             if (index <= 0) return string.Empty;
-            var format = filePath.Substring(index, filePath.Length - 1);
+            var format = filePath.Substring(index, filePath.Length - index).Replace(".", string.Empty);
             return GetMimeTypeFromFileFormat(format);
         }
 

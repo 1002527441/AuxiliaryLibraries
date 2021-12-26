@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>AuxiliaryLibraries</id>
-    <version>1.2.7</version>
+    <version>1.2.8</version>
 	<title>Auxiliary libraries</title>
     <authors>AmiN Zamani</authors>
     <owners>AmiN Zamani</owners>
@@ -18,6 +18,7 @@
     <tags>REST, API, JSON, Extensions, File helper, Calendar, Persian, Ip, Encryption, Log, Queue, Zip, PriceModel</tags>
     <dependencies>
       <dependency id="RestSharp" version="105.2.3.0" />
+      <dependency id="BouncyCastle.Crypto" version="1.9.0.0" />
     </dependencies>
 	
 	<frameworkAssemblies>
@@ -45,5 +46,6 @@
   <files>
 		<file src="AuxiliaryLibraries\bin\Release\AuxiliaryLibraries.dll" target="lib\AuxiliaryLibraries.dll" />
 		<file src="AuxiliaryLibraries\bin\Release\AuxiliaryLibraries.xml" target="lib\AuxiliaryLibraries.xml" />
+		<file src="README.md" target="docs\" />
   </files>
 </package>

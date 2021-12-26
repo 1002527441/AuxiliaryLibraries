@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AuxiliaryLibraries;
+using System.IO;
 
 namespace TestUnits
 {
@@ -178,11 +179,56 @@ namespace TestUnits
         public void RSAEncrypttion()
         {
             var rsa = new AuxiliaryEncryption.RSA(2048);
-            rsa.SavePrivateKeyToXmlFile(@"D:\My Projects\Hamseda\Hamseda.Service\Model\ThirdPartyModel\AsanPardakht\SignKeys\PrivateKey.xml");
-            rsa.SavePublicKeyToXmlFile(@"D:\My Projects\Hamseda\Hamseda.Service\Model\ThirdPartyModel\AsanPardakht\SignKeys\PublicKey.xml");
+            var baseFolder = @"D:\My Projects\Hamseda\Hamseda.Service\Model\ThirdPartyModel\AsanPardakht\SignKeys\";
+            bool confXML = false, confPEM = true;
 
-            rsa.SavePrivateKeyToPemFile(@"D:\My Projects\Hamseda\Hamseda.Service\Model\ThirdPartyModel\AsanPardakht\SignKeys\PrivateKey.pem");
-            rsa.SavePublicKeyToPemFile(@"D:\My Projects\Hamseda\Hamseda.Service\Model\ThirdPartyModel\AsanPardakht\SignKeys\PublicKey.pem");
+            #region XML
+            if (confXML)
+            {
+                var _XmlPublicKeyPath = $@"{baseFolder}PublicKey.xml";
+                var _XmlPrivateKeyPath = $@"{baseFolder}PrivateKey.xml";
+                if (File.Exists(_XmlPublicKeyPath) && File.Exists(_XmlPrivateKeyPath))
+                {
+                    rsa.SetPublicKey(_XmlPublicKeyPath);
+                    rsa.SetPrivateKey(_XmlPrivateKeyPath);
+                }
+                else
+                {
+                    rsa.SavePrivateKeyToXmlFile(@"D:\My Projects\Hamseda\Hamseda.Service\Model\ThirdPartyModel\AsanPardakht\SignKeys\PrivateKey.xml");
+                    rsa.SavePublicKeyToXmlFile(@"D:\My Projects\Hamseda\Hamseda.Service\Model\ThirdPartyModel\AsanPardakht\SignKeys\PublicKey.xml");
+                }
+            }
+            #endregion
+
+            #region PEM
+            if (confPEM)
+            {
+                var _PemPublicKeyPath = $@"{baseFolder}PublicKey.pem";
+                var _PemPrivateKeyPath = $@"{baseFolder}PrivateKey.pem";
+                if (File.Exists(_PemPublicKeyPath) && File.Exists(_PemPrivateKeyPath))
+                {
+                    rsa.SetPublicKey(_PemPublicKeyPath);
+                    rsa.SetPrivateKey(_PemPrivateKeyPath);
+                }
+                else
+                {
+                    rsa.SavePrivateKeyToPemFile(_PemPublicKeyPath);
+                    rsa.SavePublicKeyToPemFile(_PemPrivateKeyPath);
+                }
+            }
+            #endregion
+
+            try
+            {
+                var txt = "Keeping in mind that every every character of that string is 1 byte, or 8 bits, in size (assuming ASCII/UTF8 encoding), we";
+                var encrypted = rsa.Encrypt(txt);
+                var decrypted = rsa.Decrypt(encrypted);
+                Assert.IsTrue(txt == decrypted);
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
         }
 
         [TestMethod]
