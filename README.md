@@ -664,7 +664,7 @@ var decrypted = aes.Decrypt(encrypted);
 
 ### RSA
 <br/>
-*Initialize
+* Initialize
 <br/>
 RSA Encryption
 <br/>
@@ -706,7 +706,7 @@ rsa.SetPublicKey(@"C:\PrivateKey.pem");
 rsa.SetPrivateKey(@"C:\PublicKey.pem");
 ```
 
-<br/>
+<br/><br/>
 * Encrypt()
 <br/>
 Encrypt your data, config (Sign, PrivateKey, PublicKey) of encyption is inside the constructor
