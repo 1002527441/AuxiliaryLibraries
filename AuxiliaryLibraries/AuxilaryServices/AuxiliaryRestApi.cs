@@ -26,7 +26,7 @@ namespace AuxiliaryLibraries
         /// <param name="userName">Username (This is optional)</param>
         /// <param name="password">Password (This is optional)</param>
         /// <returns>IRestResponse</returns>
-        public static IRestResponse Send(string baseUrl, string functionName, Method method, IDictionary<string, string> headers, IDictionary<string, object> parametersBody, string userName, string password)
+        public static IRestResponse Send(string baseUrl, string functionName, Method method, IDictionary<string, string> headers, IDictionary<string, object> parametersBody, string userName = null, string password = null)
         {
             try
             {
@@ -85,7 +85,7 @@ namespace AuxiliaryLibraries
         /// <param name="userName">Username (This is optional)</param>
         /// <param name="password">Password (This is optional)</param>
         /// <returns>IRestResponse</returns>
-        public static IRestResponse Send(string baseUrl, string functionName, Method method, IDictionary<string, string> headers, object body, string userName, string password)
+        public static IRestResponse Send(string baseUrl, Method method, IDictionary<string, string> headers, object body)
         {
             var client = new RestClient(baseUrl);
             var request = new RestRequest(method);
@@ -118,30 +118,22 @@ namespace AuxiliaryLibraries
         /// <param name="method">Method ("POST", "GET", "PUT", "PATCH", "DELETE", "COPY", "HEAD", "OPTIONS", "LINK", "UNLINK", "PURGE", "LOCK", "UNLOCK", "PROPFIND", "VIEW") default value is "GET"</param>
         /// <param name="contentLength">If you don't want to fill Content-Length leave containContentLength as fasle.</param>
         /// <returns>string</returns>
-        public static string Send(string url, IDictionary<string, string> headers, IDictionary<string, object> parametersBody, string method = "GET", bool contentLength = true)
+        public static string Send(string url, IDictionary<string, string> headers, IDictionary<string, object> parametersBody, Method method = Method.GET, bool contentLength = true)
         {
             try
             {
                 if (string.IsNullOrEmpty(url))
-                {
                     return "baseUrl could not be empty";
-                }
-                if(!new List<string>() { "POST", "GET", "PUT", "PATCH", "DELETE", "COPY", "HEAD", "OPTIONS", "LINK", "UNLINK", "PURGE", "LOCK", "UNLOCK", "PROPFIND", "VIEW" }.Contains(method.ToUpper()))
-                {
-                    return "method is not valid";
-                }
+                
+                var _method = GetMethod(method);
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 httpWebRequest.ContentType = "application/json";
                 httpWebRequest.Accept = "application/json";
-                httpWebRequest.Method = method;
+                httpWebRequest.Method = _method;
 
                 if (headers != null && parametersBody.Any())
-                {
                     foreach (var header in headers)
-                    {
                         httpWebRequest.Headers.Add(header.Key, header.Value);
-                    }
-                }
 
                 string json = GenerateBody(parametersBody);
                 if (!string.IsNullOrEmpty(json))
@@ -169,6 +161,14 @@ namespace AuxiliaryLibraries
             {
                 return e.ToString();
             }
+        }
+
+        private static string GetMethod(this Method method)
+        {
+            var _method = method.ToString();
+            if (!new List<string>() { "POST", "GET", "PUT", "PATCH", "DELETE", "COPY", "HEAD", "OPTIONS", "LINK", "UNLINK", "PURGE", "LOCK", "UNLOCK", "PROPFIND", "VIEW" }.Contains(_method.ToUpper()))
+                throw new Exception("Method is not valid");
+            return _method;
         }
 
         private static string GenerateBody(IDictionary<string, object> parametersBody)

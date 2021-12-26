@@ -2,6 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AuxiliaryLibraries;
 using System.IO;
+using Newtonsoft;
+using RestSharp;
 
 namespace TestUnits
 {
@@ -173,6 +175,20 @@ namespace TestUnits
             var b5 = str5.Length;
             var b6 = str6.Length;
             var b7 = str7.Length;
+        }
+
+        [TestMethod]
+        public void EncryptAES()
+        {
+            var key = "4352821A-787A-4982-9A41-B1EB003BE9A1";
+            var aes = new AuxiliaryEncryption.AES(key, System.Text.Encoding.UTF8);
+            aes.EncryptFile(@"C:\Test.jpg", @"C:\Test_EncryptFile.jpg");
+            
+            var encrypted = aes.Encrypt("Some Text");
+
+            aes.DecryptFile(@"C:\Test_EncryptFile.jpg", @"C:\Test_DecryptFile.jpg");
+
+            var decrypted = aes.Decrypt(encrypted);
         }
 
         [TestMethod]

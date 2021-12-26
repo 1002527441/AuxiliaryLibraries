@@ -14,7 +14,7 @@ namespace AuxiliaryLibraries
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static bool CreateFolderIfNeeded(string path)
+        public static bool CreateFolderIfNeeded(this string path)
         {
             bool result = true;
             if (!Directory.Exists(path))
@@ -33,12 +33,12 @@ namespace AuxiliaryLibraries
         }
 
         /// <summary>
-        /// Copy a Folder (including every file and folders in it) from 'sourcePath' to 'destinationPath'
+        /// Copy a Folder (including every files and sub folders in it) from 'sourcePath' to 'destinationPath'
         /// </summary>
         /// <param name="sourcePath"></param>
         /// <param name="destinationPath"></param>
         /// <returns></returns>
-        public static bool CopyFolder(string sourcePath, string destinationPath)
+        public static bool CopyFolder(this string sourcePath, string destinationPath)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace AuxiliaryLibraries
         /// <param name="sourcePath"></param>
         /// <param name="destinationPath"></param>
         /// <returns></returns>
-        public static bool CopyFile(string sourcePath, string destinationPath)
+        public static bool CopyFile(this string sourcePath, string destinationPath)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace AuxiliaryLibraries
         /// <param name="url"></param>
         /// <param name="destination"></param>
         /// <returns></returns>
-        public static bool Download(string url, string destination)
+        public static bool Download(this string url, string destination)
         {
             try
             {
