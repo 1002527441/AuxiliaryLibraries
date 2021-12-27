@@ -1,0 +1,3354 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AuxiliaryLibraries.Core</name>
+    </assembly>
+    <members>
+        <member name="T:AuxiliaryLibraries.Core.Attributes.AuxiliaryStringValidatorAttribute">
+            <summary>
+            This attribute checks the length of String. It checks also strings to be free of some illegal characters and words to prevent SQL injection.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Attributes.AuxiliaryStringValidatorAttribute.MaximumLength">
+            <summary>
+            The maximum of string length
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Attributes.AuxiliaryStringValidatorAttribute.MinimumLength">
+            <summary>
+            The minimum of string length
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Attributes.AuxiliaryStringValidatorAttribute.PropertyName">
+            <summary>
+            The property name
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Attributes.AuxiliaryStringValidatorAttribute.InvalidCharacters">
+            <summary>
+            Invalid Characters
+            </summary>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.Attributes.AuxiliaryStringValidatorAttribute.#ctor(System.Int32)">
+            <summary>
+            In constroctor of this class, must pass 'maximumLength', cause it is required to be checked.
+            </summary>
+            <param name="maximumLength"></param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.Attributes.AuxiliaryStringValidatorAttribute.FormatErrorMessage(System.String)">
+            <summary>
+            Return the error message
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.Attributes.AuxiliaryStringValidatorAttribute.IsValid(System.Object)">
+            <summary>
+            Check if string passes validations or not?
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.Attributes.AuxiliaryStringValidatorAttribute.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+             Replace Arabic characters with Persian ones, and replace all Persian and Arabic numbers to English numbers
+            </summary>
+            <param name="value"></param>
+            <param name="validationContext"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar">
+            <summary>
+            Persian calendar for convertin datetime
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.secondTicks">
+            <summary>
+            Second Ticks
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.minuteTicks">
+            <summary>
+            Minute Ticks
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.hourTicks">
+            <summary>
+            Hour Ticks
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.dayTicks">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.weekTicks">
+            <summary>
+            Week Ticks
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.monthTicks">
+            <summary>
+            Month Ticks
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.yearPattern">
+            <summary>
+            Year Pattern
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.monthPattern">
+            <summary>
+            Month Pattern
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.dayPattern">
+            <summary>
+            Day Pattern
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.hourPattern">
+            <summary>
+            Hour:Minute
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.dayOfTheWeekPattern">
+            <summary>
+            Day Of The Week Pattern
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.datePattern">
+            <summary>
+            Year-Month-Day Pattern
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.datetimePattern">
+            <summary>
+            Datetime pattern
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.utcDatetimePattern">
+            <summary>
+            Utc datetime pattern
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.mobileDatetimePattern">
+            <summary>
+            Valid Mobile Datetime Pattern
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.IranianTimeZone">
+            <summary>
+            Iranian Time Zone
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.PersianDatePattern">
+            <summary>
+            Persian Date Pattern
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.Seperators">
+            <summary>
+            Different Valid Separators
+            </summary>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.ToPersianDateTime(System.DateTime,System.Boolean,System.String)">
+            <summary>
+            Convert date time to persian (shamsi) date time
+            </summary>
+            <param name="dateTime">Miladi date time or Utc date time</param>
+            <param name="isUtc">If Date is utc send it True, the default valur is False</param>
+            <param name="delimiter">Separate Year,Month,Day with delimiter, the default valur is '/'</param>
+            <returns>Persian date as string</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.ToPersianDate(System.DateTime,System.Boolean,System.String)">
+            <summary>
+            Convert date time to persian (shamsi) date without time
+            </summary>
+            <param name="dateTime">Miladi date time or Utc date time</param>
+            <param name="isUtc">If Date is utc send it True, the default valur is False</param>
+            <param name="delimiter">Separate Year,Month,Day with delimiter, the default valur is '/'</param>
+            <returns>Persian date as string</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.ToPersianFullDateTime(System.DateTime,System.Boolean,System.String)">
+            <summary>
+            Convert date time to persian (shamsi) date time with Second and Millisecond
+            </summary>
+            <param name="dateTime">Miladi date time or Utc date time</param>
+            <param name="isUtc">If Date is utc send it True, the default valur is False</param>
+            <param name="delimiter">Separate Year,Month,Day with delimiter, the default valur is '/'</param>
+            <returns>Persian date as string</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.ConvertFromUTC(System.DateTime,System.TimeZoneInfo)">
+            <summary>
+            Convert Utc date time to Milidai date time and vise versa.
+            </summary>
+            <param name="dateTime">Utc date time</param>
+            <param name="destinationTimeZone">Time zone</param>
+            <returns>Miladi date time or UTC date time</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.BeginDate(System.DateTime,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Return a datetime as midnight time
+            </summary>
+            <param name="date">Milidai datetime</param>
+            <param name="hour">Default value is 0</param>
+            <param name="min">Default value is 0</param>
+            <param name="sec">Default value is 0</param>
+            <param name="mil">Default value is 0</param>
+            <returns>DateTime as midnight time</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.EndDate(System.DateTime,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Return a datetime as the end time of day (Tomorrow midnight, somehow)
+            </summary>
+            <param name="date">Milidai datetime</param>
+            <param name="hour">Default value is 23</param>
+            <param name="min">Default value is 59</param>
+            <param name="sec">Default value is 59</param>
+            <param name="mil">Default value is 999</param>
+            <returns>DateTime as end time of day</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.ToPrettyDate(System.DateTime,System.Boolean,System.Boolean)">
+            <summary>
+            Convert datetime to date as pretty format.
+            Samples:
+            Persian format = هجدهم آذر ماه 1395
+            Miladi format = Ninth of December 2016
+            </summary>
+            <param name="dateTime">Miladi date time or Utc date time</param>
+            <param name="isUtc">If Date is utc send it True, the default valur is False</param>
+            <param name="toPersian">If you want to convert to persian date send it true, and for miladi date send false. Default value is true</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.ToPrettyTime(System.DateTime,System.Boolean,System.Boolean)">
+            <summary>
+            Convert datetime to time as pretty format.
+            Samples:
+            Persian format = 18 دقیقه قبل
+            Miladi format = 18 minutes ago
+            </summary>
+            <param name="dateTime">Miladi date time or Utc date time</param>
+            <param name="isUtc">If Date is utc send it True, the default valur is False</param>
+            <param name="toPersian">If you want to convert to persian date send it true, and for miladi date send false. Default value is true</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.ToPrettyDateTime(System.DateTime,System.Boolean,System.Boolean)">
+            <summary>
+            Convert datetime to date as pretty format.
+            Samples:
+            Persian format = هجدهم آذر ماه 1395 ساعت 14:30
+            Miladi format = Ninth of December 2016 at 14:30
+            </summary>
+            <param name="dateTime">Miladi date time or Utc date time</param>
+            <param name="isUtc">If Date is utc send it True, the default valur is False</param>
+            <param name="toPersian">If you want to convert to persian date send it true, and for miladi date send false. Default value is true</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.ToPrettyDay(System.DateTime,System.Boolean,System.Boolean)">
+            <summary>
+            Convert datetime to time as pretty format.
+            Samples:
+            Persian format = امروز ، دیروز، فردا، 2 روز پیش، 5 هفته بعد
+            Miladi format = Today , Yesterday, Tomorrow, 2 days ago, 5 weeks later
+            </summary>
+            <param name="dateTime">Miladi date time or Utc date time</param>
+            <param name="isUtc">If Date is utc send it True, the default valur is False</param>
+            <param name="toPersian">If you want to convert to persian date send it true, and for miladi date send false. Default value is true</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.ToPrettyDayOfWeek(System.DateTime,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Convert datetime to day of the week as pretty format.
+            Samples:
+            Persian format is like = امروز ، دیروز ، فردا ، شنبه ، جمعه ، ...
+            Miladi format is like = Today , Yesterday , Tomorrow , Saturday , Friday, ...
+            </summary>
+            <param name="dateTime">Miladi date time or Utc date time</param>
+            <param name="isUtc">If Date is utc send it True, the default valur is False</param>
+            <param name="toPersian">If you want to convert to persian date send it true, and for miladi date send false. Default value is true</param>
+            <param name="dayNumber">If you chose persian date, it may need to return 1 شنبه, instead of یکشنبه. So set it true</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.DayOfWeek(System.DateTime,System.Boolean,System.Boolean)">
+            <summary>
+            Convert datetime to day of the week as pretty format.
+            Samples:
+            Persian format is like = شنبه ، یکشنبه ، دوشنبه ، سه شنبه، چهارشنبه ، پنجشنبه ، جمعه
+            Miladi format is like = Saturday , Sunday , Monday , Tuesday , Wednesday, Thursday, Friday
+            </summary>
+            <param name="dateTime">Miladi date time or Utc date time</param>
+            <param name="isUtc">If Date is utc send it True, the default valur is False</param>
+            <param name="toPersian">If you want to convert to persian date send it true, and for miladi date send false. Default value is true</param>
+            <param name="dayNumber">If you chose persian date, it may need to return 1 شنبه, instead of یکشنبه. So set it true</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.DayOfWeek(System.Int32,System.Boolean)">
+            <summary>
+            Get name of days in week by their number
+            </summary>
+            <param name="day"></param>
+            <param name="isPersian"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.DayOfWeek(System.String)">
+            <summary>
+            Return the index of day of week, you should pass one of saturday, sunday, monday, tuesday, wednesday, thursday, friday
+            </summary>
+            <param name="day"></param>
+            <returns>int</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.DayOfMonth(System.Int32,System.Boolean)">
+            <summary>
+            Get name of days in month by their number
+            </summary>
+            <param name="day"></param>
+            <param name="isPersian"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.Month(System.Int32,System.Boolean)">
+            <summary>
+            Return name of month by its index, if set the isPersian to true it'll return persian names and if the isPersian set to false it'll miladi names
+            </summary>
+            <param name="month"></param>
+            <param name="isPersian"></param>
+            <returns>string</returns> 
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.ToDateTime(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Convert persian date to miladi
+            If the passed value is not valid, it will return Datetime.Now
+            </summary>
+            <param name="year"></param>
+            <param name="month"></param>
+            <param name="day"></param>
+            <returns>DateTime</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.ToDateTime(System.String)">
+            <summary>
+            Convert persian date to miladi, you should pass a string by this format 1357-12-22.
+            Seperators sould be on if ('),(/),( ),(,)
+            First part should be 4 digits, second and third must be 2 digits
+            Smaples : 1300-01-01 , 1300/10/01 , 1300 08 23
+            If the passed value is not valid, it will return Datetime.Now
+            </summary>
+            <param name="persianDate"></param>
+            <returns>DateTime</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.GetFirstDayOfThisMonth(System.Boolean)">
+            <summary>
+            Get the first day of month Date
+            </summary>
+            <param name="isPersian"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.GetFirstDayOfThisWeek(System.Boolean)">
+            <summary>
+            Get the first day of month Date
+            </summary>
+            <param name="isPersian"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.GetNextNearestWeekday(System.DateTime,System.DayOfWeek)">
+            <summary>
+            Get Next Nearest day of Week 
+            </summary>
+            <param name="start"></param>
+            <param name="day"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryCalendar.GetFirstDayOfLastXDay(System.Int32,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="xDay">Must be less than 30</param>
+            <param name="isPersian"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryDirectoryFileHelper">
+            <summary>
+            AuxiliaryDirectoryFileHelper
+            </summary>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryDirectoryFileHelper.CreateFolderIfNeeded(System.String)">
+            <summary>
+            Create Folder If it doesn't Exist, if folder has already exists, it retuens true
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryDirectoryFileHelper.CopyFolder(System.String,System.String)">
+            <summary>
+            Copy a Folder (including every files and sub folders in it) from 'sourcePath' to 'destinationPath'
+            </summary>
+            <param name="sourcePath"></param>
+            <param name="destinationPath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryDirectoryFileHelper.CopyFile(System.String,System.String)">
+            <summary>
+            Copy a File from 'sourcePath' to 'destinationPath'
+            </summary>
+            <param name="sourcePath"></param>
+            <param name="destinationPath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryDirectoryFileHelper.Download(System.String,System.String)">
+            <summary>
+            Download a file by its 'url' and save it to 'destination'
+            </summary>
+            <param name="url"></param>
+            <param name="destination"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryDirectoryFileHelper.IsImage(System.String)">
+            <summary>
+            Undrasting this file is image or not
+            </summary>
+            <param name="contentType">Your file</param>
+            <returns>If the file be png, jpeg, gif, bmp or icon, it will return true.</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryDirectoryFileHelper.GetMimeTypeFromFilePath(System.String)">
+            <summary>
+            Get Mime Type From File Path
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryDirectoryFileHelper.GetMimeTypeFromFileFormat(System.String)">
+            <summary>
+            Get Mime Type From File Format
+            </summary>
+            <param name="format"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption">
+            <summary>
+            Auxiliary Encryption
+            </summary>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.#ctor">
+            <summary>
+            Auxiliary Encryption
+            </summary>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.RC4">
+            <summary>
+            RC4 Encryption
+            </summary>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.RC4.Encrypt(System.String,System.String)">
+            <summary>
+            Encrypt your data with key
+            </summary>
+            <param name="key">key</param>
+            <param name="data">data</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.RC4.Encrypt(System.String,System.String,System.Text.Encoding,System.Boolean)">
+            <summary>
+            Encrypt your data with key and encoding
+            </summary>
+            <param name="key"></param>
+            <param name="data"></param>
+            <param name="encoding"></param>
+            <param name="skipZero"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.RC4.Decrypt(System.String,System.String)">
+            <summary>
+            Decrypt your data with key
+            </summary>
+            <param name="key">key</param>
+            <param name="data">data</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.RC4.Decrypt(System.String,System.String,System.Text.Encoding,System.Boolean)">
+            <summary>
+            Decrypt your data with key and encoding
+            </summary>
+            <param name="key"></param>
+            <param name="data"></param>
+            <param name="encoding"></param>
+            <param name="skipZero"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.EncryptionMode">
+            <summary>
+            Encryption Mode
+            On File enctyption, specificlly on AES, you should choose the mode
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.EncryptionMode.Bytes">
+            <summary>
+            Read all files using File.ReadAllBytes
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.EncryptionMode.Encoding">
+            <summary>
+            Read all files using File.ReadAllText and Encoding
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.EncryptionMode.FileStream">
+            <summary>
+            Read all files using FileStream
+            </summary>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.AES">
+            <summary>
+            AES Encryption
+            </summary>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.AES.#ctor(System.String)">
+            <summary>
+            AES Constructor
+            </summary>
+            <param name="passphrase"></param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.AES.#ctor(System.String,System.Text.Encoding,System.Security.Cryptography.PaddingMode,System.Security.Cryptography.CipherMode,System.Int32,System.Int32,AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.EncryptionMode)">
+            <summary>
+            AES Constructor
+            </summary>
+            <param name="passphrase"></param>
+            <param name="_encoding"></param>
+            <param name="_paddingMode"></param>
+            <param name="_cipherMode"></param>
+            <param name="_keySize"></param>
+            <param name="_blockSize"></param>
+            <param name="_encryptionMode"></param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.AES.EncryptFile(System.String,System.String)">
+            <summary>
+            EncryptFile
+            </summary>
+            <param name="inputFile"></param>
+            <param name="outputFile"></param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.AES.Encrypt(System.String)">
+            <summary>
+            Encrypt a plain Text to an Encrypted Text
+            </summary>
+            <param name="plainText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.AES.EncryptToBytes(System.String)">
+            <summary>
+            Encrypt plain Text to an Encrypted Byte Array
+            </summary>
+            <param name="plainText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.AES.EncryptAsBase64(System.Byte[])">
+            <summary>
+            EncryptAsBase64
+            </summary>
+            <param name="clearData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.AES.Encrypt(System.Byte[])">
+            <summary>
+            Encrypt
+            </summary>
+            <param name="bytesToEncrypt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.AES.EncodeDigest(System.String)">
+            <summary>
+            EncodeDigest
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.AES.DecryptFile(System.String,System.String)">
+            <summary>
+            DecryptFile
+            </summary>
+            <param name="inputFile"></param>
+            <param name="outputFile"></param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.AES.Decrypt(System.String)">
+            <summary>
+            Decrypt 
+            </summary>
+            <param name="strtoencrypt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.AES.Decrypt(System.Byte[])">
+            <summary>
+            Decrypt
+            </summary>
+            <param name="encryptedData"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.RSA">
+            <summary>
+            RSA Encryption
+            By creating an instance, public key and private key automatically will be generated by default
+            You can ethier use them and save them as *.xml or *.pem file by using functions SavePublicKeyToXmlFile, SavePublicKeyToPemFile,SavePrivateKeyToXmlFile, and SavePrivateKeyToPemFile
+            You can also replace them by your own public key and private key by using SetPublicKey and SetPrivateKey (pass the path of *.xml or *.pem file)
+            </summary>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.RSA.#ctor(System.Int32,System.Security.Cryptography.CspParameters)">
+            <summary>
+            Initializes a new instance of the System.Security.Cryptography.RSACryptoServiceProvider class with
+            the specified key size,
+            the specified parameters,
+            and the specified rsaEncryptionKeys.
+            </summary>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.RSA.SetPublicKey(System.String)">
+            <summary>
+            coverting a string representation into the public key (converting it back)
+            </summary>
+            <returns>void</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.RSA.SavePublicKeyToXmlFile(System.String)">
+            <summary>
+            Converting the public key into a string representation
+            Save the public key to a file.
+            It is better to pass the path as a XML file.
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.RSA.SavePublicKeyToPemFile(System.String)">
+            <summary>
+            Converting the public key into a string representation
+            Save the public key to a file.
+            It is better to pass the path as a PEM file.
+            https://stackoverflow.com/questions/28406888/c-sharp-rsa-public-key-output-not-correct/28407693#28407693
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.RSA.SetPrivateKey(System.String)">
+            <summary>
+            coverting a string representation into the private key (converting it back)
+            </summary>
+            <returns>void</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.RSA.SavePrivateKeyToXmlFile(System.String)">
+            <summary>
+            Converting the private key into a string representation
+            Save the private key to a file.
+            It is better to pass the path as a XML file.
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.RSA.SavePrivateKeyToPemFile(System.String)">
+            <summary>
+            Converting the private key into a string representation
+            Save the private key to a file.
+            It is better to pass the path as a PEM file.
+            https://stackoverflow.com/questions/23734792/c-sharp-export-private-public-rsa-key-from-rsacryptoserviceprovider-to-pem-strin
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.RSA.Encrypt(System.String)">
+            <summary>
+            Encrypt
+            </summary>
+            <param name="plainText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.RSA.Decrypt(System.String)">
+            <summary>
+            Decrypt
+            </summary>
+            <param name="cypherText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.RSA.Sign(System.String,System.String)">
+            <summary>
+            Sign the data using the Smart Card CryptoGraphic Provider.
+            </summary>
+            <param name="content"></param>
+            <param name="privateKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEncryption.RSA.Verify(System.String,System.String)">
+            <summary>
+            Verify the data using the Smart Card CryptoGraphic Provider.
+            </summary>
+            <param name="content"></param>
+            <param name="sign"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEnumExtension">
+            <summary>
+            Auxiliary Encryption
+            </summary>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEnumExtension.ToInt(System.Enum)">
+            <summary>
+            Convert Enum to int
+            </summary>
+            <param name="enumValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEnumExtension.GetDescription``1(``0)">
+            <summary>
+            Get Enum Description
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="e"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEnumExtension.GetEnumList``1">
+            <summary>
+            Get List of Enum
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryEnumExtension.GetValueFromDescription``1(System.String)">
+            <summary>
+            Get Enum value by its Description
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="description"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions">
+            <summary>
+            Persian and arabic characters, numbers, currency.
+            Email, cellnumber and nationalId validation
+            Verify or generate words as password(MD5)
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.FA_CHARS">
+            <summary>
+            Persian alphabet
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.SizeSuffixes">
+            <summary>
+            English Size Suffixes
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.PersianSizeSuffixes">
+            <summary>
+            Persian Size Suffixes
+            </summary>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.IsEnglish(System.String)">
+            <summary>
+            If the term be English, it will return True
+            </summary>
+            <param name="term">Considered word</param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToPersianNumber(System.String)">
+            <summary>
+            Convert English numbers To Persian numbers
+            </summary>
+            <param name="number">Numbers as string</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToPersianNumber(System.Int32,System.Boolean)">
+            <summary>
+            Convert English numbers To Persian numbers
+            </summary>
+            <param name="number">Numbers as string</param>
+            <param name="isMoney">Is numbers money</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToEnglishNumber(System.String)">
+            <summary>
+            Convert Persian number to English numbers
+            </summary>
+            <param name="number">Numbers as string</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToPersianNumbers(System.String)">
+            <summary>
+            Replace all Arabic and English numbers to Persian numbers
+            </summary>
+            <param name="number"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToArabicNumbers(System.String)">
+            <summary>
+            Replace all Persian and English numbers to Arabic numbers
+            </summary>
+            <param name="number"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToEnglishNumbers(System.String)">
+            <summary>
+            Replace all Persian and Arabic numbers to English numbers
+            </summary>
+            <param name="number"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToPersianLetters(System.String)">
+            <summary>
+            Replace Arabic characters to Persian
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToPersianLetters(System.Int32)">
+            <summary>
+            Convert Number To Persian Letters
+            </summary>
+            <param name="number"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToPersianLetters(System.Int64)">
+            <summary>
+            Convert Number To Persian Letters
+            </summary>
+            <param name="number"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.EqualIgnoreCase(System.String,System.String)">
+            <summary>
+            Ignorance Case Sensitive in comparison
+            "firstString".EqualIgnoreCase(secondString)
+            </summary>
+            <param name="firstString"></param>
+            <param name="secondString"></param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ContainsIgnoreCase(System.Collections.Generic.List{System.String},System.String)" -->
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.NormalizeMobileNumber(System.String,System.String)">
+            <summary>
+            Normalize mobile number as Iranian mobile number (989*********).
+            You can pass '+98', '98' or '0' on 'startWith'. Def
+            If phone number is not valid, it will return number itself.
+            </summary>
+            <param name="number">Phone number</param>
+            <param name="startWith">Phone number will be start with 'startWith' parameter</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.IsNationalIdValid(System.String)">
+            <summary>
+            Check validity of Iranian national identity 
+            </summary>
+            <param name="nationalId">national Identity</param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.IsEmailValid(System.String)">
+            <summary>
+            Check validity of email format
+            </summary>
+            <param name="email">Email</param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.IsCellNumberValid(System.String)">
+            <summary>
+            Check validity of iranian mobile number format
+            </summary>
+            <param name="number">Mobile number</param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.IsPhoneNumberValid(System.String)">
+            <summary>
+            Check validity of iranian (Urban telephone) phone number format
+            </summary>
+            <param name="number">Mobile number</param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.IsShebaValid(System.String)">
+            <summary>
+            Validate sheba number 
+            </summary>
+            <param name="sheba">should contain IR</param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.GetMd5(System.String)">
+            <summary>
+            Convert 'input' to MD5
+            </summary>
+            <param name="input">Everything</param>
+            <returns>string</returns>
+            <returns>string</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.CalculateMD5Hash(System.String)">
+            <summary>
+            Calculate MD5 hash from input
+            </summary>
+            <param name="input">input</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.VerifyMd5Hash(System.Security.Cryptography.MD5,System.String,System.String)">
+            <summary>
+            Verify Md5 Hash
+            </summary>
+            <param name="md5Hash">Md5 Hash</param>
+            <param name="input">input</param>
+            <param name="hash">hash</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.VerifyPassword(System.String,System.String,AuxiliaryLibraries.Core.Enums.EncryptType)">
+            <summary>
+            Verift the password with hash
+            Be careful to pass password as first parameter and hash as the second.
+            type contains the encryption type, and the default value is SHA1
+            </summary>
+            <param name="password"></param>
+            <param name="hash"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.Hash(System.String,AuxiliaryLibraries.Core.Enums.EncryptType)">
+            <summary>
+            Convert text to hash
+            type contains the encryption type, and the default value is SHA1
+            </summary>
+            <param name="text"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.GetRandomPassword(System.Int32,System.Boolean)">
+            <summary>
+            Get Random Password
+            </summary>
+            <param name="len"></param>
+            <param name="isNumberic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.EncriptSHA1(System.String)">
+            <summary>
+            Encript term as SHA1
+            </summary>
+            <param name="term"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.EncriptSHA1(System.String,System.Text.Encoding)">
+            <summary>
+            Encript term as SHA1
+            </summary>
+            <param name="term"></param>
+            <param name="encoding"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.Base64Encode(System.String,System.Text.Encoding)">
+            <summary>
+            Encode plainText to Base64String
+            </summary>
+            <param name="plainText"></param>
+            <param name="encoding"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.Base64Decode(System.String)">
+            <summary>
+            Decode base64EncodedData from Base64String
+            </summary>
+            <param name="base64EncodedData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.AsciiEncode(System.String)">
+            <summary>
+            Encode plainText to ASCII
+            </summary>
+            <param name="plainText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.AsciiDecode(System.String)">
+            <summary>
+            Decode asciiEncodedData from ASCII
+            </summary>
+            <param name="asciiEncodedData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToCommaDelimited(System.Int32,System.String,System.Int32)">
+            <summary>
+            Convert price to string and Seperate it by separator
+            </summary>
+            <param name="number"></param>
+            <param name="separator"></param>
+            <param name="separatedSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToCommaDelimited(System.Int64,System.String,System.Int32)">
+            <summary>
+            Convert number to string and Seperate it by separator
+            </summary>
+            <param name="number"></param>
+            <param name="separator"></param>
+            <param name="separatedSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToCommaDelimited(System.Single,System.String,System.Int32,System.Boolean)">
+            <summary>
+            Convert number to string and Seperate it by separator
+            </summary>
+            <param name="number"></param>
+            <param name="separator"></param>
+            <param name="separatedSize"></param>
+            <param name="seperatorRtlAlign"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToCommaDelimited(System.Double,System.String,System.Int32,System.Boolean)">
+            <summary>
+            Convert number to string and Seperate it by separator
+            </summary>
+            <param name="number"></param>
+            <param name="separator"></param>
+            <param name="separatedSize"></param>
+            <param name="seperatorRtlAlign"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToCommaDelimited(System.Decimal,System.String,System.Int32,System.Boolean)">
+            <summary>
+            Convert number to string and Seperate it by separator
+            </summary>
+            <param name="number"></param>
+            <param name="separator"></param>
+            <param name="separatedSize"></param>
+            <param name="seperatorRtlAlign"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToMoney(System.Int32,AuxiliaryLibraries.Core.Enums.Currency,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="baseCurrency">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToToman(System.Int32,AuxiliaryLibraries.Core.Enums.Currency,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="baseCurrency">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToToman(System.Int64,AuxiliaryLibraries.Core.Enums.Currency,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="baseCurrency">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToToman(System.Single,AuxiliaryLibraries.Core.Enums.Currency,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="baseCurrency">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToToman(System.Double,AuxiliaryLibraries.Core.Enums.Currency,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="baseCurrency">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToToman(System.Decimal,AuxiliaryLibraries.Core.Enums.Currency,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="baseCurrency">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToRial(System.Int32,AuxiliaryLibraries.Core.Enums.Currency,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="baseCurrency">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToRial(System.Int64,AuxiliaryLibraries.Core.Enums.Currency,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="baseCurrency">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToRial(System.Single,AuxiliaryLibraries.Core.Enums.Currency,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="baseCurrency">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToRial(System.Double,AuxiliaryLibraries.Core.Enums.Currency,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="baseCurrency">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToRial(System.Decimal,AuxiliaryLibraries.Core.Enums.Currency,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="baseCurrency">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToBTC(System.Single,System.Boolean,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="metricSystem">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToUSD(System.Single,System.Boolean,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="metricSystem">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToUSDT(System.Single,System.Boolean,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="metricSystem">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToGBP(System.Single,System.Boolean,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="metricSystem">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToEUR(System.Single,System.Boolean,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="metricSystem">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToBTC(System.Double,System.Boolean,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="metricSystem">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToUSD(System.Double,System.Boolean,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="metricSystem">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToUSDT(System.Double,System.Boolean,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="metricSystem">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToGBP(System.Double,System.Boolean,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="metricSystem">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToEUR(System.Double,System.Boolean,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="metricSystem">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToBTC(System.Decimal,System.Boolean,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="metricSystem">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToUSD(System.Decimal,System.Boolean,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="metricSystem">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToUSDT(System.Decimal,System.Boolean,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="metricSystem">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToGBP(System.Decimal,System.Boolean,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="metricSystem">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToEUR(System.Decimal,System.Boolean,System.Boolean)">
+            <summary>
+             Convert price to AuxiliaryPriceModel
+             AuxiliaryPriceModel includes Price iteself, Short Format of price, Price Currency, and the pretty format of price.
+            </summary>
+            <param name="price">The price you need to convert</param>
+            <param name="metricSystem">The currency of price parameter</param>
+            <param name="setZeroAsFree">If number is Zero, set it as Free or Zero</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToUnixTimestamp(System.DateTime)">
+            <summary>
+            Convert DateTime to TimeStamp
+            Unix time is a system for describing a point in time. It is the number of seconds that have elapsed since the Unix epoch, that is the time 00:00:00 UTC on 1 January 1970, minus leap seconds.
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.SolrDate(System.DateTime)">
+            <summary>
+            Convert date to solr date format
+            </summary>
+            <param name="date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.FromTimeStampToDateTime(System.Int64,System.DateTimeKind)">
+            <summary>
+            Convert TimeStamp to DateTime
+            </summary>
+            <param name="timeStamp"></param>
+            <param name="dateTimeKind"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToMobileDateTime(System.DateTime)">
+            <summary>
+            Convert datetime to mobile datetime format
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToDateTimeFormat(System.DateTime,System.String)">
+            <summary>
+            Convert DateTime to any other format
+            </summary>
+            <param name="dateTime"></param>
+            <param name="format"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.NormalizePersianDate(System.String)">
+            <summary>
+            Normalize Persian Date
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToPrettySize(System.Int64,System.Int32,System.Boolean)">
+            <summary>
+            ToPrettySize helps you to get size of files as a pereety format
+            1) 512 MG
+            2) 512 مگابایت
+            </summary>
+            <param name="value"></param>
+            <param name="decimalPlaces"></param>
+            <param name="toPersian"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.Equals(System.String,System.String,System.StringComparison)">
+            <summary>
+            Conpare first and last is Equal or not
+            https://stackoverflow.com/questions/6371150/comparing-two-strings-ignoring-case-in-c-sharp
+            </summary>
+            <param name="first"></param>
+            <param name="last"></param>
+            <param name="stringComparison"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.TakeChunk(System.String,System.Int32)">
+            <summary>
+            Take chunk of text about 'length' characters
+            </summary>
+            <param name="text">Considered word</param>
+            <param name="length">Considered length</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.Split(System.String,System.Int32)">
+            <summary>
+            Splitting a string into chunks of a certain size
+            </summary>
+            <param name="text">Considered word</param>
+            <param name="chunkSize">Considered length</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.FillTemplate(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Fill replacementDic inside template, this function is used especially for creating email template 
+            </summary>
+            <param name="template">Email template, etc</param>
+            <param name="replacementDic">Informations</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToInt32(System.String)">
+            <summary>
+            This function extracts from the text just digits.
+            If you pass text something like that = "salam 123 o4k5", it will return just 12345 as int
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToTowDigits(System.Int32)">
+            <summary>
+            If yor number is less than 10, it will put a zero before it.
+            For example if the number is 1, it will return "01", ...
+            </summary>
+            <param name="number"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.Reverse(System.String)">
+            <summary>
+            Reverse the term
+            </summary>
+            <param name="term"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.AnalyseFileName(System.String,System.String@,System.String@,System.String@)">
+            <summary>
+            Return mimeType, format, basePath and name of the file
+            </summary>
+            <param name="fileName"></param>
+            <param name="format"></param>
+            <param name="basePath"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.Percent(System.Int64,System.Int64)">
+            <summary>
+            Retuen current what percent maximum as double
+            </summary>
+            <param name="current"></param>
+            <param name="maximum"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.HtmlDecoder(System.String)">
+            <summary>
+            Decode term as html encoder
+            </summary>
+            <param name="term"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToListLong(System.String,System.Char)">
+            <summary>
+            If you pass "2,3,5,6,8,2,6,1" return a list of long which is contains { 2,3,5,6,8,2,6,1 }
+            delimiter can be any character
+            </summary>
+            <param name="term"></param>
+            <param name="separator"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToListInt(System.String,System.Char)">
+            <summary>
+            If you pass "2,3,5,6,8,2,6,1" return a list of int which is contains { 2,3,5,6,8,2,6,1 }
+            delimiter can be any character
+            </summary>
+            <param name="term"></param>
+            <param name="separator"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryExtensions.ToBooleanOrDefault(System.String,System.Boolean)">
+            <summary>
+            Convert object to boolean
+            </summary>
+            <param name="term"></param>
+            <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryIpAddress">
+            <summary>
+            AuxiliaryIpAddress helps you to work with IPs
+            </summary>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryIpAddress.GetClientIp(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            Get real client IP from request
+            </summary>
+            <param name="request">HttpRequestMessage</param>
+            <returns>IPAddress</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryIpAddress.GetLocalIPAddress">
+            <summary>
+            You can get Local IP Address
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryIpAddress.IsInRange(System.Net.IPAddress,System.Net.IPAddress,System.Net.IPAddress)">
+            <summary>
+            Return true, if ip is in the range of lowerRange and upperRange
+            </summary>
+            <param name="ip">Current IP</param>
+            <param name="lowerRange">Lowest IP range</param>
+            <param name="upperRange">Uppest IP range</param>
+            <returns>bool</returns>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryLog">
+            <summary>
+            AuxiliaryLog helps you to log texts, to a *.log file
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryLog.DefaultLogPath">
+            <summary>
+            Default Log Path
+            </summary>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryLog.Log(System.Exception,System.String)">
+            <summary>
+            "Log" saves Exception
+            You can call Log multiple times, and texts every time appends to the one log file
+            If you don't path log file path, it saves inside the bin folder
+            </summary>
+            <param name="ex"></param>
+            <param name="path"></param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryLog.Log(System.String,System.String)">
+            <summary>
+            Log save text inside the path
+            You can call Log multiple times, and pass the same path, texts every time appends to the one log file
+            </summary>
+            <param name="text"></param>
+            <param name="path"></param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryLog.LogToNewFile(System.String,System.String)">
+            <summary>
+            LogToNewFile saves text
+            If you don't path log file path, it saves inside the bin folder
+            </summary>
+            <param name="text"></param>
+            <param name="path"></param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryLog.Read(System.String)">
+            <summary>
+            You can read log files by Read
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryObjectCopier">
+            <summary>
+            Reference Article http://www.codeproject.com/KB/tips/SerializedObjectCloner.aspx
+            Reference Article https://stackoverflow.com/questions/78536/deep-cloning-objects
+            Provides a method for performing a deep copy of an object.
+            Binary Serialization is used to perform the copy.
+            </summary>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryObjectCopier.Clone``1(``0)">
+            <summary>
+            Perform a deep copy of the object via serialization.
+            </summary>
+            <typeparam name="T">The type of object being copied.</typeparam>
+            <param name="source">The object instance to copy.</param>
+            <returns>A deep copy of the object.</returns>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1">
+            <summary>
+            Convert some currenciesto to some others inculding Iranian currency
+            https://fa.wikipedia.org/wiki/%D9%BE%DB%8C%D8%B4%D9%88%D9%86%D8%AF%D9%87%D8%A7%DB%8C_%D8%A7%D8%B3%E2%80%8C%D8%A2%DB%8C
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1.powers">
+            <summary>
+            powers
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1._sourceCurrency">
+            <summary>
+            Source Currency
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1._destinationCurrency">
+            <summary>
+            Destination Currency
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1._realPrice">
+            <summary>
+            Real Price
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1._price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1._PriceShortFormat">
+            <summary>
+            Price Short Format
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1.Price">
+            <summary>
+            The Price
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1.PriceShortFormat">
+            <summary>
+            Price Short Format
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1.PriceCurrency">
+            <summary>
+            Price Currency
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1.PriceFormat">
+            <summary>
+            Price Format
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1.CurrencyDescription">
+            <summary>
+            Currency
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1.PriceDescription">
+            <summary>
+            Price Description
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1.PriceCommaDeLimited">
+            <summary>
+            Price Comma DeLimited
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1.PriceCommaDeLimitedDescription">
+            <summary>
+            Price Comma DeLimited Description
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1.MetricSystem">
+            <summary>
+            Metric System
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1.SetZeroAsFree">
+            <summary>
+            Set Zero As Free
+            </summary>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1.SetPersianCurrency(AuxiliaryLibraries.Core.Enums.Currency,AuxiliaryLibraries.Core.Enums.Currency,System.Boolean)">
+            <summary>
+            Change Toman To Rial or vice versa
+            </summary>
+            <param name="priceBaseCurrency"></param>
+            <param name="priceTargetCurrency"></param>
+            <returns></returns>
+            <param name="metricSystem">If you need to receive the price as Mili, Micro, Nano, and ... set it as true</param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1.Calculate(`0,System.Boolean)">
+            <summary>
+            The main Function
+            Convert price either Toman or Rial to other formats of Iranian currency
+            </summary>
+            <param name="price"></param>
+            <param name="metricSystem">If you need to receive the price as Mili, Micro, Nano, and ... set it as true</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1.CalculateIntegers(`0,System.Int32,`0@,System.String@,System.String@,System.Boolean)">
+            <summary>
+            Calculate Integers
+            </summary>
+            <param name="price"></param>
+            <param name="power"></param>
+            <param name="priceShortFormat"></param>
+            <param name="priceCurrency"></param>
+            <param name="priceDescriptyion"></param>
+            <param name="metricSystem"></param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1.CalculateDecimals(`0,System.Int32,System.Int32,`0@,System.String@,System.String@,System.Boolean)">
+            <summary>
+            Calculate Decimals
+            </summary>
+            <param name="price"></param>
+            <param name="power"></param>
+            <param name="priceShortFormat"></param>
+            <param name="priceCurrency"></param>
+            <param name="priceDescriptyion"></param>
+            <param name="metricSystem"></param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1.Round(`0,System.Double,System.Int32)">
+            <summary>
+            Round
+            </summary>
+            <param name="price"></param>
+            <param name="powerd"></param>
+            <param name="power"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1.GetPriceCurrency(System.Int32,System.Boolean)">
+            <summary>
+            Get Price Currency
+            </summary>
+            <param name="power"></param>
+            <param name="metricSystem"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryBasicPriceModel`1.GetCurrencyDescription(AuxiliaryLibraries.Core.Enums.Currency)">
+            <summary>
+            Get Currency Description
+            </summary>
+            <param name="currency"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryDecimalPriceModel">
+            <summary>
+            Convert some currenciesto to some others inculding Iranian currency
+            Worjing with double
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryDecimalPriceModel.Price">
+            <summary>
+            The Price
+            </summary>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryDecimalPriceModel.#ctor(System.Decimal,AuxiliaryLibraries.Core.Enums.Currency,AuxiliaryLibraries.Core.Enums.Currency,System.Boolean,System.Boolean)">
+            <summary>
+            Pass price as a value to constructor
+            </summary>
+            <param name="price"></param>
+            <param name="priceBaseCurrency">If the price value which you passed is Rial set it "Rial", otherwise pass it as "Toman"</param>
+            <param name="priceTargetCurrency">If you need to receive the price as Toman set it "Toman", otherwise pass it as "Rial"</param>
+            <param name="metricSystem">If you need to receive the price as Mili, Micro, Nano, and ... set it as true</param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryDecimalPriceModel.Calculate(System.Decimal,System.Boolean)">
+            <summary>
+            The main Function
+            Convert price either Toman or Rial to other formats of Iranian currency
+            </summary>
+            <param name="price"></param>
+            <param name="metricSystem">If you need to receive the price as Mili, Micro, Nano, and ... set it as true</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryDecimalPriceModel.CalculateIntegers(System.Decimal,System.Int32,System.Decimal@,System.String@,System.String@,System.Boolean)">
+            <summary>
+            Calculate Integers
+            </summary>
+            <param name="price"></param>
+            <param name="power"></param>
+            <param name="priceShortFormat"></param>
+            <param name="priceCurrency"></param>
+            <param name="priceDescriptyion"></param>
+            <param name="metricSystem"></param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryDecimalPriceModel.CalculateDecimals(System.Decimal,System.Int32,System.Int32,System.Decimal@,System.String@,System.String@,System.Boolean)">
+            <summary>
+            Calculate Decimals
+            </summary>
+            <param name="price"></param>
+            <param name="power"></param>
+            <param name="priceShortFormat"></param>
+            <param name="priceCurrency"></param>
+            <param name="priceDescriptyion"></param>
+            <param name="metricSystem"></param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryDecimalPriceModel.Round(System.Decimal,System.Double,System.Int32)">
+            <summary>
+            Round
+            </summary>
+            <param name="price"></param>
+            <param name="powerd"></param>
+            <param name="power"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryDoublePriceModel">
+            <summary>
+            Convert some currenciesto to some others inculding Iranian currency
+            Worjing with double
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryDoublePriceModel.Price">
+            <summary>
+            The Price
+            </summary>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryDoublePriceModel.#ctor(System.Double,AuxiliaryLibraries.Core.Enums.Currency,AuxiliaryLibraries.Core.Enums.Currency,System.Boolean,System.Boolean)">
+            <summary>
+            Pass price as a value to constructor
+            </summary>
+            <param name="price"></param>
+            <param name="priceBaseCurrency">If the price value which you passed is Rial set it "Rial", otherwise pass it as "Toman"</param>
+            <param name="priceTargetCurrency">If you need to receive the price as Toman set it "Toman", otherwise pass it as "Rial"</param>
+            <param name="metricSystem">If you need to receive the price as Mili, Micro, Nano, and ... set it as true</param>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryFloatPriceModel">
+            <summary>
+            Convert some currenciesto to some others inculding Iranian currency
+            Worjing with double
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryFloatPriceModel.Price">
+            <summary>
+            The Price
+            </summary>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryFloatPriceModel.#ctor(System.Single,AuxiliaryLibraries.Core.Enums.Currency,AuxiliaryLibraries.Core.Enums.Currency,System.Boolean,System.Boolean)">
+            <summary>
+            Pass price as a value to constructor
+            </summary>
+            <param name="price"></param>
+            <param name="priceBaseCurrency">If the price value which you passed is Rial set it "Rial", otherwise pass it as "Toman"</param>
+            <param name="priceTargetCurrency">If you need to receive the price as Toman set it "Toman", otherwise pass it as "Rial"</param>
+            <param name="metricSystem">If you need to receive the price as Mili, Micro, Nano, and ... set it as true</param>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryIntPriceModel">
+            <summary>
+            Convert some currenciesto to some others inculding Iranian currency
+            Worjing with double
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryIntPriceModel.Price">
+            <summary>
+            The Price
+            </summary>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryIntPriceModel.#ctor(System.Int32,AuxiliaryLibraries.Core.Enums.Currency,AuxiliaryLibraries.Core.Enums.Currency,System.Boolean,System.Boolean)">
+            <summary>
+            Pass price as a value to constructor
+            </summary>
+            <param name="price"></param>
+            <param name="priceBaseCurrency">If the price value which you passed is Rial set it "Rial", otherwise pass it as "Toman"</param>
+            <param name="priceTargetCurrency">If you need to receive the price as Toman set it "Toman", otherwise pass it as "Rial"</param>
+            <param name="metricSystem">If you need to receive the price as Mili, Micro, Nano, and ... set it as true</param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryIntPriceModel.Calculate(System.Int32,System.Boolean)">
+            <summary>
+            The main Function
+            Convert price either Toman or Rial to other formats of Iranian currency
+            </summary>
+            <param name="price"></param>
+            <param name="metricSystem">If you need to receive the price as Mili, Micro, Nano, and ... set it as true</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryIntPriceModel.CalculateIntegers(System.Int32,System.Int32,System.Int32@,System.String@,System.String@,System.Boolean)">
+            <summary>
+            Calculate Integers
+            </summary>
+            <param name="price"></param>
+            <param name="power"></param>
+            <param name="priceShortFormat"></param>
+            <param name="priceCurrency"></param>
+            <param name="priceDescriptyion"></param>
+            <param name="metricSystem"></param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryIntPriceModel.CalculateDecimals(System.Int32,System.Int32,System.Int32,System.Int32@,System.String@,System.String@,System.Boolean)">
+            <summary>
+            Calculate Decimals
+            </summary>
+            <param name="price"></param>
+            <param name="power"></param>
+            <param name="priceShortFormat"></param>
+            <param name="priceCurrency"></param>
+            <param name="priceDescriptyion"></param>
+            <param name="metricSystem"></param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryIntPriceModel.Round(System.Int32,System.Double,System.Int32)">
+            <summary>
+            Round
+            </summary>
+            <param name="price"></param>
+            <param name="powerd"></param>
+            <param name="power"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryLongPriceModel">
+            <summary>
+            Convert some currenciesto to some others inculding Iranian currency
+            Worjing with double
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryLongPriceModel.Price">
+            <summary>
+            The Price
+            </summary>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryLongPriceModel.#ctor(System.Int64,AuxiliaryLibraries.Core.Enums.Currency,AuxiliaryLibraries.Core.Enums.Currency,System.Boolean,System.Boolean)">
+            <summary>
+            Pass price as a value to constructor
+            </summary>
+            <param name="price"></param>
+            <param name="priceBaseCurrency">If the price value which you passed is Rial set it "Rial", otherwise pass it as "Toman"</param>
+            <param name="priceTargetCurrency">If you need to receive the price as Toman set it "Toman", otherwise pass it as "Rial"</param>
+            <param name="metricSystem">If you need to receive the price as Mili, Micro, Nano, and ... set it as true</param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryLongPriceModel.Calculate(System.Int64,System.Boolean)">
+            <summary>
+            The main Function
+            Convert price either Toman or Rial to other formats of Iranian currency
+            </summary>
+            <param name="price"></param>
+            <param name="metricSystem">If you need to receive the price as Mili, Micro, Nano, and ... set it as true</param>
+            <returns></returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryLongPriceModel.CalculateIntegers(System.Int64,System.Int32,System.Int64@,System.String@,System.String@,System.Boolean)">
+            <summary>
+            Calculate Integers
+            </summary>
+            <param name="price"></param>
+            <param name="power"></param>
+            <param name="priceShortFormat"></param>
+            <param name="priceCurrency"></param>
+            <param name="priceDescriptyion"></param>
+            <param name="metricSystem"></param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryLongPriceModel.CalculateDecimals(System.Int64,System.Int32,System.Int32,System.Int64@,System.String@,System.String@,System.Boolean)">
+            <summary>
+            Calculate Decimals
+            </summary>
+            <param name="price"></param>
+            <param name="power"></param>
+            <param name="priceShortFormat"></param>
+            <param name="priceCurrency"></param>
+            <param name="priceDescriptyion"></param>
+            <param name="metricSystem"></param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryLongPriceModel.Round(System.Int64,System.Double,System.Int32)">
+            <summary>
+            Round
+            </summary>
+            <param name="price"></param>
+            <param name="powerd"></param>
+            <param name="power"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryPriceModel">
+            <summary>
+            Convert price either Toman or Rial to other formats of Iranian currency
+            https://fa.wikipedia.org/wiki/%D9%BE%DB%8C%D8%B4%D9%88%D9%86%D8%AF%D9%87%D8%A7%DB%8C_%D8%A7%D8%B3%E2%80%8C%D8%A2%DB%8C
+            </summary>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryPriceModel.Currency">
+            <summary>
+            Persian Currency
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryPriceModel.Currency.IRR">
+            <summary>
+            Rial
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryPriceModel.Currency.Toman">
+            <summary>
+            Toman
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryPriceModel.Currency.USD">
+            <summary>
+            US Dollar
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryPriceModel.Currency.EUR">
+            <summary>
+            Euro
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryPriceModel.Currency.GBP">
+            <summary>
+            British Pund
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryPriceModel.Currency.BTC">
+            <summary>
+            Bitcoin
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryPriceModel.Price">
+            <summary>
+            The Price
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryPriceModel.PriceShortFormat">
+            <summary>
+            Price Short Format
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryPriceModel.PriceCurrency">
+            <summary>
+            Price Currency
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryPriceModel.PriceFormat">
+            <summary>
+            Price Format
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryPriceModel.CurrencyDescription">
+            <summary>
+            Currency
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryPriceModel.PriceDescription">
+            <summary>
+            Price Description
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryPriceModel.PriceCommaDeLimited">
+            <summary>
+            Price Comma DeLimited
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryPriceModel.PriceCommaDeLimitedDescription">
+            <summary>
+            Price Comma DeLimited Description
+            </summary>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryPriceModel.#ctor(System.Double,AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryPriceModel.Currency,AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryPriceModel.Currency,System.Boolean)">
+            <summary>
+            Pass price as a value to constructor
+            </summary>
+            <param name="price"></param>
+            <param name="priceBaseCurrency">If the price value which you passed is Rial set it "Rial", otherwise pass it as "Toman"</param>
+            <param name="priceTargetCurrency">If you need to receive the price as Toman set it "Toman", otherwise pass it as "Rial"</param>
+            <param name="metricSystem">If you need to receive the price as Mili, Micro, Nano, and ... set it as true</param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryPriceModel.SetPersianCurrency(AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryPriceModel.Currency,AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryPriceModel.Currency,System.Boolean)">
+            <summary>
+            Change Toman To Rial or vice versa
+            </summary>
+            <param name="priceBaseCurrency"></param>
+            <param name="priceTargetCurrency"></param>
+            <returns></returns>
+            <param name="metricSystem">If you need to receive the price as Mili, Micro, Nano, and ... set it as true</param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryPriceModel.AuxiliaryPriceModel.Calculate(System.Double,System.Boolean)">
+            <summary>
+            The main Function
+            Convert price either Toman or Rial to other formats of Iranian currency
+            </summary>
+            <param name="price"></param>
+            <param name="metricSystem">If you need to receive the price as Mili, Micro, Nano, and ... set it as true</param>
+            <returns></returns>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryRestApi">
+            <summary>
+            Calling api with RestSharp and WebClient easily
+            </summary>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryRestApi.Send(System.String,System.String,RestSharp.Method,System.Collections.Generic.IDictionary{System.String,System.String},System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.String)">
+            <summary>
+            Send your request with RestSharp
+            </summary>
+            <param name="baseUrl">Base address of api url</param>
+            <param name="functionName">Funcation name of api url</param>
+            <param name="method">Method (POST, GET, PUT, PATCH, DELETE, COPY, HEAD, OPTIONS, LINK, UNLINK, PURGE, LOCK, UNLOCK, PROPFIND, VIEW)</param>
+            <param name="headers">Headers (This is optional)</param>
+            <param name="parametersBody">Body parameters (This is optional)</param>
+            <param name="userName">Username (This is optional)</param>
+            <param name="password">Password (This is optional)</param>
+            <returns>IRestResponse</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryRestApi.Send(System.String,RestSharp.Method,System.Collections.Generic.IDictionary{System.String,System.String},System.Object)">
+            <summary>
+            Send your request with RestSharp
+            </summary>
+            <param name="baseUrl">Base address of api url</param>
+            <param name="functionName">Funcation name of api url</param>
+            <param name="method">Method (POST, GET, PUT, PATCH, DELETE, COPY, HEAD, OPTIONS, LINK, UNLINK, PURGE, LOCK, UNLOCK, PROPFIND, VIEW)</param>
+            <param name="headers">Headers (This is optional)</param>
+            <param name="body">Body as an object (This is optional)</param>
+            <param name="userName">Username (This is optional)</param>
+            <param name="password">Password (This is optional)</param>
+            <returns>IRestResponse</returns>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryRestApi.Send(System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.Collections.Generic.IDictionary{System.String,System.Object},RestSharp.Method,System.Boolean)">
+            <summary>
+            Send your request with WebClient
+            </summary>
+            <param name="url">Address of api url</param>
+            <param name="headers">Headers (This is optional)</param>
+            <param name="parametersBody">Body parameters (This is optional)</param>
+            <param name="method">Method ("POST", "GET", "PUT", "PATCH", "DELETE", "COPY", "HEAD", "OPTIONS", "LINK", "UNLINK", "PURGE", "LOCK", "UNLOCK", "PROPFIND", "VIEW") default value is "GET"</param>
+            <param name="contentLength">If you don't want to fill Content-Length leave containContentLength as fasle.</param>
+            <returns>string</returns>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryZip">
+            <summary>
+            AuxiliaryZip helps you to Compress files into zip and Decompress zip files
+            </summary>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryZip.Compress(System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <summary>
+            Create a ZIP file of the files provided.
+            </summary>
+            <param name="fileNames">The full path and name to store the ZIP file at.</param>
+            <param name="destinationFileName">The list of files to be added.</param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryZip.Compress(System.String)">
+            <summary>
+            Compress entire folder by passing directory Path
+            </summary>
+            <param name="directoryPath"></param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryZip.Decompress(System.String,System.Boolean)">
+            <summary>
+            Decompress *.zip file, if pathIsDirectory pass as false. (One Zip file)
+            Decompress every *.zip files inside filder by passing directory Path, if pathIsDirectory pass as true. (Multiple Zip files)
+            </summary>
+            <param name="path"></param>
+            <param name="pathIsDirectory"></param>
+        </member>
+        <member name="M:AuxiliaryLibraries.Core.AuxilaryServices.AuxiliaryZip.Decompress(System.IO.FileInfo,System.String)">
+            <summary>
+            Decompress *.zip file by passing FileInfo
+            If you pass newFileName, the zip file extracted on this path,
+            otherwise it (if you pass newFileName as null, default value) the zip file extracted on the parent folder
+            </summary>
+            <param name="fileToDecompress">the file info of the *.zip file</param>
+            <param name="newFileName">It is optional</param>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.Enums.NumberType">
+            <summary>
+            Number Type
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Enums.NumberType.hundreds">
+            <summary>
+            hundreds
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Enums.NumberType.tens">
+            <summary>
+            tens
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Enums.NumberType.units">
+            <summary>
+            units
+            </summary>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.Enums.Currency">
+            <summary>
+            Currencies
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Enums.Currency.IRR">
+            <summary>
+            Rial
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Enums.Currency.Toman">
+            <summary>
+            Toman
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Enums.Currency.USD">
+            <summary>
+            US Dollar
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Enums.Currency.EUR">
+            <summary>
+            Euro
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Enums.Currency.GBP">
+            <summary>
+            British Pund
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Enums.Currency.BTC">
+            <summary>
+            Bitcoin
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Enums.Currency.USDT">
+            <summary>
+            Tether
+            </summary>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.Enums.PersianDayOfWeek">
+            <summary>
+            Specifies the day of the week.
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Enums.PersianDayOfWeek.Shanbe">
+            <summary>
+            Indicates Saturday.
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Enums.PersianDayOfWeek.Yekshanbe">
+            <summary>
+            Indicates Sunday.
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Enums.PersianDayOfWeek.Doshanbe">
+            <summary>
+            Indicates Monday.
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Enums.PersianDayOfWeek.Seshanbe">
+            <summary>
+            Indicates Tuesday.
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Enums.PersianDayOfWeek.Chaharshanbe">
+            <summary>
+            Indicates Wednesday.
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Enums.PersianDayOfWeek.Panjshanbe">
+            <summary>
+            Indicates Thursday.
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Enums.PersianDayOfWeek.Jomeh">
+            <summary>
+            Indicates Friday.
+            </summary>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.Enums.RSAEncryptionKeys">
+            <summary>
+            RSAEncryptionKeys
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Enums.RSAEncryptionKeys.XML">
+            <summary>
+            XML File (*.xml)
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Enums.RSAEncryptionKeys.PEM">
+            <summary>
+            PEM File (*.pem)
+            </summary>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.Extentions.AuxiliaryRegexPatterns">
+            <summary>
+            Auxiliary RegexPatterns
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Extentions.AuxiliaryRegexPatterns.Username">
+            <summary>
+            Username Pattern
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Extentions.AuxiliaryRegexPatterns.Email">
+            <summary>
+            Email Pattern
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Extentions.AuxiliaryRegexPatterns.MobileNumber">
+            <summary>
+            MobileNumber Pattern
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Extentions.AuxiliaryRegexPatterns.PhoneNumber">
+            <summary>
+            PhoneNumber Pattern
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Extentions.AuxiliaryRegexPatterns.NationalID">
+            <summary>
+            NationalID Pattern
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Extentions.AuxiliaryRegexPatterns.MobileRequestCheck">
+            <summary>
+            Mobile request Check Pattern
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Extentions.AuxiliaryRegexPatterns.MobileVersionRequestCheck">
+            <summary>
+            MobileVersion Request Check Pattern
+            </summary>
+        </member>
+        <member name="F:AuxiliaryLibraries.Core.Extentions.AuxiliaryRegexPatterns.MobileRequest">
+            <summary>
+            Mobile Request Pattern
+            </summary>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.Resources.DisplayNames">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.BTC">
+            <summary>
+              Looks up a localized string similar to بیت کوین.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day1">
+            <summary>
+              Looks up a localized string similar to First.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day10">
+            <summary>
+              Looks up a localized string similar to Tenth.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day10Persian">
+            <summary>
+              Looks up a localized string similar to دهم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day11">
+            <summary>
+              Looks up a localized string similar to Eleventh.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day11Persian">
+            <summary>
+              Looks up a localized string similar to یازدهم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day12">
+            <summary>
+              Looks up a localized string similar to Twelfth.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day12Persian">
+            <summary>
+              Looks up a localized string similar to دوازدهم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day13">
+            <summary>
+              Looks up a localized string similar to Thirteenth.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day13Persian">
+            <summary>
+              Looks up a localized string similar to سیزدهم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day14">
+            <summary>
+              Looks up a localized string similar to Fourteenth.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day14Persian">
+            <summary>
+              Looks up a localized string similar to چهاردهم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day15">
+            <summary>
+              Looks up a localized string similar to Fifteenth.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day15Persian">
+            <summary>
+              Looks up a localized string similar to پانزدهم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day16">
+            <summary>
+              Looks up a localized string similar to Sixteenth.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day16Persian">
+            <summary>
+              Looks up a localized string similar to شانزدهم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day17">
+            <summary>
+              Looks up a localized string similar to Seventeenth.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day17Persian">
+            <summary>
+              Looks up a localized string similar to هفدهم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day18">
+            <summary>
+              Looks up a localized string similar to Eighteenth.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day18Persian">
+            <summary>
+              Looks up a localized string similar to هجدهم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day19">
+            <summary>
+              Looks up a localized string similar to Nineteenth.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day19Persian">
+            <summary>
+              Looks up a localized string similar to نوزدهم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day1Persian">
+            <summary>
+              Looks up a localized string similar to یکم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day2">
+            <summary>
+              Looks up a localized string similar to Second.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day20">
+            <summary>
+              Looks up a localized string similar to Twentieth.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day20Persian">
+            <summary>
+              Looks up a localized string similar to بیستم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day21">
+            <summary>
+              Looks up a localized string similar to Twenty-first.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day21Persian">
+            <summary>
+              Looks up a localized string similar to بیست و یکم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day22">
+            <summary>
+              Looks up a localized string similar to Twenty-second.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day22Persian">
+            <summary>
+              Looks up a localized string similar to بیست و دوم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day23">
+            <summary>
+              Looks up a localized string similar to Twenty-third.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day23Persian">
+            <summary>
+              Looks up a localized string similar to بیست و سوم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day24">
+            <summary>
+              Looks up a localized string similar to Twenty-fourth.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day24Persian">
+            <summary>
+              Looks up a localized string similar to بیست و چهارم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day25">
+            <summary>
+              Looks up a localized string similar to Twenty-fifth.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day25Persian">
+            <summary>
+              Looks up a localized string similar to بیست و پنجم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day26">
+            <summary>
+              Looks up a localized string similar to Twenty-sixth.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day26Persian">
+            <summary>
+              Looks up a localized string similar to بیست و ششم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day27">
+            <summary>
+              Looks up a localized string similar to Twenty-seventh.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day27Persian">
+            <summary>
+              Looks up a localized string similar to بیست و هفتم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day28">
+            <summary>
+              Looks up a localized string similar to Twenty-eighth.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day28Persian">
+            <summary>
+              Looks up a localized string similar to بیست و هشتم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day29">
+            <summary>
+              Looks up a localized string similar to Twenty-ninth.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day29Persian">
+            <summary>
+              Looks up a localized string similar to بیست و نهم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day2Persian">
+            <summary>
+              Looks up a localized string similar to دوم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day3">
+            <summary>
+              Looks up a localized string similar to Third.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day30">
+            <summary>
+              Looks up a localized string similar to Thirtieth.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day30Persian">
+            <summary>
+              Looks up a localized string similar to سی ام.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day31">
+            <summary>
+              Looks up a localized string similar to Thirty-first.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day31Persian">
+            <summary>
+              Looks up a localized string similar to سی و یکم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day3Persian">
+            <summary>
+              Looks up a localized string similar to سوم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day4">
+            <summary>
+              Looks up a localized string similar to Fourth.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day4Persian">
+            <summary>
+              Looks up a localized string similar to چهارم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day5">
+            <summary>
+              Looks up a localized string similar to Fifth.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day5Persian">
+            <summary>
+              Looks up a localized string similar to پنجم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day6">
+            <summary>
+              Looks up a localized string similar to Sixth.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day6Persian">
+            <summary>
+              Looks up a localized string similar to ششم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day7">
+            <summary>
+              Looks up a localized string similar to Seventh.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day7Persian">
+            <summary>
+              Looks up a localized string similar to هفتم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day8">
+            <summary>
+              Looks up a localized string similar to Eighth.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day8Persian">
+            <summary>
+              Looks up a localized string similar to هشتم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day9">
+            <summary>
+              Looks up a localized string similar to Ninth.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.day9Persian">
+            <summary>
+              Looks up a localized string similar to نهم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.DayAgo">
+            <summary>
+              Looks up a localized string similar to {0} days ago.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.DayAgoPersian">
+            <summary>
+              Looks up a localized string similar to {0} روز پیش.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.DayLater">
+            <summary>
+              Looks up a localized string similar to {0} Days Later.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.DayLaterPersian">
+            <summary>
+              Looks up a localized string similar to {0} روز بعد.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.EUR">
+            <summary>
+              Looks up a localized string similar to یورو.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Free">
+            <summary>
+              Looks up a localized string similar to رایگان.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Friday">
+            <summary>
+              Looks up a localized string similar to Friday.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.FridayPersian">
+            <summary>
+              Looks up a localized string similar to جمعه.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.GBP">
+            <summary>
+              Looks up a localized string similar to پوند.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.HourAgo">
+            <summary>
+              Looks up a localized string similar to {0} hours ago.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.HourAgoPersian">
+            <summary>
+              Looks up a localized string similar to {0} ساعت پیش.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.JustRightNow">
+            <summary>
+              Looks up a localized string similar to Just right now.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.JustRightNowPersian">
+            <summary>
+              Looks up a localized string similar to همین الآن.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.MinutesAgo">
+            <summary>
+              Looks up a localized string similar to {0} minuts ago.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.MinutesAgoPersian">
+            <summary>
+              Looks up a localized string similar to {0} دقیقه پیش.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Monday">
+            <summary>
+              Looks up a localized string similar to Monday.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.MondayPersian">
+            <summary>
+              Looks up a localized string similar to دوشنبه.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month1">
+            <summary>
+              Looks up a localized string similar to January.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month10">
+            <summary>
+              Looks up a localized string similar to October.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month10Persian">
+            <summary>
+              Looks up a localized string similar to دی.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month11">
+            <summary>
+              Looks up a localized string similar to November.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month11Persian">
+            <summary>
+              Looks up a localized string similar to بهمن.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month12">
+            <summary>
+              Looks up a localized string similar to December.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month12Persian">
+            <summary>
+              Looks up a localized string similar to اسفند.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month1Persian">
+            <summary>
+              Looks up a localized string similar to فرودین.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month2">
+            <summary>
+              Looks up a localized string similar to February.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month2Persian">
+            <summary>
+              Looks up a localized string similar to اردیبهشت.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month3">
+            <summary>
+              Looks up a localized string similar to March.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month3Persian">
+            <summary>
+              Looks up a localized string similar to خردادد.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month4">
+            <summary>
+              Looks up a localized string similar to April.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month4Persian">
+            <summary>
+              Looks up a localized string similar to تیر.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month5">
+            <summary>
+              Looks up a localized string similar to May.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month5Persian">
+            <summary>
+              Looks up a localized string similar to مرداد.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month6">
+            <summary>
+              Looks up a localized string similar to June.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month6Persian">
+            <summary>
+              Looks up a localized string similar to شهریور.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month7">
+            <summary>
+              Looks up a localized string similar to July.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month7Persian">
+            <summary>
+              Looks up a localized string similar to مهر.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month8">
+            <summary>
+              Looks up a localized string similar to August.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month8Persian">
+            <summary>
+              Looks up a localized string similar to آبان.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month9">
+            <summary>
+              Looks up a localized string similar to September.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Month9Persian">
+            <summary>
+              Looks up a localized string similar to آذر.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.MonthAgo">
+            <summary>
+              Looks up a localized string similar to {0} months ago.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.MonthAgoPersian">
+            <summary>
+              Looks up a localized string similar to {0} ماه پیش.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.MonthLater">
+            <summary>
+              Looks up a localized string similar to {0} Months Later.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.MonthLaterPersian">
+            <summary>
+              Looks up a localized string similar to {0} ماه بعد.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Billiard">
+            <summary>
+              Looks up a localized string similar to بیلیارد.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Billiardth">
+            <summary>
+              Looks up a localized string similar to بیلیونم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Billion">
+            <summary>
+              Looks up a localized string similar to بیلیون.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Billionth">
+            <summary>
+              Looks up a localized string similar to میلیاردم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Centi">
+            <summary>
+              Looks up a localized string similar to سانتی.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Deci">
+            <summary>
+              Looks up a localized string similar to دسی.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Eight">
+            <summary>
+              Looks up a localized string similar to هشت.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Eighteen">
+            <summary>
+              Looks up a localized string similar to هجده.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_EightHundred">
+            <summary>
+              Looks up a localized string similar to هشتصد.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Eighty">
+            <summary>
+              Looks up a localized string similar to هشتاد.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Eleven">
+            <summary>
+              Looks up a localized string similar to یازده.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Exa">
+            <summary>
+              Looks up a localized string similar to اگزا.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Fifteen">
+            <summary>
+              Looks up a localized string similar to پانزده.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Fifty">
+            <summary>
+              Looks up a localized string similar to پنجاه.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Five">
+            <summary>
+              Looks up a localized string similar to پنج.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_FiveHundred">
+            <summary>
+              Looks up a localized string similar to پانصد.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Four">
+            <summary>
+              Looks up a localized string similar to چهار.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_FourHundred">
+            <summary>
+              Looks up a localized string similar to چهارصد.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Fourteen">
+            <summary>
+              Looks up a localized string similar to چهارده.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Fourty">
+            <summary>
+              Looks up a localized string similar to چهل.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Giga">
+            <summary>
+              Looks up a localized string similar to گیگا.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Hunrdredth">
+            <summary>
+              Looks up a localized string similar to صدم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Kilo">
+            <summary>
+              Looks up a localized string similar to کیلو.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Mega">
+            <summary>
+              Looks up a localized string similar to مگا.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Micro">
+            <summary>
+              Looks up a localized string similar to میکرو.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Mili">
+            <summary>
+              Looks up a localized string similar to میلی.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Milliard">
+            <summary>
+              Looks up a localized string similar to میلیارد.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Million">
+            <summary>
+              Looks up a localized string similar to میلیون.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Millionth">
+            <summary>
+              Looks up a localized string similar to میلیونم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Nano">
+            <summary>
+              Looks up a localized string similar to نانو.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Nine">
+            <summary>
+              Looks up a localized string similar to نه.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_NineHundred">
+            <summary>
+              Looks up a localized string similar to نهصد.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Nineteen">
+            <summary>
+              Looks up a localized string similar to نوزده.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Ninety">
+            <summary>
+              Looks up a localized string similar to نود.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_One">
+            <summary>
+              Looks up a localized string similar to یک.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_OneHundred">
+            <summary>
+              Looks up a localized string similar to صد.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Peta">
+            <summary>
+              Looks up a localized string similar to پتا.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Pico">
+            <summary>
+              Looks up a localized string similar to پیکو.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Seven">
+            <summary>
+              Looks up a localized string similar to هفت.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_SevenHundred">
+            <summary>
+              Looks up a localized string similar to هفتصد.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Seventeen">
+            <summary>
+              Looks up a localized string similar to هفده.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Seventy">
+            <summary>
+              Looks up a localized string similar to هفتاد.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Six">
+            <summary>
+              Looks up a localized string similar to شش.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_SixHundred">
+            <summary>
+              Looks up a localized string similar to ششصد.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Sixteen">
+            <summary>
+              Looks up a localized string similar to شانزده.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Sixty">
+            <summary>
+              Looks up a localized string similar to شصت.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Ten">
+            <summary>
+              Looks up a localized string similar to ده.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Tera">
+            <summary>
+              Looks up a localized string similar to ترا.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Thenth">
+            <summary>
+              Looks up a localized string similar to دهم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Thirteen">
+            <summary>
+              Looks up a localized string similar to سیزده.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Thirty">
+            <summary>
+              Looks up a localized string similar to سی.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Thousand">
+            <summary>
+              Looks up a localized string similar to هزار.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Thousandth">
+            <summary>
+              Looks up a localized string similar to هزارم.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Three">
+            <summary>
+              Looks up a localized string similar to سه.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_ThreeHundred">
+            <summary>
+              Looks up a localized string similar to سیصد.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Trilliard">
+            <summary>
+              Looks up a localized string similar to تریلیارد.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Trillion">
+            <summary>
+              Looks up a localized string similar to تریلیون.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Twelve">
+            <summary>
+              Looks up a localized string similar to دوازده.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Twenty">
+            <summary>
+              Looks up a localized string similar to بیست.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Two">
+            <summary>
+              Looks up a localized string similar to دو.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_TwoHundred">
+            <summary>
+              Looks up a localized string similar to دویست.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Number_Zetta">
+            <summary>
+              Looks up a localized string similar to زتا.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Rial">
+            <summary>
+              Looks up a localized string similar to ريال.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Saturday">
+            <summary>
+              Looks up a localized string similar to Saturday.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.SaturdayPersian">
+            <summary>
+              Looks up a localized string similar to شنبه.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.SecondsAgo">
+            <summary>
+              Looks up a localized string similar to {0} seconds ago.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.SecondsAgoPersian">
+            <summary>
+              Looks up a localized string similar to {0} ثانیه پیش.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Sunday">
+            <summary>
+              Looks up a localized string similar to Sunday.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.SundayPersian">
+            <summary>
+              Looks up a localized string similar to یکشنبه.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Thursday">
+            <summary>
+              Looks up a localized string similar to Thursday.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.ThursdayPersian">
+            <summary>
+              Looks up a localized string similar to پنجشنبه.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Today">
+            <summary>
+              Looks up a localized string similar to Today.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.TodayPersian">
+            <summary>
+              Looks up a localized string similar to امروز.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Toman">
+            <summary>
+              Looks up a localized string similar to تومان.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Tomorrow">
+            <summary>
+              Looks up a localized string similar to Tomorrow.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.TomorrowPersian">
+            <summary>
+              Looks up a localized string similar to فردا.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Tuesday">
+            <summary>
+              Looks up a localized string similar to Tuesday.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.TuesdayPersian">
+            <summary>
+              Looks up a localized string similar to سه شنبه.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.USD">
+            <summary>
+              Looks up a localized string similar to دلار.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.USDT">
+            <summary>
+              Looks up a localized string similar to تتر.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Wednesday">
+            <summary>
+              Looks up a localized string similar to Wednesday.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.WednesdayPersian">
+            <summary>
+              Looks up a localized string similar to چهارشنبه.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.WeekAgo">
+            <summary>
+              Looks up a localized string similar to {0} weeks ago.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.WeekAgoPersian">
+            <summary>
+              Looks up a localized string similar to {0} هفته پیش.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.WeekLater">
+            <summary>
+              Looks up a localized string similar to {0} Weeks Later.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.WeekLaterPersian">
+            <summary>
+              Looks up a localized string similar to {0} هفته بعد.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Yesterday">
+            <summary>
+              Looks up a localized string similar to Yesterday.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.YesterdayPersian">
+            <summary>
+              Looks up a localized string similar to دیروز.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.DisplayNames.Zero">
+            <summary>
+              Looks up a localized string similar to صفر.
+            </summary>
+        </member>
+        <member name="T:AuxiliaryLibraries.Core.Resources.ResponseMessages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.ResponseMessages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.ResponseMessages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.ResponseMessages.CellNumberIsNotValid">
+            <summary>
+              Looks up a localized string similar to شماره تلفن همراه معتبر نمی باشد.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.ResponseMessages.DeviceType">
+            <summary>
+              Looks up a localized string similar to نوع سیستم عامل.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.ResponseMessages.EmailIsNotValid">
+            <summary>
+              Looks up a localized string similar to ایمیل معتبر نمی باشد.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.ResponseMessages.FieldIsNotValid">
+            <summary>
+              Looks up a localized string similar to {0} معتبر نمی باشد.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.ResponseMessages.FieldIsRequired">
+            <summary>
+              Looks up a localized string similar to {0} الزامی می باشد..
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.ResponseMessages.FileAccessDenied">
+            <summary>
+              Looks up a localized string similar to دسترسی شما به این فایل غیر مجاز شناخته شده است..
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.ResponseMessages.FileIsNotValid">
+            <summary>
+              Looks up a localized string similar to {0} معتبر نمی باشد، شما باید {0} را با پسوند {1} وارد نمائید..
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.ResponseMessages.FileIsTooBig">
+            <summary>
+              Looks up a localized string similar to اندازه فایل بزرگ است (حداکثر {0}). لطفا فایل کوچکتری انتخاب کنید..
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.ResponseMessages.FileIsTooSmall">
+            <summary>
+              Looks up a localized string similar to اندازه فایل کوچک است (حداقل {0} ). لطفا فایل بزرگتری انتخاب کنید.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.ResponseMessages.FileNotFound">
+            <summary>
+              Looks up a localized string similar to این فایل وجود ندارد..
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.ResponseMessages.ImageMaxWithHeightIsInvalid">
+            <summary>
+              Looks up a localized string similar to ابعاد تصویر مناسب نیست. حداکثر ابعاد تصویر باید {1}*{0} برحسب پیکسل باشد..
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.ResponseMessages.ImageMinWithHeightIsInvalid">
+            <summary>
+              Looks up a localized string similar to ابعاد تصویر مناسب نیست. حداقل ابعاد تصویر باید {1}*{0} برحسب پیکسل باشد..
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.ResponseMessages.ImageRationIsInvalid">
+            <summary>
+              Looks up a localized string similar to نسبت طول به عرض (تقسیم عرض به طول) تصویر مناسب نیست. حداقل این نسبت باید {0} و حداکثر آن {1} باشد..
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.ResponseMessages.InvalidFileFormat">
+            <summary>
+              Looks up a localized string similar to فرمت فایل نامعتبر است.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.ResponseMessages.InvalidFileHelperSetting">
+            <summary>
+              Looks up a localized string similar to تنظیمات فایل هلپر معتبر نیست.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.ResponseMessages.InvalidFileHelperSettingException">
+            <summary>
+              Looks up a localized string similar to کاربر گرامی تنظیمات فایل هلپر در اپلیکیشن ستینگ به درستی وارد نشده است.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.ResponseMessages.InvalidFileSize">
+            <summary>
+              Looks up a localized string similar to سایز فایل نامعتبر است.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.ResponseMessages.InvalidHeaders">
+            <summary>
+              Looks up a localized string similar to هدر درخواست شما معتبر نمی باشد.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.ResponseMessages.InvalidHeadersInnerException">
+             <summary>
+               Looks up a localized string similar to کاربر گرامی در هدر درخواستی که ارسال کرده اید مقادیری وجود دارد که معتبر نمی باشند.
+            لطفا خط زیر را در Startup بعد از app.UseRouting(); کپی کنید:
+            app.UseHttpContextMiddleware();.
+             </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.ResponseMessages.NotInRange">
+            <summary>
+              Looks up a localized string similar to اعداد ارسالی برای {0} می باید بین بازه {1} و {2} باشند.
+            </summary>
+        </member>
+        <member name="P:AuxiliaryLibraries.Core.Resources.ResponseMessages.StringLengthIsNotValid">
+            <summary>
+              Looks up a localized string similar to {0} نمی تواند شامل کاراکترها و کلمات غیر مجاز باشد. همچنین طول {0} نمی تواند کمتر از {2} کاراکتر و بیشتر از {1} کاراکتر باشد.{3}.
+            </summary>
+        </member>
+    </members>
+</doc>

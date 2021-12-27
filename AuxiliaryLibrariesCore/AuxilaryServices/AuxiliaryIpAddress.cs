@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Web;
-using System.ServiceModel.Channels;
 using NWebsec.AspNetCore.Core.Web;
 using Microsoft.AspNetCore.Http;
 

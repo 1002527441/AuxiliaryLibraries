@@ -1,22 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <DocumentationFile>D:\My Projects\01 - Amin's Project\AuxiliaryLibraries\AuxiliaryLibrariesCore\AuxiliaryLibraries.Core.xml</DocumentationFile>
     <TargetFramework>net5.0</TargetFramework>
     <PackageIcon>AuxiliaryLibraries_Logo.png</PackageIcon>
     <Description>AuxiliaryLibraries is a library which allows you to have some useful tools, especially for Iranian. The tools are: Accessory to Persian calendar, extensions (lots of useful string, int, log, datetime, and ... extensions ), encryption (There are three different algorithms which are RC4, AES and RSA.), ip, log, rest api tools, Zip, and PriceModel for .Net. You can easily use it.</Description>
     <PackageReleaseNotes>Update StringExtensions to Extensions and add some useful function to it. Beside we add Zip and PriceModel to the library.</PackageReleaseNotes>
     <Authors>AmiN Zamani</Authors>
-    <Company>AmiN ZamaniAmiN Zamani</Company>
-    <Copyright>Copyright 2020, All rights reserved.</Copyright>
+    <Company>AmiN Zamani</Company>
+    <Copyright>Copyright 2021, All rights reserved.</Copyright>
     <PackageTags>REST, API, JSON, Extensions, File helper, Calendar, Persian, Ip, Encryption, Log, Queue, Zip, PriceModel</PackageTags>
     <RepositoryUrl>https://github.com/amin8zamany/AuxiliaryLibraries</RepositoryUrl>
     <PackageProjectUrl>https://github.com/amin8zamany/AuxiliaryLibraries</PackageProjectUrl>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <AssemblyVersion>1.0.6.0</AssemblyVersion>
+    <FileVersion>1.0.6.0</FileVersion>
+    <Version>1.0.8</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="..\AuxiliaryLibraries_Logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="AuxiliaryLibraries_Logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
@@ -27,18 +35,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NWebsec.AspNetCore.Core" Version="3.0.1" />
     <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
     <PackageReference Include="RestSharp" Version="106.15.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="System.ServiceModel">
-      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.ServiceModel.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Extensions">
-      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Web.Extensions.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>

@@ -1,11 +1,11 @@
-﻿using RestSharp;
+﻿using Newtonsoft.Json;
+using RestSharp;
 using RestSharp.Authenticators;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Web.Script.Serialization;
 
 namespace AuxiliaryLibraries.Core.AuxilaryServices
 {
@@ -98,7 +98,7 @@ namespace AuxiliaryLibraries.Core.AuxilaryServices
             if (body != null)
             {
 
-                var json = new JavaScriptSerializer().Serialize(body); //JsonConvert.SerializeObject(body);
+                var json = JsonConvert.SerializeObject(body); //new JavaScriptSerializer().Serialize(body); //
                 request.AddHeader("Content-Length", json.Length.ToString());
                 request.AddBody(body);
             }

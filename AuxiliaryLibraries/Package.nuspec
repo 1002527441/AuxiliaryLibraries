@@ -14,11 +14,10 @@
     <releaseNotes>Update AES and RSA Encryptions.</releaseNotes>
 	<summary>AuxiliaryLibraries is a library which allows you to have some useful tools, especially for Iranian. These tools are: Accessory to Persian calendar (Convert Persian date to Georgian and vice versa with pretty formats), extensions (lots of useful string, int, log, datetime, and ... extensions ), encryption (There are three different algorithms which are RC4, AES and RSA.), ip, log, rest api tools, Zip, PriceModel, Queue structure, and Directory and File helper.</summary>
 	<language>en-US</language>
-    <copyright>Copyright 2021, All rights reserved.</copyright>
+    <copyright>Copyright 2020, All rights reserved.</copyright>
     <tags>REST, API, JSON, Extensions, File helper, Calendar, Persian, Ip, Encryption, Log, Queue, Zip, PriceModel</tags>
     <dependencies>
-      <dependency id="RestSharp" version="106.15.0" />
-      <dependency id="NWebsec.AspNetCore.Core" version="3.0.1" />
+      <dependency id="RestSharp" version="105.2.3.0" />
       <dependency id="Portable.BouncyCastle" version="1.9.0.0" />
     </dependencies>
 	
@@ -45,8 +44,8 @@
 	</contentFiles>
   </metadata>
   <files>
-		<file src="AuxiliaryLibraries\bin\Release\AuxiliaryLibraries.dll" target="lib\AuxiliaryLibraries.dll" />
-		<file src="AuxiliaryLibraries\bin\Release\AuxiliaryLibraries.xml" target="lib\AuxiliaryLibraries.xml" />
-		<file src="AuxiliaryLibraries\README.md" target="docs\" />
+		<file src="bin\Release\AuxiliaryLibraries.dll" target="lib\AuxiliaryLibraries.dll" />
+		<file src="bin\Release\AuxiliaryLibraries.xml" target="lib\AuxiliaryLibraries.xml" />
+		<file src="README.md" target="docs\" />
   </files>
 </package>

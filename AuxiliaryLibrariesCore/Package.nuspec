@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>AuxiliaryLibraries.Core</id>
+    <version>1.0.7</version>
+	  <title>Auxiliary libraries</title>
+    <authors>AmiN Zamani</authors>
+    <owners>AmiN Zamani</owners>
+    <licenseUrl>https://github.com/amin8zamany/AuxiliaryLibraries/blob/master/LICENSE.txt.txt</licenseUrl>
+    <projectUrl>https://github.com/amin8zamany/AuxiliaryLibraries</projectUrl>
+    <repository url="https://github.com/amin8zamany/AuxiliaryLibraries" />
+    <iconUrl>https://github.com/amin8zamany/AuxiliaryLibraries/raw/master/AuxiliaryLibraries_Logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>AuxiliaryLibraries is a library which allows you to have some useful tools, especially for Iranian. The tools are: Accessory to Persian calendar, extensions (lots of useful string, int, log, datetime, and ... extensions ), encryption (There are three different algorithms which are RC4, AES and RSA.), ip, log, rest api tools, Zip, and PriceModel for .Net. You can easily use it.</description>
+    <releaseNotes>Update AES and RSA Encryptions.</releaseNotes>
+	  <summary>AuxiliaryLibraries is a library which allows you to have some useful tools, especially for Iranian. These tools are: Accessory to Persian calendar (Convert Persian date to Georgian and vice versa with pretty formats), extensions (lots of useful string, int, log, datetime, and ... extensions ), encryption (There are three different algorithms which are RC4, AES and RSA.), ip, log, rest api tools, Zip, PriceModel, Queue structure, and Directory and File helper.</summary>
+	  <language>en-US</language>
+    <copyright>Copyright 2021, All rights reserved.</copyright>
+    <tags>REST, API, JSON, Extensions, File helper, Calendar, Persian, Ip, Encryption, Log, Queue, Zip, PriceModel</tags>
+    <dependencies>
+      <group targetFramework="net5.0">
+        <dependency id="NWebsec.AspNetCore.Core" version="3.0.1" exclude="Build,Analyzers" />
+        <dependency id="Newtonsoft.Json" version="13.0.1" exclude="Build,Analyzers" />
+        <dependency id="Portable.BouncyCastle" version="1.9.0" exclude="Build,Analyzers" />
+        <dependency id="RestSharp" version="106.15.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+	  <contentFiles>
+		  <files include="*" />
+	  </contentFiles>
+  </metadata>
+  <files>
+		<file src="bin\Release\net5.0\AuxiliaryLibraries.Core.dll" target="lib\AuxiliaryLibraries.Core.dll" />
+		<file src="bin\Release\net5.0\AuxiliaryLibraries.Core.xml" target="lib\AuxiliaryLibraries.Core.xml" />
+		<file src="README.md" target="docs\" />
+  </files>
+</package>
