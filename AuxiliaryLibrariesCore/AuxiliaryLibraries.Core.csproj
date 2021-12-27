@@ -5,7 +5,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <PackageIcon>AuxiliaryLibraries_Logo.png</PackageIcon>
     <Description>AuxiliaryLibraries is a library which allows you to have some useful tools, especially for Iranian. The tools are: Accessory to Persian calendar, extensions (lots of useful string, int, log, datetime, and ... extensions ), encryption (There are three different algorithms which are RC4, AES and RSA.), ip, log, rest api tools, Zip, and PriceModel for .Net. You can easily use it.</Description>
-    <PackageReleaseNotes>Update StringExtensions to Extensions and add some useful function to it. Beside we add Zip and PriceModel to the library.</PackageReleaseNotes>
+    <PackageReleaseNotes>Update AES and RSA Encryptions.</PackageReleaseNotes>
     <Authors>AmiN Zamani</Authors>
     <Company>AmiN Zamani</Company>
     <Copyright>Copyright 2021, All rights reserved.</Copyright>
